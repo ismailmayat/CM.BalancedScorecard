@@ -7,13 +7,13 @@ namespace CM.BalancedScoreboard.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Dashboards_Readded : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Dashboards_Readded));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201510071619202_Dashboards_Readded"; }
+            get { return "201510072157165_Initial"; }
         }
         
         string IMigrationMetadata.Source

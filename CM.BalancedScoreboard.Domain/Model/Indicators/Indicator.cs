@@ -58,8 +58,7 @@ namespace CM.BalancedScoreboard.Domain.Model.Indicators
 
         public virtual List<Dashboard> Dashboards { get; set; }
         public virtual List<Objective> Objectives { get; set; }
-        public virtual List<RecordValue> RecordValues { get; set; }
-        public virtual List<TargetValue> TargetValues { get; set; }
+        public virtual List<IndicatorValue> Values { get; set; }
         public virtual List<IndicatorSplit> Splits { get; set; }
     }
 }

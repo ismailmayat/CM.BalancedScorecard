@@ -38,15 +38,13 @@
   <ItemGroup>
     <Compile Include="Abstract\EntityType.cs" />
     <Compile Include="Abstract\IEntity.cs" />
-    <Compile Include="Abstract\IndicatorValue.cs" />
     <Compile Include="Model\Dashboards\Dashboard.cs" />
     <Compile Include="Model\Enums\IndicatorEnum.cs" />
     <Compile Include="Model\Indicators\Indicator.cs" />
     <Compile Include="Model\Indicators\IndicatorSplit.cs" />
     <Compile Include="Model\Indicators\IndicatorType.cs" />
-    <Compile Include="Model\Indicators\RecordValue.cs" />
+    <Compile Include="Model\Indicators\IndicatorValue.cs" />
     <Compile Include="Model\Indicators\SplitRecordValue.cs" />
-    <Compile Include="Model\Indicators\TargetValue.cs" />
     <Compile Include="Model\Objetives\Objective.cs" />
     <Compile Include="Model\Objetives\ObjectiveType.cs" />
     <Compile Include="Model\Projects\Milestone.cs" />
