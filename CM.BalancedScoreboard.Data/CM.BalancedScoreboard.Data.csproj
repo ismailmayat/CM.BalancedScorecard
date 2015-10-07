@@ -48,6 +48,10 @@
     <Compile Include="Migrations\201510071308402_Initial.Designer.cs">
       <DependentUpon>201510071308402_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510071619202_Dashboards_Readded.cs" />
+    <Compile Include="Migrations\201510071619202_Dashboards_Readded.Designer.cs">
+      <DependentUpon>201510071619202_Dashboards_Readded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Abstract\IBaseRepository.cs" />
@@ -70,6 +74,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201510071308402_Initial.resx">
       <DependentUpon>201510071308402_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510071619202_Dashboards_Readded.resx">
+      <DependentUpon>201510071619202_Dashboards_Readded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using CM.BalancedScoreboard.Domain.Abstract;
-//using CM.BalancedScoreboard.Domain.Model.Dashboards;
+using CM.BalancedScoreboard.Domain.Model.Dashboards;
 using CM.BalancedScoreboard.Domain.Model.Enums;
 using CM.BalancedScoreboard.Domain.Model.Objetives;
 using CM.BalancedScoreboard.Domain.Model.Users;
@@ -56,6 +56,7 @@ namespace CM.BalancedScoreboard.Domain.Model.Indicators
         [ForeignKey("ManagerId")]
         public User Manager { get; set; }
 
+        public virtual List<Dashboard> Dashboards { get; set; }
         public virtual List<Objective> Objectives { get; set; }
         public virtual List<RecordValue> RecordValues { get; set; }
         public virtual List<TargetValue> TargetValues { get; set; }

@@ -1,5 +1,4 @@
-﻿
-namespace CM.BalancedScoreboard.Domain.Model.Enums
+﻿namespace CM.BalancedScoreboard.Domain.Model.Enums
 {
     public enum Periodicity
     {

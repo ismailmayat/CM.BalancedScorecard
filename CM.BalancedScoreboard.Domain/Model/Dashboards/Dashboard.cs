@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using CM.BalancedScoreboard.Domain.Abstract;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
-using CM.BalancedScoreboard.Domain.Model.Projects;
 using CM.BalancedScoreboard.Domain.Model.Users;
 
 namespace CM.BalancedScoreboard.Domain.Model.Dashboards
@@ -38,6 +37,6 @@ namespace CM.BalancedScoreboard.Domain.Model.Dashboards
 
         public virtual List<Indicator> Indicators { get; set; }
 
-        public virtual List<Project> Projects { get; set; }
+        //public virtual List<Project> Projects { get; set; }
     }
 }
