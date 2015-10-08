@@ -23,8 +23,7 @@ namespace CM.BalancedScoreboard.Services.Implementation
                 filterList.Any(
                     f =>
                         i.Name.Contains(f) || i.Code.Contains(f) || i.Description.Contains(f) ||
-                        (i.Manager.Firstname + i.Manager.Surname).Contains(f))).ToList();
-
+                        (i.Manager.Firstname + i.Manager.Surname).Contains(f)));
 
             return indicators.Select(AutoMapper.Mapper.Map<IndicatorDto>);
         }

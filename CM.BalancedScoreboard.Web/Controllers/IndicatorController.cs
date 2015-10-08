@@ -9,7 +9,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
     {
         private readonly IIndicatorService _service;
 
-        private IndicatorController(IIndicatorService service)
+        public IndicatorController(IIndicatorService service)
         {
             _service = service;
         }
