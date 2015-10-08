@@ -19,6 +19,11 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
         public DbSet<Dashboard> Dashboards { get; set; }
         public DbSet<User> Users { get; set; }
 
+        public BsContext()
+        {
+            this.Configuration.LazyLoadingEnabled = false ;
+        }
+
         public virtual new IDbSet<TEntity> Set<TEntity>() where TEntity : class
         {
             return base.Set<TEntity>();
@@ -28,6 +33,7 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
         {
             this.Entry(entity).State = EntityState.Modified;
         }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

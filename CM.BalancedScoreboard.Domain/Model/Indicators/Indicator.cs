@@ -40,6 +40,9 @@ namespace CM.BalancedScoreboard.Domain.Model.Indicators
         [Required]
         public Periodicity Periodicity { get; set; }
 
+        [Required]
+        public Enums.ValueType ValueType { get; set; }
+
         public bool Splitted { get; set; }
 
         public SplitType SplitType { get; set; }

@@ -11,8 +11,8 @@ namespace CM.BalancedScoreboard.Services.Mapper
             AutoMapper.Mapper.CreateMap<Indicator, IndicatorDto>()
                 .ForMember(d => d.LastValue,
                     opt => opt.MapFrom(o => o.Values.OrderByDescending(rv => rv.Date).FirstOrDefault()))
-                .ForMember(d => d.Manager,
-                    opt => opt.MapFrom(o => string.Format("{0} {1}", o.Manager.Firstname, o.Manager.Surname)));
+                .ForMember(d => d.ManagerName,
+                    opt => opt.MapFrom(o => o.Manager.Firstname + " " + o.Manager.Surname));
         }
     }
 }

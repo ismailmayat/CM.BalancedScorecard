@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper.QueryableExtensions;
 using CM.BalancedScoreboard.Data.Repository.Abstract;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
 using CM.BalancedScoreboard.Services.Abstract;
@@ -10,7 +11,8 @@ namespace CM.BalancedScoreboard.Services.Implementation
 {
     public class IndicatorService : IIndicatorService
     {
-        private readonly IBaseRepository<Indicator> _repository; 
+        private readonly IBaseRepository<Indicator> _repository;
+
         public IndicatorService(IBaseRepository<Indicator> repository)
         {
             _repository = repository;
@@ -25,7 +27,7 @@ namespace CM.BalancedScoreboard.Services.Implementation
                         i.Name.Contains(f) || i.Code.Contains(f) || i.Description.Contains(f) ||
                         (i.Manager.Firstname + i.Manager.Surname).Contains(f)));
 
-            return indicators.Select(AutoMapper.Mapper.Map<IndicatorDto>);
+            return indicators.Project().To<IndicatorDto>().ToList();
         }
     }
 }

@@ -20,12 +20,12 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
             _context = uof.Context;
         }
 
-        public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null)
+        public IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null)
         {
             if (filter != null)
-                return _context.Set<TEntity>().Where(filter);
+                return _context.Set<TEntity>().Where(filter).AsQueryable();
             else
-                return _context.Set<TEntity>();
+                return _context.Set<TEntity>().AsQueryable();
         }
 
         public TEntity Single(Expression<Func<TEntity, bool>> filter)
@@ -36,7 +36,6 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
         public async Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> filter = null)
         {
             var i = await _context.Set<TEntity>().SingleOrDefaultAsync(filter);
-            System.Console.WriteLine(i.Id);
             return i;
         }
 

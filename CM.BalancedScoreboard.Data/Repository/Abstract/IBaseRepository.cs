@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CM.BalancedScoreboard.Domain.Abstract;
@@ -12,7 +13,7 @@ namespace CM.BalancedScoreboard.Data.Repository.Abstract
 
         Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> filter = null);
 
-        IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter); 
+        IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter); 
 
         void Add(IEnumerable<TEntity> entities);
 
