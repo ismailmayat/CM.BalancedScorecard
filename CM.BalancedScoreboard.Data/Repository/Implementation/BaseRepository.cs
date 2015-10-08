@@ -23,9 +23,9 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
         public IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null)
         {
             if (filter != null)
-                return _context.Set<TEntity>().Where(filter).AsQueryable();
+                return _context.Set<TEntity>().Where(filter);
             else
-                return _context.Set<TEntity>().AsQueryable();
+                return _context.Set<TEntity>();
         }
 
         public TEntity Single(Expression<Func<TEntity, bool>> filter)

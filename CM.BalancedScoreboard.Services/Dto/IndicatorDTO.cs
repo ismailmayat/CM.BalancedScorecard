@@ -1,6 +1,7 @@
 ﻿using System;
 using CM.BalancedScoreboard.Domain.Model.Enums;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
+using ValueType = CM.BalancedScoreboard.Domain.Model.Enums.ValueType;
 
 namespace CM.BalancedScoreboard.Services.Dto
 {
@@ -9,28 +10,84 @@ namespace CM.BalancedScoreboard.Services.Dto
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string ManagerName { get; set; }
+        public ValueType ValueType { get; set; }
         public TargetType TargetType { get; set; }
-        public IndicatorState? State => CalculateState();
-        public IndicatorValue LastValue { get; set; }
+        public IndicatorState? State => CalculateState(LastRecordValue, LastTargetValue, ValueType, TargetType);
+        public string LastRecordValue { get; set; }
+        public string LastTargetValue { get; set; }
 
-        private IndicatorState? CalculateState()
+        private IndicatorState? CalculateState(string lastRecordValue, string lastTargetValue, ValueType valueType, TargetType targetType)
         {
-            if (LastValue == null)
+            if (string.IsNullOrEmpty(lastRecordValue) || string.IsNullOrEmpty(lastTargetValue))
                 return null;
 
-            switch (TargetType)
+            switch (valueType)
             {
-                case TargetType.Equal:
-                    return LastValue.RecordValue == LastValue.TargetValue ? IndicatorState.Green : IndicatorState.Red;
-                case TargetType.Greater:
-                    return LastValue.RecordValue > LastValue.TargetValue ? IndicatorState.Green : IndicatorState.Red;
-                case TargetType.Smaller:
+                case ValueType.Integer:
+                    return GetIntegerBasedState(lastRecordValue, lastTargetValue, targetType);
+                case ValueType.Decimal:
+                    return GetDecimalBasedState(lastRecordValue, lastTargetValue, targetType);
+                case ValueType.Boolean:
+                    return GetBoolBasedState(lastRecordValue, lastTargetValue, targetType);
+                default:
+                    return null;
             }
         }
 
-        private GetConvertedValue<T>(string value)
+        private IndicatorState? GetIntegerBasedState(string lastRecordValue, string lastTargetValue, TargetType targetType)
         {
-            
+            int recordValue;
+            int targetValue;
+            int.TryParse(lastRecordValue, out recordValue);
+            int.TryParse(lastTargetValue, out targetValue);
+
+            switch (targetType)
+            {
+                case TargetType.Equal:
+                    return recordValue == targetValue ? IndicatorState.Green : IndicatorState.Red;
+                case TargetType.Greater:
+                    return recordValue > targetValue ? IndicatorState.Green : IndicatorState.Red;
+                case TargetType.Smaller:
+                    return recordValue < targetValue ? IndicatorState.Green : IndicatorState.Red;
+                default:
+                    return null;
+            }
+        }
+
+        private IndicatorState? GetDecimalBasedState(string lastRecordValue, string lastTargetValue, TargetType targetType)
+        {
+            decimal recordValue;
+            decimal targetValue;
+            decimal.TryParse(lastRecordValue, out recordValue);
+            decimal.TryParse(lastTargetValue, out targetValue);
+
+            switch (targetType)
+            {
+                case TargetType.Equal:
+                    return recordValue == targetValue ? IndicatorState.Green : IndicatorState.Red;
+                case TargetType.Greater:
+                    return recordValue > targetValue ? IndicatorState.Green : IndicatorState.Red;
+                case TargetType.Smaller:
+                    return recordValue < targetValue ? IndicatorState.Green : IndicatorState.Red;
+                default:
+                    return null;
+            }
+        }
+
+        private IndicatorState? GetBoolBasedState(string lastRecordValue, string lastTargetValue, TargetType targetType)
+        {
+            bool recordValue;
+            bool targetValue;
+            bool.TryParse(lastRecordValue, out recordValue);
+            bool.TryParse(lastTargetValue, out targetValue);
+
+            switch (targetType)
+            {
+                case TargetType.Equal:
+                    return recordValue == targetValue ? IndicatorState.Green : IndicatorState.Red;
+                default:
+                    return null;
+            }
         }
     }
 }

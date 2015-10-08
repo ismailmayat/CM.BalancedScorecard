@@ -6,7 +6,7 @@ using CM.BalancedScoreboard.Domain.Abstract;
 namespace CM.BalancedScoreboard.Domain.Model.Indicators
 {
     [Table("Indicator_Values")]
-    public abstract class IndicatorValue : IEntity
+    public class IndicatorValue : IEntity
     {
         [Key]
         public Guid Id { get; set; }

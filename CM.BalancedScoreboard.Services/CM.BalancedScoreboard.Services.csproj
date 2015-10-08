@@ -40,7 +40,7 @@
   <ItemGroup>
     <Compile Include="Abstract\IIndicatorService.cs" />
     <Compile Include="Dto\Enum.cs" />
-    <Compile Include="Dto\IndicatorDTO.cs" />
+    <Compile Include="Dto\IndicatorDto.cs" />
     <Compile Include="ExpressionBuilder.cs" />
     <Compile Include="Implementation\IndicatorService.cs" />
     <Compile Include="Mapper\Mappings.cs" />
