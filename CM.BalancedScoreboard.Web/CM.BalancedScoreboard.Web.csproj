@@ -257,6 +257,7 @@
     <Folder Include="Models\" />
     <Folder Include="Providers\" />
     <Folder Include="Results\" />
+    <Folder Include="Scripts\app\indicators\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
