@@ -1,6 +1,5 @@
 ﻿using System;
 using CM.BalancedScoreboard.Domain.Model.Enums;
-using CM.BalancedScoreboard.Domain.Model.Indicators;
 using ValueType = CM.BalancedScoreboard.Domain.Model.Enums.ValueType;
 
 namespace CM.BalancedScoreboard.Services.Dto

@@ -20,12 +20,17 @@ namespace CM.BalancedScoreboard.Services.Implementation
 
         public IEnumerable<IndicatorDto> GetIndicators(string filter)
         {
-            var filterList = filter.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            var indicators = _repository.Get(i =>
-                filterList.Any(
-                    f =>
-                        i.Name.Contains(f) || i.Code.Contains(f) || i.Description.Contains(f) ||
-                        (i.Manager.Firstname + i.Manager.Surname).Contains(f)));
+            //var filterList = filter.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            //var indicators = _repository.Get(i =>
+            //    filterList.Any(
+            //        f =>
+            //            i.Name.Contains(f) || i.Code.Contains(f) || i.Description.Contains(f) ||
+            //            (i.Manager.Firstname + i.Manager.Surname).Contains(f)));
+
+            var indicators =
+                _repository.Get(
+                    i => i.Name.Contains(filter) || i.Code.Contains(filter) || i.Description.Contains(filter) ||
+                         (i.Manager.Firstname + i.Manager.Surname).Contains(filter));
 
             return indicators.Project().To<IndicatorDto>().ToList();
         }
