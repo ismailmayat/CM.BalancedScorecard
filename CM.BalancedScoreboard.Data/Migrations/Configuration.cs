@@ -72,9 +72,9 @@ namespace CM.BalancedScoreboard.Data.Migrations
                 Code = indicatorTypes[index / 10].Code + (index + 1).ToString("000"),
                 Unit = "£",
                 Active = true,
-                TargetType = TargetType.Greater,
+                ValueComparisonType = ValueComparisonType.Greater,
                 StartDate = DateTime.Today,
-                Periodicity = Periodicity.Month,
+                PeriodicityType = PeriodicityType.Month,
                 IndicatorTypeId = indicatorTypes[index / 10].Id,
                 ManagerId = users[index / 10].Id,
             };

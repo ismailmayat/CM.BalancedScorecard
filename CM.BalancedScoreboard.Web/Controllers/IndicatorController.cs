@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using CM.BalancedScoreboard.Services.Abstract;
 using CM.BalancedScoreboard.Services.Dto;
+using CM.BalancedScoreboard.Services.ViewModel;
 
 namespace CM.BalancedScoreboard.Web.Controllers
 {
@@ -15,15 +17,15 @@ namespace CM.BalancedScoreboard.Web.Controllers
         }
 
         // GET: api/Indicator
-        public IEnumerable<IndicatorDto> Get(string filter)
+        public IEnumerable<IndicatorViewModel> Get(string filter)
         {
             return _service.GetIndicators(filter);
         }
 
         // GET: api/Indicator/5
-        public string Get(int id)
+        public IndicatorViewModel Get(Guid id)
         {
-            return "value";
+            return _service.GetIndicator(id);
         }
 
         // POST: api/Indicator

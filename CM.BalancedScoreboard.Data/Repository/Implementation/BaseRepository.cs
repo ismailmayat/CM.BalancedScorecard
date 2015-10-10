@@ -28,9 +28,16 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
                 return _context.Set<TEntity>();
         }
 
-        public TEntity Single(Expression<Func<TEntity, bool>> filter)
+        public TEntity Single(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] navigationProperties)
         {
-            return _context.Set<TEntity>().SingleOrDefault(filter);
+            var indicators = _context.Set<TEntity>().AsQueryable();
+
+            foreach (var navigationProperty in navigationProperties)
+            {
+                indicators = indicators.Include(ExpressionBuilder.GetPropertyName(navigationProperty));
+            }
+
+            return indicators.SingleOrDefault(filter);
         }
 
         public async Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> filter = null)

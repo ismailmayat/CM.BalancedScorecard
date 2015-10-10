@@ -5,7 +5,7 @@ using AutoMapper.QueryableExtensions;
 using CM.BalancedScoreboard.Data.Repository.Abstract;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
 using CM.BalancedScoreboard.Services.Abstract;
-using CM.BalancedScoreboard.Services.Dto;
+using CM.BalancedScoreboard.Services.ViewModel;
 
 namespace CM.BalancedScoreboard.Services.Implementation
 {
@@ -18,21 +18,21 @@ namespace CM.BalancedScoreboard.Services.Implementation
             _repository = repository;
         }
 
-        public IEnumerable<IndicatorDto> GetIndicators(string filter)
+        public IEnumerable<IndicatorViewModel> GetIndicators(string filter)
         {
-            //var filterList = filter.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            //var indicators = _repository.Get(i =>
-            //    filterList.Any(
-            //        f =>
-            //            i.Name.Contains(f) || i.Code.Contains(f) || i.Description.Contains(f) ||
-            //            (i.Manager.Firstname + i.Manager.Surname).Contains(f)));
-
             var indicators =
                 _repository.Get(
                     i => i.Name.Contains(filter) || i.Code.Contains(filter) || i.Description.Contains(filter) ||
                          (i.Manager.Firstname + i.Manager.Surname).Contains(filter));
 
-            return indicators.Project().To<IndicatorDto>().ToList();
+            return indicators.Project().To<IndicatorViewModel>().ToList();
+        }
+
+        public IndicatorViewModel GetIndicator(Guid id)
+        {
+            var indicator = _repository.Single(i => i.Id == id, i => i.Values);
+
+            return AutoMapper.Mapper.Map<IndicatorViewModel>(indicator);
         }
     }
 }

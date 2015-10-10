@@ -1,6 +1,6 @@
 ﻿namespace CM.BalancedScoreboard.Domain.Model.Enums
 {
-    public enum Periodicity
+    public enum PeriodicityType
     {
         Week,
         TwoWeek,
@@ -11,7 +11,7 @@
         TwelveMonth
     }
 
-    public enum TargetType
+    public enum ValueComparisonType
     {
         Greater,
         Smaller,
@@ -33,7 +33,7 @@
         Avg
     }
 
-    public enum ValueType
+    public enum ValueObjectType
     {
         Integer,
         Decimal,

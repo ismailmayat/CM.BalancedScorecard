@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace CM.BalancedScoreboard.Web
 {
@@ -12,7 +11,10 @@ namespace CM.BalancedScoreboard.Web
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-                        "~/Scripts/angular.js"));
+                        "~/Scripts/angular.js",
+                        "~/Scripts/angular-resource.js",
+                        "~/Scripts/Chart.js",
+                        "~/Scripts/angular-chart.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -25,6 +27,7 @@ namespace CM.BalancedScoreboard.Web
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/angular-chart.css",
                       "~/Content/site.css"));
         }
     }

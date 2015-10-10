@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace CM.BalancedScoreboard.Services
+namespace CM.BalancedScoreboard.Data
 {
     public enum ComparisonOp
     {
@@ -106,8 +106,7 @@ namespace CM.BalancedScoreboard.Services
         {
             MemberExpression memberExpression = (MemberExpression)property.Body;
 
-            //return memberExpression.Member.Name;
-            return property.Body.ToString().Substring(property.Body.ToString().IndexOf(".") + 1);
+            return memberExpression.Member.Name;
         }
     }
 }

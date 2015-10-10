@@ -32,16 +32,16 @@ namespace CM.BalancedScoreboard.Domain.Model.Indicators
         public bool Active { get; set; }
 
         [Required]
-        public TargetType TargetType { get; set; }
+        public ValueComparisonType ValueComparisonType { get; set; }
 
         [Required]
         public DateTime StartDate { get; set; }
 
         [Required]
-        public Periodicity Periodicity { get; set; }
+        public PeriodicityType PeriodicityType { get; set; }
 
         [Required]
-        public Enums.ValueType ValueType { get; set; }
+        public ValueObjectType ValueObjectType { get; set; }
 
         public bool Splitted { get; set; }
 

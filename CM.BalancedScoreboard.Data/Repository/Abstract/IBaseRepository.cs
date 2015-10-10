@@ -9,11 +9,11 @@ namespace CM.BalancedScoreboard.Data.Repository.Abstract
 {
     public interface IBaseRepository<TEntity> where TEntity : class, IEntity
     {
-        TEntity Single(Expression<Func<TEntity, bool>> filter = null);
+        IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter);
+
+        TEntity Single(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] navigationProperties);
 
         Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> filter = null);
-
-        IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter); 
 
         void Add(IEnumerable<TEntity> entities);
 
