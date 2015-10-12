@@ -17,3 +17,14 @@
     margin-top: 5px;
     margin-bottom: 5px;    
 }
+
+.indicatorApp .ng-hide-add         { 
+  -webkit-animation:0.5s lightSpeedOut ease; 
+  animation:0.5s lightSpeedOut ease; 
+}
+
+/* when showing the thing */
+.indicatorApp .ng-hide-remove      { 
+  -webkit-animation:0.5s flipInX ease; 
+  animation:0.5s flipInX ease; 
+}
