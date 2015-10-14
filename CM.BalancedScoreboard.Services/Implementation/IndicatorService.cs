@@ -11,14 +11,14 @@ namespace CM.BalancedScoreboard.Services.Implementation
 {
     public class IndicatorService : IIndicatorService
     {
-        private readonly IBaseRepository<Indicator> _repository;
+        private readonly IIndicatorRepository _repository;
 
-        public IndicatorService(IBaseRepository<Indicator> repository)
+        public IndicatorService(IIndicatorRepository repository)
         {
             _repository = repository;
         }
 
-        public IEnumerable<IndicatorViewModel> GetIndicators(string filter)
+        public IList<IndicatorViewModel> GetIndicators(string filter)
         {
             var indicators =
                 _repository.Get(

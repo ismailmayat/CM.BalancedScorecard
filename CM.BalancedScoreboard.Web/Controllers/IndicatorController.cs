@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using CM.BalancedScoreboard.Services.Abstract;
-using CM.BalancedScoreboard.Services.Dto;
 using CM.BalancedScoreboard.Services.ViewModel;
 
 namespace CM.BalancedScoreboard.Web.Controllers

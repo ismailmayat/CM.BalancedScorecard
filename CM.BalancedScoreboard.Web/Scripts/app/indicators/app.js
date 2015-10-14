@@ -1,2 +1,2 @@
-﻿var indicatorsApp = angular.module('indicatorsApp', ['ngResource', 'chart.js']);
+﻿var indicatorsApp = angular.module('indicatorsApp', ['ngResource', 'ngAnimate', 'chart.js']);
 

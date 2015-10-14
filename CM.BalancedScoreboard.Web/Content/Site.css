@@ -18,13 +18,9 @@
     margin-bottom: 5px;    
 }
 
-.indicatorApp .ng-hide-add         { 
-  -webkit-animation:0.5s lightSpeedOut ease; 
-  animation:0.5s lightSpeedOut ease; 
-}
-
-/* when showing the thing */
-.indicatorApp .ng-hide-remove      { 
-  -webkit-animation:0.5s flipInX ease; 
-  animation:0.5s flipInX ease; 
+.indicatorApp .row .ng-hide{
+	-webkit-animation: fadeOut 0.5s;
+	-moz-animation: fadeOut 0.5s;
+	-o-animation: fadeOut 0.5s;
+	animation: fadeOut 0.5s;
 }

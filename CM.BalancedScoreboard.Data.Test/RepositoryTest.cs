@@ -8,7 +8,7 @@ using CM.BalancedScoreboard.Domain.Model.Indicators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace CM.BalancedScoreboard.Data.Test
+namespace CM.BalancedScoreboard.Data.Tests
 {
     [TestClass]
     public class RepositoryTest
@@ -20,7 +20,7 @@ namespace CM.BalancedScoreboard.Data.Test
             var dbSet = GetDbSetTest<Indicator>(GetIndicatorList());
             var dbContext = GetDbContextTest<Indicator>(dbSet.Object);
             var uof = GetUnitfOfWorkTest(dbContext.Object);
-            var iRepo = new BaseRepository<Indicator>(uof.Object);
+            var iRepo = new IndicatorRepository(uof.Object);
 
             //Act
             var result = iRepo.Get();
@@ -36,7 +36,7 @@ namespace CM.BalancedScoreboard.Data.Test
             var dbSet = GetDbSetTest<Indicator>(GetIndicatorList());
             var dbContext = GetDbContextTest<Indicator>(dbSet.Object);
             var uof = GetUnitfOfWorkTest(dbContext.Object);
-            var iRepo = new BaseRepository<Indicator>(uof.Object);
+            var iRepo = new IndicatorRepository(uof.Object);
 
             //Act
             var result = iRepo.Get(i => i.Code.Equals("000", StringComparison.InvariantCultureIgnoreCase));
@@ -54,7 +54,7 @@ namespace CM.BalancedScoreboard.Data.Test
             var dbSet = GetDbSetTest<Indicator>(GetIndicatorList());
             var dbContext = GetDbContextTest<Indicator>(dbSet.Object);
             var uof = GetUnitfOfWorkTest(dbContext.Object);
-            var iRepo = new BaseRepository<Indicator>(uof.Object);
+            var iRepo = new IndicatorRepository(uof.Object);
 
             //Act
             var result = iRepo.Single(i => i.Name.Equals("indicator 1", StringComparison.InvariantCultureIgnoreCase));
@@ -65,13 +65,32 @@ namespace CM.BalancedScoreboard.Data.Test
         }
 
         [TestMethod]
+        public void Can_Return_Single_With_Navigation_Property()
+        {
+            //Arrange
+            var dbSet = GetDbSetTest<Indicator>(GetIndicatorList());
+            var dbContext = GetDbContextTest<Indicator>(dbSet.Object);
+            var uof = GetUnitfOfWorkTest(dbContext.Object);
+            var iRepo = new IndicatorRepository(uof.Object);
+
+            //Act
+            var result = iRepo.Single(i => i.Name.Equals("indicator 1", StringComparison.InvariantCultureIgnoreCase), i => i.Values);
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Name.Equals("indicator 1", StringComparison.InvariantCultureIgnoreCase));
+            Assert.IsNotNull(result.Values);
+            Assert.AreEqual(result.Values.Count(), 1);
+        }
+
+        [TestMethod]
         public void Can_Add_New()
         {
             //Arrange
             var dbSet = GetDbSetTest<Indicator>(GetIndicatorList());
             var dbContext = GetDbContextTest<Indicator>(dbSet.Object);
             var uof = GetUnitfOfWorkTest(dbContext.Object);
-            var iRepo = new BaseRepository<Indicator>(uof.Object);
+            var iRepo = new IndicatorRepository(uof.Object);
 
             //Act
             iRepo.Add(new List<Indicator>()
@@ -95,7 +114,7 @@ namespace CM.BalancedScoreboard.Data.Test
             var dbSet = GetDbSetTest<Indicator>(GetIndicatorList());
             var dbContext = GetDbContextTest<Indicator>(dbSet.Object);
             var uof = GetUnitfOfWorkTest(dbContext.Object);
-            var iRepo = new BaseRepository<Indicator>(uof.Object);
+            var iRepo = new IndicatorRepository(uof.Object);
 
             //Act
             iRepo.Update(new List<Indicator>()
@@ -120,7 +139,7 @@ namespace CM.BalancedScoreboard.Data.Test
             var dbSet = GetDbSetTest<Indicator>(GetIndicatorList());
             var dbContext = GetDbContextTest<Indicator>(dbSet.Object);
             var uof = GetUnitfOfWorkTest(dbContext.Object);
-            var iRepo = new BaseRepository<Indicator>(uof.Object);
+            var iRepo = new IndicatorRepository(uof.Object);
 
             //Act
             iRepo.Delete(new List<Indicator>()
@@ -174,25 +193,65 @@ namespace CM.BalancedScoreboard.Data.Test
                 {
                     Id = Guid.NewGuid(),
                     Name = "Indicator 1",
-                    Code = "000"
+                    Code = "000",
+                    Values = new List<IndicatorValue>()
+                    {
+                        new IndicatorValue()
+                        {
+                            Id = Guid.NewGuid(),
+                            Date = DateTime.Today,
+                            RecordValue = "20",
+                            TargetValue = "14"
+                        }
+                    }
                 },
                 new Indicator()
                 {
                     Id = Guid.NewGuid(),
                     Name = "Indicator 2",
-                    Code = "000"
+                    Code = "000",
+                    Values = new List<IndicatorValue>()
+                    {
+                        new IndicatorValue()
+                        {
+                            Id = Guid.NewGuid(),
+                            Date = DateTime.Today,
+                            RecordValue = "15",
+                            TargetValue = "16"
+                        }
+                    }
                 },
                 new Indicator()
                 {
                     Id = Guid.NewGuid(),
                     Name = "Indicator 3",
-                    Code = "001"
+                    Code = "001",
+                    Values = new List<IndicatorValue>()
+                    {
+                        new IndicatorValue()
+                        {
+                            Id = Guid.NewGuid(),
+                            Date = DateTime.Today,
+                            RecordValue = "9",
+                            TargetValue = "114"
+                        }
+                    }
                 },
                 new Indicator()
                 {
                     Id = Guid.NewGuid(),
                     Name = "Indicator 4",
-                    Code = "001"
+                    Code = "001",
+                    Values = new List<IndicatorValue>()
+                    {
+                        new IndicatorValue()
+                        {
+                            Id = Guid.NewGuid(),
+                            Date = DateTime.Today,
+                            RecordValue = "21",
+                            TargetValue = "84"
+                        }
+                    }
                 }
             };
         } 

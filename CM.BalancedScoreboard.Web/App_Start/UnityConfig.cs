@@ -42,7 +42,7 @@ namespace CM.BalancedScoreboard.Web
 
             //container.RegisterType<IndicatorController>(new InjectionConstructor());
             container.RegisterType<IIndicatorService, IndicatorService>(new HierarchicalLifetimeManager());
-            container.RegisterType<IBaseRepository<Indicator>, BaseRepository<Indicator>>(new HierarchicalLifetimeManager());
+            container.RegisterType<IIndicatorRepository, IndicatorRepository>(new HierarchicalLifetimeManager());
             container.RegisterType<IUnitOfWork, UnitOfWork>(new HierarchicalLifetimeManager());
             container.RegisterType<IDbContext>(new InjectionFactory(d => new BsContext()));
         }

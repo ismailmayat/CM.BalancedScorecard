@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq, Version=4.2.1507.118, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.2.1507.0118\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -45,12 +49,33 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Indicators\IndicatorServiceTest.cs" />
+    <Compile Include="Indicators\IndicatorViewModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CM.BalancedScoreboard.Data\CM.BalancedScoreboard.Data.csproj">
+      <Project>{f2e2e7bd-73c2-4b4d-9cb2-75ecfaef405c}</Project>
+      <Name>CM.BalancedScoreboard.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CM.BalancedScoreboard.Domain\CM.BalancedScoreboard.Domain.csproj">
+      <Project>{4feecdb2-1eda-4cee-bdbb-39be2045520c}</Project>
+      <Name>CM.BalancedScoreboard.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CM.BalancedScoreboard.Services\CM.BalancedScoreboard.Services.csproj">
+      <Project>{ef09c4d6-8fb6-4e3b-b5d2-8b715c19b2ef}</Project>
+      <Name>CM.BalancedScoreboard.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -6,7 +6,7 @@ namespace CM.BalancedScoreboard.Services.Abstract
 {
     public interface IIndicatorService
     {
-        IEnumerable<IndicatorViewModel> GetIndicators(string filter);
+        IList<IndicatorViewModel> GetIndicators(string filter);
 
         IndicatorViewModel GetIndicator(Guid id);
     }

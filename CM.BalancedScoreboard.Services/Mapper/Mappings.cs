@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
-using CM.BalancedScoreboard.Services.Dto;
 using CM.BalancedScoreboard.Services.ViewModel;
 
 namespace CM.BalancedScoreboard.Services.Mapper

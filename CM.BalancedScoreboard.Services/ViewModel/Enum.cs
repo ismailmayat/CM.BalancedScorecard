@@ -1,4 +1,4 @@
-﻿namespace CM.BalancedScoreboard.Services.Dto
+﻿namespace CM.BalancedScoreboard.Services.ViewModel
 {
     public enum IndicatorState
     {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using CM.BalancedScoreboard.Domain.Model.Enums;
-using CM.BalancedScoreboard.Services.Dto;
 
 namespace CM.BalancedScoreboard.Services.ViewModel
 {
