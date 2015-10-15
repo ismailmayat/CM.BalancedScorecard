@@ -3,17 +3,11 @@
 }
 
 <div class="indicatorApp" ng-app="indicatorsApp">
-    <div ng-controller="indicatorsListCtrl">
-        <div class="form-group">
-            <input type="text" name="filter" class="form-control" ng-model="filter" ng-keypress="onEnter($event)"/>
-        </div>
-        <div class="row" ng-repeat="indicator in indicators">
-            <my-Indicator-Card></my-Indicator-Card>
-        </div>
-    </div>
+    <div ng-view></div>
 </div>
 
 <script src="/Scripts/app/indicators/app.js"></script>
 <script src="/Scripts/app/indicators/controllers/list.js"></script>
+<script src="/Scripts/app/indicators/controllers/details.js"></script>
 <script src="/Scripts/app/indicators/services/api.js"></script>
 <script src="/Scripts/app/indicators/directives/card.js"></script>

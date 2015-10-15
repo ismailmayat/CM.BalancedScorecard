@@ -6,6 +6,7 @@
 /// <reference path="angular-resource.min.js" />
 /// <reference path="angular-route.min.js" />
 /// <reference path="app/indicators/app.js" />
+/// <reference path="app/indicators/controllers/details.js" />
 /// <reference path="app/indicators/controllers/list.js" />
 /// <reference path="app/indicators/directives/card.js" />
 /// <reference path="app/indicators/services/api.js" />

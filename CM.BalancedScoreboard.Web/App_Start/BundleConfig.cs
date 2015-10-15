@@ -13,6 +13,7 @@ namespace CM.BalancedScoreboard.Web
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                         "~/Scripts/angular.js",
                         "~/Scripts/angular-resource.js",
+                        "~/Scripts/angular-route.js",
                         "~/Scripts/angular-animate.js",
                         "~/Scripts/Chart.js",
                         "~/Scripts/angular-chart.js"));

@@ -15,9 +15,8 @@
                 highlightStroke: '#FFA500'
             }];
             $scope.series = ['Record Value', 'Target Value'];
-            $scope.indicatorPromise = indicatorsApi.get({ id: indicator.Id }).$promise;
-            $scope.indicatorPromise
-                .then(function(data) {
+            indicatorsApi.get({ id: indicator.Id }).$promise
+                .then(function (data) {
                     if (data.Values.length > 0) {
                         $scope.showingPanel = true;
                         for (index = 0; index < data.Values.length; ++index) {
