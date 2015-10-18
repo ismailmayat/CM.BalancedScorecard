@@ -1,5 +1,5 @@
 ﻿indicatorsApp.directive('myIndicatorCard', function() {
-    var controller = ['$scope', '$animate', 'indicatorsApi', function($scope, $animate, indicatorsApi) {
+    var controller = ['$scope', '$animate', '$location', 'indicatorsApi', function($scope, $animate, $location, indicatorsApi) {
         function bindGraph(indicator) {
             var recordValues = [];
             var targetValues = [];
@@ -54,12 +54,16 @@
             }
         };
 
+        $scope.navigateToDetails = function (indicator) {
+            $location.path('/details/' + indicator.Id);
+        }
+
         init();
     }];
 
     return {
         restrict: 'E',
-        templateUrl: '/Scripts/app/indicators/templates/card.html',
+        templateUrl: '/Scripts/app/indicators/views/card.html',
         controller: controller
     }
 });

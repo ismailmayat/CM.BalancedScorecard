@@ -14,9 +14,9 @@ namespace CM.BalancedScoreboard.Services.Mapper
                 .ForMember(d => d.LastTargetValue,
                     opt => opt.MapFrom(o => o.Values.Any() ? o.Values.OrderByDescending(rv => rv.Date).FirstOrDefault().TargetValue : string.Empty))
                 .ForMember(d => d.ManagerName,
-                    opt => opt.MapFrom(o => o.Manager != null ? o.Manager.Firstname + " " + o.Manager.Surname : string.Empty));
+                    opt => opt.MapFrom(o => o.Manager != null ? o.Manager.Firstname + " " + o.Manager.Surname : string.Empty)).ReverseMap();
 
-            AutoMapper.Mapper.CreateMap<IndicatorValue, IndicatorValueViewModel>();
+            AutoMapper.Mapper.CreateMap<IndicatorValue, IndicatorValueViewModel>().ReverseMap();
         }
     }
 }

@@ -52,6 +52,7 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
             {
                 _context.Set<TEntity>().Add(entity);
             }
+            _context.SaveChanges();
         }
 
         public virtual void Update(IEnumerable<TEntity> entities)
@@ -61,6 +62,7 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
                 _context.Set<TEntity>().Attach(entity);
                 _context.SetModified(entity);
             }
+            _context.SaveChanges();
         }
 
         public virtual void Delete(IEnumerable<TEntity> entities)

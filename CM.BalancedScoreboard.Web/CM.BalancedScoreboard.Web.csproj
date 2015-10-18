@@ -245,10 +245,10 @@
     <Content Include="Scripts\app\indicators\controllers\list.js" />
     <Content Include="Scripts\app\indicators\app.js" />
     <Content Include="Scripts\app\indicators\directives\card.js" />
-    <Content Include="Scripts\app\indicators\partials\details.html" />
-    <Content Include="Scripts\app\indicators\partials\list.html" />
+    <Content Include="Scripts\app\indicators\views\details.html" />
+    <Content Include="Scripts\app\indicators\views\list.html" />
     <Content Include="Scripts\app\indicators\services\api.js" />
-    <Content Include="Scripts\app\indicators\templates\card.html" />
+    <Content Include="Scripts\app\indicators\views\card.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\angular.min.js.map" />

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Web.Http;
 using CM.BalancedScoreboard.Services.Abstract;
 using CM.BalancedScoreboard.Services.ViewModel;
+using System.Net.Http;
+using System.Net;
 
 namespace CM.BalancedScoreboard.Web.Controllers
 {
@@ -15,29 +17,42 @@ namespace CM.BalancedScoreboard.Web.Controllers
             _service = service;
         }
 
-        // GET: api/Indicator
         public IEnumerable<IndicatorViewModel> Get(string filter)
         {
             return _service.GetIndicators(filter);
         }
 
-        // GET: api/Indicator/5
         public IndicatorViewModel Get(Guid id)
         {
             return _service.GetIndicator(id);
         }
 
-        // POST: api/Indicator
-        public void Post([FromBody]string value)
+        public HttpResponseMessage Post([FromBody]IndicatorViewModel indicatorVm)
         {
+            try
+            {
+                _service.Update(indicatorVm);
+                return new HttpResponseMessage(HttpStatusCode.Created);
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
         }
 
-        // PUT: api/Indicator/5
-        public void Put(int id, [FromBody]string value)
+        public HttpResponseMessage Put([FromBody]IndicatorViewModel indicatorVm)
         {
+            try
+            {
+                _service.Update(indicatorVm);
+                return new HttpResponseMessage(HttpStatusCode.Created);
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
         }
 
-        // DELETE: api/Indicator/5
         public void Delete(int id)
         {
         }

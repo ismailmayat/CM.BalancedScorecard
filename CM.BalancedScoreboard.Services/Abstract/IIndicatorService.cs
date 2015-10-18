@@ -9,6 +9,8 @@ namespace CM.BalancedScoreboard.Services.Abstract
         IList<IndicatorViewModel> GetIndicators(string filter);
 
         IndicatorViewModel GetIndicator(Guid id);
+
+        void Update(IndicatorViewModel indicatorVm);
     }
 
 }
