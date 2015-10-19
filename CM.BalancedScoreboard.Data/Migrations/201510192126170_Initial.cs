@@ -33,9 +33,10 @@ namespace CM.BalancedScoreboard.Data.Migrations
                         Code = c.String(nullable: false),
                         Unit = c.String(nullable: false),
                         Active = c.Boolean(nullable: false),
-                        TargetType = c.Int(nullable: false),
+                        ValueComparisonType = c.Int(nullable: false),
                         StartDate = c.DateTime(nullable: false),
-                        Periodicity = c.Int(nullable: false),
+                        PeriodicityType = c.Int(nullable: false),
+                        ValueObjectType = c.Int(nullable: false),
                         Splitted = c.Boolean(nullable: false),
                         SplitType = c.Int(nullable: false),
                         IndicatorTypeId = c.Guid(nullable: false),
@@ -87,6 +88,30 @@ namespace CM.BalancedScoreboard.Data.Migrations
                 .Index(t => t.IndicatorId);
             
             CreateTable(
+                "dbo.Indicator_Split_RecordValues",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        RecordValue = c.String(nullable: false),
+                        TargetValue = c.String(nullable: false),
+                        Date = c.DateTime(nullable: false),
+                        IndicatorSplitId = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Indicator_Splits", t => t.IndicatorSplitId, cascadeDelete: true)
+                .Index(t => t.IndicatorSplitId);
+            
+            CreateTable(
+                "dbo.Indicator_Types",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        Code = c.String(nullable: false),
+                        Name = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.Indicator_Values",
                 c => new
                     {
@@ -99,16 +124,6 @@ namespace CM.BalancedScoreboard.Data.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Indicators", t => t.IndicatorId, cascadeDelete: true)
                 .Index(t => t.IndicatorId);
-            
-            CreateTable(
-                "dbo.Indicator_Types",
-                c => new
-                    {
-                        Id = c.Guid(nullable: false),
-                        Code = c.String(nullable: false),
-                        Name = c.String(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Projects",
@@ -182,25 +197,10 @@ namespace CM.BalancedScoreboard.Data.Migrations
                 .Index(t => t.DashboardId)
                 .Index(t => t.IndicatorId);
             
-            CreateTable(
-                "dbo.Indicator_Split_RecordValues",
-                c => new
-                    {
-                        Id = c.Guid(nullable: false),
-                        IndicatorSplitId = c.Guid(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Indicator_Values", t => t.Id)
-                .ForeignKey("dbo.Indicator_Splits", t => t.IndicatorSplitId, cascadeDelete: true)
-                .Index(t => t.Id)
-                .Index(t => t.IndicatorSplitId);
-            
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Indicator_Split_RecordValues", "IndicatorSplitId", "dbo.Indicator_Splits");
-            DropForeignKey("dbo.Indicator_Split_RecordValues", "Id", "dbo.Indicator_Values");
             DropForeignKey("dbo.Project_Milestones", "ProjectId", "dbo.Projects");
             DropForeignKey("dbo.Projects", "ManagerId", "dbo.Users");
             DropForeignKey("dbo.Dashboards", "ManagerId", "dbo.Users");
@@ -208,13 +208,12 @@ namespace CM.BalancedScoreboard.Data.Migrations
             DropForeignKey("dbo.Dashboard_Indicators", "DashboardId", "dbo.Dashboards");
             DropForeignKey("dbo.Indicator_Values", "IndicatorId", "dbo.Indicators");
             DropForeignKey("dbo.Indicators", "IndicatorTypeId", "dbo.Indicator_Types");
+            DropForeignKey("dbo.Indicator_Split_RecordValues", "IndicatorSplitId", "dbo.Indicator_Splits");
             DropForeignKey("dbo.Indicator_Splits", "IndicatorId", "dbo.Indicators");
             DropForeignKey("dbo.Objectives", "ManagerId", "dbo.Users");
             DropForeignKey("dbo.Objective_Indicators", "IndicatorId", "dbo.Indicators");
             DropForeignKey("dbo.Objective_Indicators", "ObjectiveId", "dbo.Objectives");
             DropForeignKey("dbo.Indicators", "ManagerId", "dbo.Users");
-            DropIndex("dbo.Indicator_Split_RecordValues", new[] { "IndicatorSplitId" });
-            DropIndex("dbo.Indicator_Split_RecordValues", new[] { "Id" });
             DropIndex("dbo.Dashboard_Indicators", new[] { "IndicatorId" });
             DropIndex("dbo.Dashboard_Indicators", new[] { "DashboardId" });
             DropIndex("dbo.Objective_Indicators", new[] { "IndicatorId" });
@@ -222,19 +221,20 @@ namespace CM.BalancedScoreboard.Data.Migrations
             DropIndex("dbo.Project_Milestones", new[] { "ProjectId" });
             DropIndex("dbo.Projects", new[] { "ManagerId" });
             DropIndex("dbo.Indicator_Values", new[] { "IndicatorId" });
+            DropIndex("dbo.Indicator_Split_RecordValues", new[] { "IndicatorSplitId" });
             DropIndex("dbo.Indicator_Splits", new[] { "IndicatorId" });
             DropIndex("dbo.Objectives", new[] { "ManagerId" });
             DropIndex("dbo.Indicators", new[] { "ManagerId" });
             DropIndex("dbo.Indicators", new[] { "IndicatorTypeId" });
             DropIndex("dbo.Dashboards", new[] { "ManagerId" });
-            DropTable("dbo.Indicator_Split_RecordValues");
             DropTable("dbo.Dashboard_Indicators");
             DropTable("dbo.Objective_Indicators");
             DropTable("dbo.Project_Types");
             DropTable("dbo.Project_Milestones");
             DropTable("dbo.Projects");
-            DropTable("dbo.Indicator_Types");
             DropTable("dbo.Indicator_Values");
+            DropTable("dbo.Indicator_Types");
+            DropTable("dbo.Indicator_Split_RecordValues");
             DropTable("dbo.Indicator_Splits");
             DropTable("dbo.Objectives");
             DropTable("dbo.Users");
