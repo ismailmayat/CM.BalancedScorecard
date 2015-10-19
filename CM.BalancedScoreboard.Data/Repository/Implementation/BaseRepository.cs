@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
@@ -46,28 +45,23 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
             return i;
         }
 
-        public virtual void Add(IEnumerable<TEntity> entities)
+        public virtual void Add(TEntity entity)
         {
-            foreach (var entity in entities)
-            {
-                _context.Set<TEntity>().Add(entity);
-            }
+            _context.Set<TEntity>().Add(entity);
             _context.SaveChanges();
         }
 
-        public virtual void Update(IEnumerable<TEntity> entities)
+        public virtual void Update(TEntity entity)
         {
-            foreach (var entity in entities)
-            {
-                _context.Set<TEntity>().Attach(entity);
-                _context.SetModified(entity);
-            }
+            _context.Set<TEntity>().Attach(entity);
+            _context.SetModified(entity);
             _context.SaveChanges();
         }
 
-        public virtual void Delete(IEnumerable<TEntity> entities)
+        public virtual void Delete(Guid id)
         {
-            foreach (var entity in entities)
+            var entity = Single(e => e.Id == id);
+            if (entity != null)
             {
                 _context.Set<TEntity>().Remove(entity);
             }

@@ -15,10 +15,10 @@ namespace CM.BalancedScoreboard.Data.Repository.Abstract
 
         Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> filter = null);
 
-        void Add(IEnumerable<TEntity> entities);
+        void Add(TEntity entity);
 
-        void Update(IEnumerable<TEntity> entities);
+        void Update(TEntity entity);
 
-        void Delete(IEnumerable<TEntity> entities);
+        void Delete(Guid id);
     }
 }

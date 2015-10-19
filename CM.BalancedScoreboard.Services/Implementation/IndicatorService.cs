@@ -35,11 +35,24 @@ namespace CM.BalancedScoreboard.Services.Implementation
             return AutoMapper.Mapper.Map<IndicatorViewModel>(indicator);
         }
 
-        public void Update(IndicatorViewModel indicatorVm)
+        public void Add(IndicatorViewModel indicatorVm)
         {
             var indicator = AutoMapper.Mapper.Map<Indicator>(indicatorVm);
 
-            _repository.Update(new List<Indicator> { indicator });
+            _repository.Add(indicator);
+        }
+
+        public void Update(Guid id, IndicatorViewModel indicatorVm)
+        {
+            var indicator = _repository.Single(i => i.Id == id);
+            indicator = AutoMapper.Mapper.Map(indicatorVm, indicator);
+
+            _repository.Update(indicator);
+        }
+
+        public void Delete(Guid id)
+        {
+            _repository.Delete(id);
         }
     }
 }

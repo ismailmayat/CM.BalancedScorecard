@@ -10,7 +10,10 @@ namespace CM.BalancedScoreboard.Services.Abstract
 
         IndicatorViewModel GetIndicator(Guid id);
 
-        void Update(IndicatorViewModel indicatorVm);
-    }
+        void Add(IndicatorViewModel indicatorVm);
 
+        void Update(Guid id, IndicatorViewModel indicatorVm);
+
+        void Delete(Guid id);
+    }
 }

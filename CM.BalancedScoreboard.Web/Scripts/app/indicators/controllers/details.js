@@ -2,8 +2,8 @@
     $scope.indicator = null;
 
     $scope.submitIndicator = function () {
-        //indicatorsApi.update({ id: $scope.indicator.Id }, $scope.indicator);
-        indicatorsApi.save($scope.indicator);
+        indicatorsApi.update({ id: $scope.indicator.Id }, $scope.indicator);
+        //indicatorsApi.save($scope.indicator);
     }
 
     function init() {

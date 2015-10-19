@@ -22,38 +22,49 @@ namespace CM.BalancedScoreboard.Web.Controllers
             return _service.GetIndicators(filter);
         }
 
-        public IndicatorViewModel Get(Guid id)
+        public HttpResponseMessage Get(Guid id)
         {
-            return _service.GetIndicator(id);
+            try
+            {
+                var indicatorVm = _service.GetIndicator(id);
+                if (indicatorVm != null)
+                    return Request.CreateResponse(HttpStatusCode.OK, indicatorVm);
+                else
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         public HttpResponseMessage Post([FromBody]IndicatorViewModel indicatorVm)
         {
             try
             {
-                _service.Update(indicatorVm);
+                _service.Add(indicatorVm);
                 return new HttpResponseMessage(HttpStatusCode.Created);
             }
-            catch
+            catch (Exception ex)
             {
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
         }
 
-        public HttpResponseMessage Put([FromBody]IndicatorViewModel indicatorVm)
+        public HttpResponseMessage Put(Guid id, [FromBody]IndicatorViewModel indicatorVm)
         {
             try
             {
-                _service.Update(indicatorVm);
-                return new HttpResponseMessage(HttpStatusCode.Created);
+                _service.Update(id, indicatorVm);
+                return new HttpResponseMessage(HttpStatusCode.OK);
             }
-            catch
+            catch (Exception ex)
             {
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
         }
 
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
         }
     }

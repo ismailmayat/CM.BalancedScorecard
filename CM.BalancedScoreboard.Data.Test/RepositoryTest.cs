@@ -93,15 +93,14 @@ namespace CM.BalancedScoreboard.Data.Tests
             var iRepo = new IndicatorRepository(uof.Object);
 
             //Act
-            iRepo.Add(new List<Indicator>()
-            {
+            iRepo.Add(
                 new Indicator()
                 {
                     Id = new Guid(),
                     Name = "Indicator 5",
                     Code = "002"
                 }
-            });
+            );
 
             //Assert
             dbSet.Verify(s => s.Add(It.IsAny<Indicator>()), Times.Once);
@@ -117,15 +116,14 @@ namespace CM.BalancedScoreboard.Data.Tests
             var iRepo = new IndicatorRepository(uof.Object);
 
             //Act
-            iRepo.Update(new List<Indicator>()
-            {
+            iRepo.Update(
                 new Indicator()
                 {
                     Id = new Guid(),
                     Name = "Indicator 5",
                     Code = "002"
                 }
-            });
+            );
 
             //Assert
             dbSet.Verify(s => s.Attach(It.IsAny<Indicator>()), Times.Once);
@@ -142,15 +140,7 @@ namespace CM.BalancedScoreboard.Data.Tests
             var iRepo = new IndicatorRepository(uof.Object);
 
             //Act
-            iRepo.Delete(new List<Indicator>()
-            {
-                new Indicator()
-                {
-                    Id = new Guid(),
-                    Name = "Indicator 5",
-                    Code = "002"
-                }
-            });
+            iRepo.Delete(new Guid());
 
             //Assert
             dbSet.Verify(s => s.Remove(It.IsAny<Indicator>()), Times.Once);
