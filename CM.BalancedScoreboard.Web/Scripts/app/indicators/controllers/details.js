@@ -1,4 +1,4 @@
-﻿indicatorsApp.controller('indicatorsDetailsCtrl', function ($scope, $routeParams, indicatorsApi, NgTableParams) {
+﻿indicatorsApp.controller('indicatorsDetailsCtrl', function ($scope, $routeParams, indicatorsApi, $filter, ngTableParams) {
     $scope.submitIndicator = function () {
         $scope.indicator.ComparisonValueType = $scope.selectedComparisonValue.id;
         $scope.indicator.PeriodicityType = $scope.selectedPeriodicity.id;
@@ -17,19 +17,39 @@
                 $scope.selectedComparisonValue = $.grep($scope.comparisonValueTypeList, function (e) { return e.id === data.Indicator.ComparisonValueType; })[0];
                 $scope.selectedPeriodicity = $.grep($scope.periodicityTypeList, function (e) { return e.id === data.Indicator.PeriodicityType; })[0];
                 $scope.selectedObjectValue = $.grep($scope.objectValueTypeList, function (e) { return e.id === data.Indicator.ObjectValueType; })[0];
-
+                
             })
             .catch(function (msg) {
                 console.error(msg);
             });
     };
 
-    this.tableParams = new NgTableParams({}, {
-        getData: function (params) {
-            params.total($scope.indicator.Values.Count());
-            return $scope.indicator.Values;
-        }
-    });
+    //this.tableParams = new NgTableParams({}, {
+    //    getData: function (params) {
+    //        params.total($scope.indicator.Values.Count());
+    //        return $scope.indicator.Values;
+    //    }
+    //});
 
     init();
+
+    var data = [
+    { Id:1, Date: "2015-06-01", RecordValue: "50", TargetValue: "50" },
+    { Id:2, Date: "2015-07-01", RecordValue: "43", TargetValue: "50" }
+    ];
+
+    $scope.tableParams = new ngTableParams(
+    {
+        page: 1,
+        count: 12,
+        sorting: {
+            RecordValue: 'asc'
+        }
+    },
+    {
+        total: data.Count,
+        getData: function ($defer, params) {
+            $defer.resolve($scope.data);
+        }
+    });
 });
