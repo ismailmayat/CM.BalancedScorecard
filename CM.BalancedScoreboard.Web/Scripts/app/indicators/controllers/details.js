@@ -1,4 +1,4 @@
-﻿indicatorsApp.controller('indicatorsDetailsCtrl', function ($scope, $routeParams, indicatorsApi) {
+﻿indicatorsApp.controller('indicatorsDetailsCtrl', function ($scope, $routeParams, indicatorsApi, NgTableParams) {
     $scope.submitIndicator = function () {
         $scope.indicator.ComparisonValueType = $scope.selectedComparisonValue.id;
         $scope.indicator.PeriodicityType = $scope.selectedPeriodicity.id;
@@ -17,11 +17,19 @@
                 $scope.selectedComparisonValue = $.grep($scope.comparisonValueTypeList, function (e) { return e.id === data.Indicator.ComparisonValueType; })[0];
                 $scope.selectedPeriodicity = $.grep($scope.periodicityTypeList, function (e) { return e.id === data.Indicator.PeriodicityType; })[0];
                 $scope.selectedObjectValue = $.grep($scope.objectValueTypeList, function (e) { return e.id === data.Indicator.ObjectValueType; })[0];
+
             })
             .catch(function (msg) {
                 console.error(msg);
             });
     };
+
+    this.tableParams = new NgTableParams({}, {
+        getData: function (params) {
+            params.total($scope.indicator.Values.Count());
+            return $scope.indicator.Values;
+        }
+    });
 
     init();
 });

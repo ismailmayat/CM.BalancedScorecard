@@ -16,7 +16,8 @@ namespace CM.BalancedScoreboard.Web
                         "~/Scripts/angular-route.js",
                         "~/Scripts/angular-animate.js",
                         "~/Scripts/Chart.js",
-                        "~/Scripts/angular-chart.js"));
+                        "~/Scripts/angular-chart.js",
+                        "~/Scripts/ng-table.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -31,6 +32,7 @@ namespace CM.BalancedScoreboard.Web
                       "~/Content/bootstrap.css",
                       "~/Content/animate.css",
                       "~/Content/angular-chart.css",
+                      "~/Content/ng-table.css",
                       "~/Content/site.css"));
         }
     }

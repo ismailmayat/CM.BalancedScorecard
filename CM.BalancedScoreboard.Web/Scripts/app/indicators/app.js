@@ -1,4 +1,4 @@
-﻿var indicatorsApp = angular.module('indicatorsApp', ['ngResource', 'ngAnimate', 'ngRoute', 'chart.js']);
+﻿var indicatorsApp = angular.module('indicatorsApp', ['ngResource', 'ngAnimate', 'ngRoute', 'chart.js', 'ngTable']);
 
 indicatorsApp.config(['$routeProvider',
   function ($routeProvider) {

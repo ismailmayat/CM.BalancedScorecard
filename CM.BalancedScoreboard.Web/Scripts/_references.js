@@ -14,3 +14,5 @@
 /// <reference path="chart.min.js" />
 /// <reference path="jquery-2.1.4.js" />
 /// <reference path="jquery-2.1.4.min.js" />
+/// <reference path="ng-table.min.js" />
+/// <reference path="toastr.min.js" />

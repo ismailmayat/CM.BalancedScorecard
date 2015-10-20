@@ -17,10 +17,10 @@
             $scope.series = ['Record Value', 'Target Value'];
             indicatorsApi.get({ id: indicator.Id }).$promise
                 .then(function (data) {
-                    if (data.Values.length > 0) {
+                    if (data.Indicator.Values.length > 0) {
                         $scope.showingPanel = true;
-                        for (index = 0; index < data.Values.length; ++index) {
-                            var indicatorValue = data.Values[index];
+                        for (index = 0; index < data.Indicator.Values.length; ++index) {
+                            var indicatorValue = data.Indicator.Values[index];
                             $scope.labels.push(indicatorValue.Date);
                             recordValues.push(indicatorValue.RecordValue);
                             targetValues.push(indicatorValue.TargetValue);
