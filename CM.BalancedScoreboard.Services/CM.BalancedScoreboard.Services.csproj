@@ -40,11 +40,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IIndicatorService.cs" />
-    <Compile Include="ViewModel\Enum.cs" />
-    <Compile Include="ViewModel\IndicatorViewModel.cs" />
+    <Compile Include="Utils\EnumUtil.cs" />
+    <Compile Include="ViewModel\Indicators\Enums.cs" />
+    <Compile Include="ViewModel\Indicators\IndicatorDetailsViewModel.cs" />
     <Compile Include="Implementation\IndicatorService.cs" />
     <Compile Include="Mapper\Mappings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\Indicators\IndicatorViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

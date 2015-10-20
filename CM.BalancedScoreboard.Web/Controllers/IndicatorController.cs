@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using CM.BalancedScoreboard.Services.Abstract;
-using CM.BalancedScoreboard.Services.ViewModel;
 using System.Net.Http;
 using System.Net;
+using CM.BalancedScoreboard.Services.ViewModel.Indicators;
 
 namespace CM.BalancedScoreboard.Web.Controllers
 {
@@ -17,7 +17,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
             _service = service;
         }
 
-        public IEnumerable<IndicatorViewModel> Get(string filter)
+        public IList<IndicatorViewModel> Get(string filter)
         {
             return _service.GetIndicators(filter);
         }

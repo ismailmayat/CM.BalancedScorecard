@@ -5,7 +5,7 @@ using AutoMapper.QueryableExtensions;
 using CM.BalancedScoreboard.Data.Repository.Abstract;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
 using CM.BalancedScoreboard.Services.Abstract;
-using CM.BalancedScoreboard.Services.ViewModel;
+using CM.BalancedScoreboard.Services.ViewModel.Indicators;
 
 namespace CM.BalancedScoreboard.Services.Implementation
 {
@@ -28,11 +28,14 @@ namespace CM.BalancedScoreboard.Services.Implementation
             return indicators.Project().To<IndicatorViewModel>().ToList();
         }
 
-        public IndicatorViewModel GetIndicator(Guid id)
+        public IndicatorDetailsViewModel GetIndicator(Guid id)
         {
             var indicator = _repository.Single(i => i.Id == id, i => i.Values);
 
-            return AutoMapper.Mapper.Map<IndicatorViewModel>(indicator);
+            return new IndicatorDetailsViewModel()
+            {
+                Indicator = AutoMapper.Mapper.Map<IndicatorViewModel>(indicator)
+            };
         }
 
         public void Add(IndicatorViewModel indicatorVm)

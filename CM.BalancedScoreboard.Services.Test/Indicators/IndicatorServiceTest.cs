@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Runtime.Remoting;
 using CM.BalancedScoreboard.Data.Repository.Abstract;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
 using CM.BalancedScoreboard.Services.Implementation;
-using CM.BalancedScoreboard.Services.ViewModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -31,11 +29,10 @@ namespace CM.BalancedScoreboard.Services.Tests.Indicators
             var filter = "Indicator 1";//string.Empty;
 
             //Act
-            var result = service.GetIndicators(filter).ToList();
+            var result = service.GetIndicators(filter);
 
             //Assert
             Assert.AreEqual(result.Count(), 4);
-            Assert.IsTrue(result.GetType() == typeof(List<IndicatorViewModel>));
             Assert.IsTrue(result[0].Name == "Indicator 1");
             Assert.IsTrue(result[0].Values.Count() == 1);
         }
@@ -56,7 +53,6 @@ namespace CM.BalancedScoreboard.Services.Tests.Indicators
             var result = service.GetIndicator(id);
 
             //Assert
-            Assert.IsTrue(result.GetType() == typeof(IndicatorViewModel));
             Assert.IsTrue(result.Name == "Indicator 1");
             Assert.IsTrue(result.Values.Count() == 1);
         }

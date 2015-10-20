@@ -11,7 +11,7 @@
         TwelveMonth
     }
 
-    public enum ValueComparisonType
+    public enum ComparisonValueType
     {
         Greater,
         Smaller,
@@ -33,7 +33,7 @@
         Avg
     }
 
-    public enum ValueObjectType
+    public enum ObjectValueType
     {
         Integer,
         Decimal,

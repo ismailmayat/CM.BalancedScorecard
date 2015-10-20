@@ -34,15 +34,15 @@
             </div>
             <div class="form-group">
                 <label for="ComparisonValueType">Comparison Value</label>
-                <select id="ComparisonValueType" name="ComparisonValueType" class="form-control"></select>
+                <select id="ComparisonValueType" name="ComparisonValueType" class="form-control" ng-model="selectedComparisonValue" ng-options="c.name for c in comparisonValueTypeList track by c.id"></select>
             </div>
             <div class="form-group">
                 <label for="PeriodicityType">Periodicity Type</label>
-                <select id="PeriodicityType" name="PeriodicityType" class="form-control"></select>
+                <select id="PeriodicityType" name="PeriodicityType" class="form-control" ng-model="selectedPeriodicity" ng-options="p.name for p in periodicityTypeList track by p.id"></select>
             </div>
             <div class="form-group">
-                <label for="ValueObjectType">Value Type</label>
-                <select id="ValueObjectType" name="ValueObjectType" class="form-control"></select>
+                <label for="ObjectValueType">Value Type</label>
+                <select id="ObjectValueType" name="ObjectValueType" class="form-control"  ng-model="selectedObjectValue" ng-options="o.name for o in objectValueTypeList track by o.id"></select>
             </div>
             <div class="form-group">
                 <label for="Manager">Manager</label>

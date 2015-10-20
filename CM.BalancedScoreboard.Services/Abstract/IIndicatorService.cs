@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CM.BalancedScoreboard.Services.ViewModel;
+using CM.BalancedScoreboard.Services.ViewModel.Indicators;
 
 namespace CM.BalancedScoreboard.Services.Abstract
 {
@@ -8,7 +8,7 @@ namespace CM.BalancedScoreboard.Services.Abstract
     {
         IList<IndicatorViewModel> GetIndicators(string filter);
 
-        IndicatorViewModel GetIndicator(Guid id);
+        IndicatorDetailsViewModel GetIndicator(Guid id);
 
         void Add(IndicatorViewModel indicatorVm);
 

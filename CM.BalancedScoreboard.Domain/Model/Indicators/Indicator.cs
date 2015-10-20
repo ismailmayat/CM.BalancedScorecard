@@ -32,7 +32,7 @@ namespace CM.BalancedScoreboard.Domain.Model.Indicators
         public bool Active { get; set; }
 
         [Required]
-        public ValueComparisonType ValueComparisonType { get; set; }
+        public ComparisonValueType ComparisonValueType { get; set; }
 
         [Required]
         public DateTime StartDate { get; set; }
@@ -41,7 +41,7 @@ namespace CM.BalancedScoreboard.Domain.Model.Indicators
         public PeriodicityType PeriodicityType { get; set; }
 
         [Required]
-        public ValueObjectType ValueObjectType { get; set; }
+        public ObjectValueType ObjectValueType { get; set; }
 
         public bool Splitted { get; set; }
 
