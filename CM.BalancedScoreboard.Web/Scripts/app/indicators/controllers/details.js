@@ -4,7 +4,6 @@
         $scope.indicator.PeriodicityType = $scope.selectedPeriodicity.id;
         $scope.indicator.ObjectValueType = $scope.selectedObjectValue.id;
         indicatorsApi.update({ id: $scope.indicator.Id }, $scope.indicator);
-        //indicatorsApi.save($scope.indicator);
     }
 
     function init() {

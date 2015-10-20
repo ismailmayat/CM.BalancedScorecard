@@ -53,8 +53,8 @@ namespace CM.BalancedScoreboard.Services.Tests.Indicators
             var result = service.GetIndicator(id);
 
             //Assert
-            Assert.IsTrue(result.Name == "Indicator 1");
-            Assert.IsTrue(result.Values.Count() == 1);
+            Assert.IsTrue(result.Indicator.Name == "Indicator 1");
+            Assert.IsTrue(result.Indicator.Values.Count() == 1);
         }
 
         private static Indicator GetIndicator(Guid id)
