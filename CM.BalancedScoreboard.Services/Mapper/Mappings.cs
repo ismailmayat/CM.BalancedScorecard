@@ -9,12 +9,16 @@ namespace CM.BalancedScoreboard.Services.Mapper
         public static void Configure()
         {
             AutoMapper.Mapper.CreateMap<Indicator, IndicatorViewModel>()
-                .ForMember(d => d.LastRecordValue,
+                .ForMember(dest => dest.LastRecordValue,
                     opt => opt.MapFrom(o => o.Values.Any() ? o.Values.OrderByDescending(rv => rv.Date).FirstOrDefault().RecordValue : string.Empty))
-                .ForMember(d => d.LastTargetValue,
+                .ForMember(dest => dest.LastTargetValue,
                     opt => opt.MapFrom(o => o.Values.Any() ? o.Values.OrderByDescending(rv => rv.Date).FirstOrDefault().TargetValue : string.Empty))
-                .ForMember(d => d.ManagerName,
-                    opt => opt.MapFrom(o => o.Manager != null ? o.Manager.Firstname + " " + o.Manager.Surname : string.Empty)).ReverseMap();
+                .ForMember(dest => dest.ManagerName,
+                    opt => opt.MapFrom(o => o.Manager != null ? o.Manager.Firstname + " " + o.Manager.Surname : string.Empty));
+
+            AutoMapper.Mapper.CreateMap<IndicatorViewModel, Indicator>()
+                .ForMember(dest => dest.Values,
+                    opt => opt.Ignore());
 
             AutoMapper.Mapper.CreateMap<IndicatorValue, IndicatorValueViewModel>().ReverseMap();
         }

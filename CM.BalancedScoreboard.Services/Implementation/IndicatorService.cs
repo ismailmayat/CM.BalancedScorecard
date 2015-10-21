@@ -5,6 +5,7 @@ using AutoMapper.QueryableExtensions;
 using CM.BalancedScoreboard.Data.Repository.Abstract;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
 using CM.BalancedScoreboard.Services.Abstract;
+using CM.BalancedScoreboard.Services.Mapper;
 using CM.BalancedScoreboard.Services.ViewModel.Indicators;
 
 namespace CM.BalancedScoreboard.Services.Implementation
@@ -50,12 +51,14 @@ namespace CM.BalancedScoreboard.Services.Implementation
             var indicator = _repository.Single(i => i.Id == id);
             indicator = AutoMapper.Mapper.Map(indicatorVm, indicator);
 
+            MappingUtils.UpdateChilds(indicatorVm.Values, indicator.Values);
+
             _repository.Update(indicator);
         }
 
         public void Delete(Guid id)
         {
             _repository.Delete(id);
-        }
+        } 
     }
 }
