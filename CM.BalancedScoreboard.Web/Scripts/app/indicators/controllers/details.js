@@ -1,4 +1,18 @@
 ﻿indicatorsApp.controller('indicatorsDetailsCtrl', function ($scope, $routeParams, indicatorsApi, $filter, ngTableParams) {
+    $scope.colours = [{
+        fillColor: '#0000FF',
+        strokeColor: '#0000FF',
+        highlightFill: '#ffd079',
+        highlightStroke: '#0000FF'
+    }, {
+        fillColor: '#FFA500',
+        strokeColor: '#FFA500',
+        highlightFill: '#FFA500',
+        highlightStroke: '#FFA500'
+    }];
+
+    $scope.series = ['Record Value', 'Target Value'];
+
     $scope.submitIndicator = function () {
         $scope.indicator.StartDate = $scope.startDate;
         $scope.indicator.ComparisonValueType = $scope.selectedComparisonValue.id;
@@ -20,6 +34,8 @@
     };
 
     function init() {
+        $scope.labels = [];
+        $scope.data = [[],[]];
         indicatorsApi.get({ id: $routeParams.indicatorId }).$promise
             .then(function (data) {
                 assignValues(data);
@@ -54,6 +70,32 @@
                 $defer.resolve($filter('orderBy')(data.Indicator.Values, params.orderBy()));
             }
         });
+        if (data.Indicator.Values.length > 0) {
+            for (index = 0; index < data.Indicator.Values.length; ++index) {
+                var indicatorValue = data.Indicator.Values[index];
+                $scope.labels.push($scope.formatDate(indicatorValue.Date));
+                $scope.data[0].push(indicatorValue.RecordValue);
+                $scope.data[1].push(indicatorValue.TargetValue);
+            }
+            for (index = 0; index < data.Indicator.Values.length; ++index) {
+                var indicatorValue = data.Indicator.Values[index];
+                $scope.labels.push($scope.formatDate(indicatorValue.Date));
+                $scope.data[0].push(indicatorValue.RecordValue);
+                $scope.data[1].push(indicatorValue.TargetValue);
+            }
+            for (index = 0; index < data.Indicator.Values.length; ++index) {
+                var indicatorValue = data.Indicator.Values[index];
+                $scope.labels.push($scope.formatDate(indicatorValue.Date));
+                $scope.data[0].push(indicatorValue.RecordValue);
+                $scope.data[1].push(indicatorValue.TargetValue);
+            }
+            for (index = 0; index < data.Indicator.Values.length; ++index) {
+                var indicatorValue = data.Indicator.Values[index];
+                $scope.labels.push($scope.formatDate(indicatorValue.Date));
+                $scope.data[0].push(indicatorValue.RecordValue);
+                $scope.data[1].push(indicatorValue.TargetValue);
+            }
+        }
     };
 
     init();

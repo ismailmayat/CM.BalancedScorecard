@@ -48,7 +48,7 @@ namespace CM.BalancedScoreboard.Services.Implementation
 
         public void Update(Guid id, IndicatorViewModel indicatorVm)
         {
-            var indicator = _repository.Single(i => i.Id == id);
+            var indicator = _repository.Single(i => i.Id == id, i => i.Values);
             indicator = AutoMapper.Mapper.Map(indicatorVm, indicator);
 
             MappingUtils.UpdateChilds(indicatorVm.Values, indicator.Values);
