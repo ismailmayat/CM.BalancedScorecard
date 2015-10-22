@@ -1,43 +1,21 @@
 ﻿indicatorsApp.directive('myIndicatorCard', function() {
-    var controller = ['$scope', '$animate', '$location', 'indicatorsApi', function($scope, $animate, $location, indicatorsApi) {
-        function bindGraph(indicator) {
-            var recordValues = [];
-            var targetValues = [];
-            $scope.colours = [{
-                fillColor: '#0000FF',
-                strokeColor: '#0000FF',
-                highlightFill: '#ffd079',
-                highlightStroke: '#0000FF'
-            }, {
-                fillColor: '#FFA500',
-                strokeColor: '#FFA500',
-                highlightFill: '#FFA500',
-                highlightStroke: '#FFA500'
-            }];
-            $scope.series = ['Record Value', 'Target Value'];
-            indicatorsApi.get({ id: indicator.Id }).$promise
+    var controller = ['$scope', '$animate', '$location', 'indicatorsApi', 'graphFactory', function ($scope, $animate, $location, indicatorsApi, graphFactory) {
+
+        function bindGraph() {
+            indicatorsApi.get({ id: $scope.indicator.Id }).$promise
                 .then(function (data) {
                     if (data.Indicator.Values.length > 0) {
                         $scope.showingPanel = true;
-                        for (index = 0; index < data.Indicator.Values.length; ++index) {
-                            var indicatorValue = data.Indicator.Values[index];
-                            $scope.labels.push(indicatorValue.Date);
-                            recordValues.push(indicatorValue.RecordValue);
-                            targetValues.push(indicatorValue.TargetValue);
-                        }
-                        $scope.data.push(recordValues);
-                        $scope.data.push(targetValues);
+                        var graphData = graphFactory.getGraphData(data.Indicator.Values);
+                        $scope.colours = graphData.colours;
+                        $scope.series = graphData.series;
+                        $scope.labels = graphData.labels;
+                        $scope.data = graphData.data;
                     }
                 })
-                .catch(function(msg) {
+                .catch(function (msg) {
                     console.error(msg);
                 });
-        };
-
-        function initGraph() {
-            $scope.labels = [];
-            $scope.series = [];
-            $scope.data = [];
         };
 
         function init() {
@@ -45,23 +23,33 @@
             initGraph();
         };
 
-        $scope.bindPanel = function (indicator) {
+        function initGraph() {
+            $scope.labels = [];
+            $scope.series = [];
+            $scope.data = [[], []];
+            $scope.colours = [];
+        };
+
+        $scope.showPanel = function () {
             if ($scope.showingPanel) {
                 $scope.showingPanel = false;
                 initGraph();
             } else {
-                bindGraph(indicator);
+                bindGraph();
             }
         };
 
-        $scope.navigateToDetails = function (indicator) {
-            $location.path('/details/' + indicator.Id);
+        $scope.navigateToDetails = function () {
+            $location.path('/details/' + $scope.indicator.Id);
         }
 
         init();
     }];
 
     return {
+        scope:{
+            indicator: '='
+        },
         restrict: 'E',
         templateUrl: '/Scripts/app/indicators/views/card.html',
         controller: controller

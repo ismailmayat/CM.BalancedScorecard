@@ -1,9 +1,7 @@
-﻿<div class="row" ng-click="navigateToDetails(indicator)">
+﻿<div class="row" ng-click="navigateToDetails()">
     <div class="col-md-12">
         {{indicator.Name}}
     </div>
-</div>
-<div class="row" ng-click="navigateToDetails(indicator)">
     <div class="col-md-6">
         {{indicator.Description}}
     </div>
@@ -26,6 +24,6 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <button type="button" class="btn btn-default btn-xs" ng-click="bindPanel(indicator)" style="width: 100%"><<>></button>
+        <button type="button" class="btn btn-default btn-xs" ng-click="showPanel()" style="width: 100%"><<>></button>
     </div>
 </div>

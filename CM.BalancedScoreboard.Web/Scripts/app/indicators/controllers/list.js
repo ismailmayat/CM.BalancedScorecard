@@ -1,4 +1,4 @@
-﻿indicatorsApp.controller('indicatorsListCtrl', function ($scope, indicatorsApi) {
+﻿indicatorsApp.controller('indicatorsListCtrl', function ($scope, indicatorsApi, configuration, graphFactory) {
     $scope.filter = '';
 
     $scope.onEnter = function(event) {
