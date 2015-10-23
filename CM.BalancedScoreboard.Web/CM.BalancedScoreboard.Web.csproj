@@ -249,12 +249,13 @@
     <Content Include="Scripts\app\indicators\controllers\details.js" />
     <Content Include="Scripts\app\indicators\controllers\list.js" />
     <Content Include="Scripts\app\indicators\app.js" />
-    <Content Include="Scripts\app\indicators\directives\card.js" />
+    <Content Include="Scripts\app\indicators\directives\card\card.js" />
+    <Content Include="Scripts\app\indicators\directives\card\controllers\controller.js" />
     <Content Include="Scripts\app\indicators\services\graph.js" />
     <Content Include="Scripts\app\indicators\views\details.html" />
     <Content Include="Scripts\app\indicators\views\list.html" />
     <Content Include="Scripts\app\indicators\services\api.js" />
-    <Content Include="Scripts\app\indicators\views\card.html" />
+    <Content Include="Scripts\app\indicators\directives\card\views\view.html" />
     <Content Include="Scripts\app\shared\app.js" />
     <Content Include="Scripts\app\shared\services\configuration.js" />
     <Content Include="Scripts\app\shared\services\utils.js" />
