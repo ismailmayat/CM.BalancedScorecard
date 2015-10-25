@@ -1,18 +1,35 @@
 ﻿indicatorsApp.controller('indicatorsDetailsCtrl', function ($scope, $routeParams, indicatorsApi, $filter, utils, graphFactory, ngTableParams, toaster) {
     var originalData = [];
 
+    function getIndicator() {
+        return indicatorsApi.get({ id: $routeParams.indicatorId });
+    }
+
     function init() {
-        indicatorsApi.get({ id: $routeParams.indicatorId }).$promise
+        getIndicator().$promise
             .then(function (data) {
-                assignValues(data);
+                assignScope(data);
+                $scope.tableParams = getTableParams();
                 bindGraph();
             })
             .catch(function (msg) {
                 console.error(msg);
             });
-    };
+    }
 
-    function assignValues(data) {
+    function update() {
+        getIndicator().$promise
+            .then(function (data) {
+                assignScope(data);
+                $scope.tableParams.reload();
+                bindGraph();
+            })
+            .catch(function (msg) {
+                console.error(msg);
+            });
+    }
+
+    function assignScope(data) {
         $scope.indicator = data.Indicator;
         $scope.comparisonValueTypeList = data.ComparisonValueTypeList;
         $scope.periodicityTypeList = data.PeriodicityTypeList;
@@ -22,7 +39,11 @@
         $scope.selectedComparisonValue = $.grep($scope.comparisonValueTypeList, function (e) { return e.id === data.Indicator.ComparisonValueType; })[0];
         $scope.selectedPeriodicity = $.grep($scope.periodicityTypeList, function (e) { return e.id === data.Indicator.PeriodicityType; })[0];
         $scope.selectedObjectValue = $.grep($scope.objectValueTypeList, function (e) { return e.id === data.Indicator.ObjectValueType; })[0];
-        $scope.tableParams = new ngTableParams(
+        originalData = angular.copy($scope.indicator.Values);
+    }
+
+    function getTableParams() {
+        return new ngTableParams(
         {
             page: 1,
             count: 20,
@@ -37,8 +58,7 @@
                 $defer.resolve($filter('orderBy')($scope.indicator.Values, params.orderBy()));
             }
         });
-        originalData = angular.copy($scope.indicator.Values);
-    };
+    }
 
     function bindGraph() {
         var graphData = graphFactory.getGraphData($scope.indicator.Values);
@@ -56,37 +76,44 @@
         });
     }
 
+    function assignModel() {
+        $scope.indicator.StartDate = $scope.startDate;
+        $scope.indicator.ComparisonValueType = $scope.selectedComparisonValue.id;
+        $scope.indicator.PeriodicityType = $scope.selectedPeriodicity.id;
+        $scope.indicator.ObjectValueType = $scope.selectedObjectValue.id;
+    }
+
     $scope.canEdit = function (row) {
         if (!row.isEditing) {
             row.isEditing = (row.RecordValue === '' && row.TargetValue === '');
         }
+
         return row.isEditing;
     }
 
     $scope.formatDate = function (date) {
         return utils.formatGraphDate(date);
-    };
+    }
 
     $scope.submitIndicator = function () {
-        $scope.indicator.StartDate = $scope.startDate;
-        $scope.indicator.ComparisonValueType = $scope.selectedComparisonValue.id;
-        $scope.indicator.PeriodicityType = $scope.selectedPeriodicity.id;
-        $scope.indicator.ObjectValueType = $scope.selectedObjectValue.id;
+        assignModel();
         indicatorsApi.update({ id: $scope.indicator.Id }, $scope.indicator).$promise
             .then(function () {
+                update();
                 toaster.success({ body: 'Indicator successfully saved!' });
             })
             .catch(function () {
                 toaster.error({ body: 'Indicator successfully saved!' });
             })
-    };
+    }
 
     $scope.addRow = function () {
+        $scope.globalEdit = true;
         var lastIndicatorValue = _.last($scope.indicator.Values);
         var newDate = new Date(lastIndicatorValue.Date);
         newDate.setMonth(newDate.getMonth() + 1);
         var newIndicatorValue = {
-            Date : newDate.toDateString(),
+            Date: newDate.toDateString(),
             Id: '',
             IndicatorId: lastIndicatorValue.IndicatorId,
             RecordValue: '',
@@ -95,9 +122,15 @@
         $scope.indicator.Values.push(newIndicatorValue);
         $scope.tableParams.reload();
         bindGraph();
-    };
+    }
+
+    $scope.editRow = function (row) {
+        $scope.globalEdit = true;
+        row.isEditing = true;
+    }
 
     $scope.updateRow = function (row, rowForm) {
+        $scope.globalEdit = false;
         var originalRow = resetRow(row, rowForm);
         if (originalRow != undefined) {
             angular.extend(originalRow, row);
@@ -105,11 +138,12 @@
         else {
             originalData = angular.copy($scope.indicator.Values);
         }
-        
-        bindGraph();
-    };
 
-    $scope.cancel = function(row, rowForm) {
+        bindGraph();
+    }
+
+    $scope.cancelRow = function (row, rowForm) {
+        $scope.globalEdit = false;
         var originalRow = resetRow(row, rowForm);
         if (originalRow != undefined) {
             angular.extend(row, originalRow);
@@ -130,7 +164,7 @@
         originalData = angular.copy($scope.indicator.Values);
         $scope.tableParams.reload();
         bindGraph();
-    };
+    }
 
     init();
 });

@@ -1,6 +1,6 @@
 ﻿<div class="row">
     <div class="col-md-12">
-        <button class="btn btn-default" ng-click="submitIndicator()">Save</button>
+        <button class="btn btn-default" ng-disabled="globalEdit" ng-click="submitIndicator()">Save</button>
     </div>
 </div>
 <div class="row">
@@ -96,7 +96,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <button class="btn btn-default" ng-click="addRow()">Add row</button>
+        <button class="btn btn-default" ng-disabled="globalEdit" ng-click="addRow()">Add row</button>
     </div>
     <div class="col-md-12">
         <toaster-container toaster-options="{'time-out': 3000, 'animation-class': 'toast-top-right'}"></toaster-container>
@@ -119,9 +119,9 @@
                 </td>
                 <td class="text-right col-md-1">
                     <button class="btn btn-primary btn-sm" ng-click="updateRow(row, rowForm)" ng-if="canEdit(row)" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
-                    <button class="btn btn-default btn-sm" ng-click="cancel(row, rowForm)" ng-if="canEdit(row)"><span class="glyphicon glyphicon-remove"></span></button>
-                    <button class="btn btn-default btn-sm" ng-click="row.isEditing = true" ng-if="!canEdit(row)"><span class="glyphicon glyphicon-pencil"></span></button>
-                    <button class="btn btn-danger btn-sm" ng-click="deleteRow(row)" ng-if="!canEdit(row)"><span class="glyphicon glyphicon-trash"></span></button>
+                    <button class="btn btn-default btn-sm" ng-click="cancelRow(row, rowForm)" ng-if="canEdit(row)"><span class="glyphicon glyphicon-remove"></span></button>
+                    <button class="btn btn-default btn-sm" ng-click="editRow(row)" ng-if="!canEdit(row)" ng-disabled="globalEdit"><span class="glyphicon glyphicon-pencil"></span></button>
+                    <button class="btn btn-danger btn-sm" ng-click="deleteRow(row)" ng-if="!canEdit(row)" ng-disabled="globalEdit"><span class="glyphicon glyphicon-trash"></span></button>
                 </td>
             </tr>
         </table>

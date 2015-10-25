@@ -12,6 +12,7 @@ namespace CM.BalancedScoreboard.Services.Mapper
             where TViewModel: IViewModel
             where TEntity: IChildEntity
         {
+            entityChilds.Where(ec => viewModelChilds.All(vmc => vmc.Id != ec.Id)).ToList().ForEach(ec => ec.EntityState = EntityState.Deleted);
             foreach (var viewModelChild in viewModelChilds)
             {
                 var entityChild = entityChilds.FirstOrDefault(ec => ec.Id == viewModelChild.Id);
@@ -28,8 +29,6 @@ namespace CM.BalancedScoreboard.Services.Mapper
                     entityChilds.Add(entityChild);
                 }
             }
-
-            entityChilds.Where(ec => ec.EntityState == EntityState.Unchanged && viewModelChilds.All(vmc => vmc.Id != ec.Id)).ToList().ForEach(ec => ec.EntityState = EntityState.Deleted);
         }
     }
 }
