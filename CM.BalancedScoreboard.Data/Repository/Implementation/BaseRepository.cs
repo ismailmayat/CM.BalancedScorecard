@@ -10,7 +10,7 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, IEntity
     {
-        readonly IDbContext _context;
+        protected IDbContext _context;
 
         public BaseRepository() { } 
 
@@ -64,6 +64,23 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
             if (entity != null)
             {
                 _context.Set<TEntity>().Remove(entity);
+            }
+        }
+
+        protected static System.Data.Entity.EntityState GetEntityState(Domain.Abstract.EntityState entityState)
+        {
+            switch (entityState)
+            {
+                case Domain.Abstract.EntityState.Unchanged:
+                    return System.Data.Entity.EntityState.Unchanged;
+                case Domain.Abstract.EntityState.Added:
+                    return System.Data.Entity.EntityState.Added;
+                case Domain.Abstract.EntityState.Modified:
+                    return System.Data.Entity.EntityState.Modified;
+                case Domain.Abstract.EntityState.Deleted:
+                    return System.Data.Entity.EntityState.Deleted;
+                default:
+                    return System.Data.Entity.EntityState.Detached;
             }
         }
     }

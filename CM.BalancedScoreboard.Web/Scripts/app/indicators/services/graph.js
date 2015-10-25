@@ -1,38 +1,20 @@
-﻿indicatorsApp.factory('graphFactory', function ($filter, utils, configuration, ngTableParams) {
+﻿indicatorsApp.factory('graphFactory', function ($filter, utils, configuration) {
     return {
         getGraphData: function (indicatorValues) {
             return {
-                colours: getIndicatorGraphColours(),
                 series: getIndicatorGraphSeriesNames(),
                 labels: getIndicatorGraphLabels(indicatorValues),
-                data: getIndicatorGraphValues(indicatorValues)
+                data: getIndicatorGraphValues(indicatorValues),
+                colours: getIndicatorGraphColours()
             }
         },
-        getGraphConfig: function (indicatorValues) {
-            return new ngTableParams(
-        {
-            page: 1,
-            count: 12,
-            sorting: {
-                Date: 'desc'
-            }
-        },
-        {
-            total: indicatorValues.Count,
-            counts: [],
-            getData: function ($defer, params) {
-                $defer.resolve($filter('orderBy')(indicatorValues, params.orderBy()));
-            }
-        });
+        getGraphOptions: function () {
+            bezierCurve: false
         }
     };
 
     function getIndicatorGraphColours() {
-        return [{
-            fillColor: '#00868B'
-        }, {
-            fillColor: '#FF7216'
-        }];
+        return ['#00868B', '#FF7216'];
     };
 
     function getIndicatorGraphSeriesNames() {

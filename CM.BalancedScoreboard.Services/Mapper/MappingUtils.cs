@@ -1,6 +1,6 @@
 ﻿using CM.BalancedScoreboard.Domain.Abstract;
-using CM.BalancedScoreboard.Domain.Model.Indicators;
 using CM.BalancedScoreboard.Services.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,7 +10,7 @@ namespace CM.BalancedScoreboard.Services.Mapper
     {
         public static void UpdateChilds<TViewModel, TEntity>(List<TViewModel> viewModelChilds, List<TEntity> entityChilds)
             where TViewModel: IViewModel
-            where TEntity: IEntity
+            where TEntity: IChildEntity
         {
             foreach (var viewModelChild in viewModelChilds)
             {
@@ -18,14 +18,18 @@ namespace CM.BalancedScoreboard.Services.Mapper
                 if (entityChild != null)
                 {
                     AutoMapper.Mapper.Map(viewModelChild, entityChild);
+                    entityChild.EntityState = EntityState.Modified;
                 }
                 else
                 {
                     entityChild = AutoMapper.Mapper.Map<TEntity>(viewModelChild);
+                    entityChild.Id = Guid.NewGuid();
+                    entityChild.EntityState = EntityState.Added;
+                    entityChilds.Add(entityChild);
                 }
             }
 
-            entityChilds.RemoveAll(ec => viewModelChilds.All(vmc => vmc.Id != ec.Id));
+            entityChilds.Where(ec => ec.EntityState == EntityState.Unchanged && viewModelChilds.All(vmc => vmc.Id != ec.Id)).ToList().ForEach(ec => ec.EntityState = EntityState.Deleted);
         }
     }
 }

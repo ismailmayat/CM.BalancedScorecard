@@ -1,18 +1,23 @@
-﻿var indicatorsApp = angular.module('indicatorsApp', ['ngResource', 'ngAnimate', 'ngRoute', 'chart.js', 'ngTable', 'shared']);
+﻿var indicatorsApp = angular.module('indicatorsApp', ['ngResource', 'ngAnimate', 'ngRoute', 'chart.js', 'ngTable', 'shared', 'toaster']);
 
-indicatorsApp.config(['$routeProvider',
-  function ($routeProvider) {
+indicatorsApp.config(['$routeProvider', 'ChartJsProvider',
+  function ($routeProvider, ChartJsProvider, graphFactory) {
       $routeProvider.
-        when('/list', {
+        when('/List', {
             templateUrl: '/Scripts/app/indicators/views/list.html',
             controller: 'indicatorsListCtrl'
         }).
-        when('/details/:indicatorId', {
+        when('/Details/:indicatorId', {
             templateUrl: '/Scripts/app/indicators/views/details.html',
             controller: 'indicatorsDetailsCtrl'
         }).
         otherwise({
-            redirectTo: '/list'
+            redirectTo: '/List'
         });
+      ChartJsProvider.setOptions({
+        datasetFill: false,
+        pointDotRadius: 5,
+        bezierCurve: false
+      });
   }]);
 

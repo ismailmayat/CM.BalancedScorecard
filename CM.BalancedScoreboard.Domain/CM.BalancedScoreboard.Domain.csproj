@@ -37,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\EntityType.cs" />
+    <Compile Include="Abstract\IChildEntity.cs" />
     <Compile Include="Abstract\IEntity.cs" />
     <Compile Include="Model\Dashboards\Dashboard.cs" />
     <Compile Include="Model\Enums\IndicatorEnum.cs" />

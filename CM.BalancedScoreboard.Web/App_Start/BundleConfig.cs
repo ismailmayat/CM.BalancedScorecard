@@ -17,7 +17,9 @@ namespace CM.BalancedScoreboard.Web
                         "~/Scripts/angular-animate.js",
                         "~/Scripts/Chart.js",
                         "~/Scripts/angular-chart.js",
-                        "~/Scripts/ng-table.js"));
+                        "~/Scripts/ng-table.js",
+                        "~/Scripts/lodash.js",
+                        "~/Scripts/toaster.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -30,6 +32,7 @@ namespace CM.BalancedScoreboard.Web
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/toaster.css",
                       "~/Content/animate.css",
                       "~/Content/angular-chart.css",
                       "~/Content/ng-table.css",

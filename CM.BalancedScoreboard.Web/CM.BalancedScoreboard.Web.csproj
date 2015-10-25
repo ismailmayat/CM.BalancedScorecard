@@ -223,8 +223,8 @@
     <Content Include="Content\ng-table.css" />
     <Content Include="Content\ng-table.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Content\toastr.css" />
-    <Content Include="Content\toastr.min.css" />
+    <Content Include="Content\toaster.css" />
+    <Content Include="Content\toaster.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -251,6 +251,9 @@
     <Content Include="Scripts\app\indicators\app.js" />
     <Content Include="Scripts\app\indicators\directives\card\card.js" />
     <Content Include="Scripts\app\indicators\directives\card\controllers\controller.js" />
+    <Content Include="Scripts\app\indicators\directives\table\trackedTable.js" />
+    <Content Include="Scripts\app\indicators\directives\table\trackedTableCell.js" />
+    <Content Include="Scripts\app\indicators\directives\table\trackedTableRow.js" />
     <Content Include="Scripts\app\indicators\services\graph.js" />
     <Content Include="Scripts\app\indicators\views\details.html" />
     <Content Include="Scripts\app\indicators\views\list.html" />
@@ -267,18 +270,19 @@
     <Content Include="Content\angular-chart.min.css.map" />
     <Content Include="Scripts\angular-chart.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
-    <Content Include="Content\toastr.scss" />
-    <Content Include="Content\toastr.less" />
     <Content Include="Content\ng-table.less" />
+    <Content Include="Content\toaster.scss" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\lodash.js" />
+    <Content Include="Scripts\lodash.min.js" />
     <Content Include="Scripts\ng-table.js" />
     <Content Include="Scripts\ng-table.min.js" />
-    <Content Include="Scripts\toastr.js" />
-    <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Scripts\toaster.js" />
+    <Content Include="Scripts\toaster.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

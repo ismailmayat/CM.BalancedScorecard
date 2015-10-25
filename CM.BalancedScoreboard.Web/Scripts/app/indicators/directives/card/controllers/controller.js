@@ -39,7 +39,7 @@
     };
 
     $scope.navigateToDetails = function () {
-        $location.path('/details/' + $scope.indicator.Id);
+        $location.path('/Details/' + $scope.indicator.Id);
     }
 
     init();

@@ -32,6 +32,7 @@ namespace CM.BalancedScoreboard.Services.Implementation
         public IndicatorDetailsViewModel GetIndicator(Guid id)
         {
             var indicator = _repository.Single(i => i.Id == id, i => i.Values);
+            indicator.Values = indicator.Values.OrderBy(iv => iv.Date).ToList();
 
             return new IndicatorDetailsViewModel()
             {

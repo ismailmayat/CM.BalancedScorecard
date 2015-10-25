@@ -37,10 +37,12 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" ng-model="indicator.Active">Active
-                        </label>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="indicator.Active">Active
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -80,10 +82,12 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" ng-model="indicator.Splitted">Splitted
-                        </label>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="indicator.Splitted">Splitted
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -92,19 +96,41 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <table ng-table="tableParams" class="table table-bordered table-striped table-condensed">
-            <tr ng-repeat="row in $data track by row.Id">
-                <td data-title="'Date'" sortable="'Date'" class="text-center">{{formatDate(row.Date)}}</td>
-                <td data-title="'Record value'" class="text-right">{{row.RecordValue}} {{indicator.Unit}}</td>
-                <td data-title="'Target value'" class="text-right">{{row.TargetValue}} {{indicator.Unit}}</td>
+        <button class="btn btn-default" ng-click="addRow()">Add row</button>
+    </div>
+    <div class="col-md-12">
+        <toaster-container toaster-options="{'time-out': 3000, 'animation-class': 'toast-top-right'}"></toaster-container>
+        <table ng-table="tableParams" class="table table-bordered table-striped table-condensed" tracked-table="tableTracker">
+            <tr ng-repeat="row in $data track by row.Id" ng-form="rowForm" tracked-table-row="row">
+                <td data-title="'Date'" sortable="'Date'" class="col-md-5">
+                    {{formatDate(row.Date)}}
+                </td>
+                <td data-title="'Record value'" class="text-right col-md-3" ng-form="RecordValue" ng-class="RecordValue.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
+                    <span ng-switch-default class="editable-text">{{row.RecordValue}} {{indicator.Unit}}</span>
+                    <div ng-class="RecordValue.$invalid && RecordValue.$dirty ? 'has-error' : ''" ng-switch-when="true">
+                        <input type="text" name="RecordValue" ng-model="row.RecordValue" class="editable-input form-control text-right" required />
+                    </div>
+                </td>
+                <td data-title="'Target value'" class="text-right col-md-3" ng-form="TargetValue" ng-class="TargetValue.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
+                    <span ng-switch-default class="editable-text">{{row.TargetValue}} {{indicator.Unit}}</span>
+                    <div ng-class="TargetValue.$invalid && TargetValue.$dirty ? 'has-error' : ''" ng-switch-when="true">
+                        <input type="text" name="TargetValue" ng-model="row.TargetValue" class="editable-input form-control text-right" required />
+                    </div>
+                </td>
+                <td class="text-right col-md-1">
+                    <button class="btn btn-primary btn-sm" ng-click="updateRow(row, rowForm)" ng-if="canEdit(row)" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
+                    <button class="btn btn-default btn-sm" ng-click="cancel(row, rowForm)" ng-if="canEdit(row)"><span class="glyphicon glyphicon-remove"></span></button>
+                    <button class="btn btn-default btn-sm" ng-click="row.isEditing = true" ng-if="!canEdit(row)"><span class="glyphicon glyphicon-pencil"></span></button>
+                    <button class="btn btn-danger btn-sm" ng-click="deleteRow(row)" ng-if="!canEdit(row)"><span class="glyphicon glyphicon-trash"></span></button>
+                </td>
             </tr>
         </table>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
-        <canvas id="line" class="chart chart-bar" chart-data="data"
+        <canvas id="line" class="chart chart-line" chart-data="data"
                 chart-labels="labels" chart-legend="true" chart-series="series"
-                chart-click="" chart-colours="colours"></canvas>
+                chart-click="" chart-options="options" chart-colours="colours"></canvas>
     </div>
 </div>

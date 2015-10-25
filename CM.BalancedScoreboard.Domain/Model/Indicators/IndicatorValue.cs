@@ -6,7 +6,7 @@ using CM.BalancedScoreboard.Domain.Abstract;
 namespace CM.BalancedScoreboard.Domain.Model.Indicators
 {
     [Table("Indicator_Values")]
-    public class IndicatorValue : IEntity
+    public class IndicatorValue : IChildEntity
     {
         [Key]
         public Guid Id { get; set; }
@@ -25,5 +25,8 @@ namespace CM.BalancedScoreboard.Domain.Model.Indicators
 
         [ForeignKey("IndicatorId")]
         public Indicator Indicator { get; set; }
+
+        [NotMapped]
+        public EntityState EntityState { get; set; }
     }
 }
