@@ -17,16 +17,16 @@ namespace CM.BalancedScoreboard.Web.Controllers
             _service = service;
         }
 
-        public IList<IndicatorViewModel> Get(string filter)
+        public IndicatorListViewModel Get(string filter)
         {
-            return _service.GetIndicators(filter);
+            return _service.GetList(filter);
         }
 
         public HttpResponseMessage Get(Guid id)
         {
             try
             {
-                var indicatorVm = _service.GetIndicator(id);
+                var indicatorVm = _service.GetSingle(id);
                 if (indicatorVm != null)
                     return Request.CreateResponse(HttpStatusCode.OK, indicatorVm);
                 else
@@ -38,7 +38,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
         }
 
-        public HttpResponseMessage Post([FromBody]IndicatorViewModel indicatorVm)
+        public HttpResponseMessage Post([FromBody]IndicatorDetailsViewModel indicatorVm)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
         }
 
-        public HttpResponseMessage Put(Guid id, [FromBody]IndicatorViewModel indicatorVm)
+        public HttpResponseMessage Put(Guid id, [FromBody]IndicatorDetailsViewModel indicatorVm)
         {
             try
             {
@@ -64,8 +64,17 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
         }
 
-        public void Delete(Guid id)
+        public HttpResponseMessage Delete(Guid id)
         {
+            try
+            {
+                _service.Delete(id);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using CM.BalancedScoreboard.Data.Repository.Abstract;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
 using CM.BalancedScoreboard.Services.Implementation;
+using CM.BalancedScoreboard.Services.ViewModel.Indicators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -29,12 +30,12 @@ namespace CM.BalancedScoreboard.Services.Tests.Indicators
             var filter = "Indicator 1";//string.Empty;
 
             //Act
-            var result = service.GetIndicators(filter);
+            var result = service.GetList(filter).List.ToList();
 
             //Assert
             Assert.AreEqual(result.Count(), 4);
-            Assert.IsTrue(result[0].Name == "Indicator 1");
-            Assert.IsTrue(result[0].Values.Count() == 1);
+            Assert.IsNotNull(result[0] as IndicatorViewModel);
+            Assert.IsTrue(((IndicatorViewModel) result[0]).Name == "Indicator 1");
         }
 
         [TestMethod]
@@ -50,11 +51,12 @@ namespace CM.BalancedScoreboard.Services.Tests.Indicators
             var service = new IndicatorService(repo.Object);            
 
             //Act
-            var result = service.GetIndicator(id);
+            var result = service.GetSingle(id).Model;
 
             //Assert
-            Assert.IsTrue(result.Indicator.Name == "Indicator 1");
-            Assert.IsTrue(result.Indicator.Values.Count() == 1);
+            Assert.IsNotNull(result as IndicatorViewModel);
+            Assert.IsTrue(((IndicatorViewModel)result).Name == "Indicator 1");
+            //Assert.IsTrue(((IndicatorViewModel)result).Values.Count() == 1);
         }
 
         private static Indicator GetIndicator(Guid id)

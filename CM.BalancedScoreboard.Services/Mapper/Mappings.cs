@@ -16,11 +16,11 @@ namespace CM.BalancedScoreboard.Services.Mapper
                 .ForMember(dest => dest.ManagerName,
                     opt => opt.MapFrom(o => o.Manager != null ? o.Manager.Firstname + " " + o.Manager.Surname : string.Empty));
 
+            AutoMapper.Mapper.CreateMap<IndicatorValue, IndicatorValueViewModel>();
+
             AutoMapper.Mapper.CreateMap<IndicatorViewModel, Indicator>()
                 .ForMember(dest => dest.Values,
                     opt => opt.Ignore());
-
-            AutoMapper.Mapper.CreateMap<IndicatorValue, IndicatorValueViewModel>().ReverseMap();
         }
     }
 }

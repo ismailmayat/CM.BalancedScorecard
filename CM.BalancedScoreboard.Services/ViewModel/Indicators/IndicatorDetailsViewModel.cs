@@ -4,9 +4,9 @@ using CM.BalancedScoreboard.Services.Utils;
 
 namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
 {
-    public class IndicatorDetailsViewModel 
+    public class IndicatorDetailsViewModel : IDetailViewModel
     {
-        public IndicatorViewModel Indicator { get; set; }
+        public IViewModel Model { get; set; }
 
         public IEnumerable<object> PeriodicityTypeList => EnumUtil.GetOptions<PeriodicityType>();
 
@@ -14,6 +14,6 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
 
         public IEnumerable<object> ObjectValueTypeList => EnumUtil.GetOptions<ObjectValueType>();
 
-        public IEnumerable<object> SplitTypeList => EnumUtil.GetOptions<SplitType>();     
+        public IEnumerable<object> SplitTypeList => EnumUtil.GetOptions<SplitType>();
     }
 }

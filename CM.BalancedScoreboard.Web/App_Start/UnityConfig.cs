@@ -1,10 +1,8 @@
 using System;
 using CM.BalancedScoreboard.Data.Repository.Abstract;
 using CM.BalancedScoreboard.Data.Repository.Implementation;
-using CM.BalancedScoreboard.Domain.Model.Indicators;
 using CM.BalancedScoreboard.Services.Abstract;
 using CM.BalancedScoreboard.Services.Implementation;
-using CM.BalancedScoreboard.Web.Controllers;
 using Microsoft.Practices.Unity;
 
 namespace CM.BalancedScoreboard.Web
