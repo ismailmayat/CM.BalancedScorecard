@@ -14,13 +14,13 @@ namespace CM.BalancedScoreboard.Services.Mapper
                 .ForMember(dest => dest.LastTargetValue,
                     opt => opt.MapFrom(o => o.Values.Any() ? o.Values.OrderByDescending(rv => rv.Date).FirstOrDefault().TargetValue : string.Empty))
                 .ForMember(dest => dest.ManagerName,
-                    opt => opt.MapFrom(o => o.Manager != null ? o.Manager.Firstname + " " + o.Manager.Surname : string.Empty));
-
-            AutoMapper.Mapper.CreateMap<IndicatorValue, IndicatorValueViewModel>();
+                    opt => opt.MapFrom(o => o.Manager != null ? o.Manager.Firstname + " " + o.Manager.Surname : string.Empty)).ReverseMap();
 
             AutoMapper.Mapper.CreateMap<IndicatorViewModel, Indicator>()
                 .ForMember(dest => dest.Values,
                     opt => opt.Ignore());
+
+            AutoMapper.Mapper.CreateMap<IndicatorValue, IndicatorValueViewModel>().ReverseMap();
         }
     }
 }

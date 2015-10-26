@@ -33,7 +33,9 @@ namespace CM.BalancedScoreboard.Services.Implementation
 
         public virtual TDetailViewModel GetSingle(Guid id)
         {
-            throw new NotImplementedException();
+            var entity = _repository.Single(i => i.Id == id);
+
+
         }
 
         public virtual TListViewModel GetList(string filter)
