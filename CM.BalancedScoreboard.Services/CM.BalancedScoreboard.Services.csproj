@@ -54,7 +54,9 @@
     <Compile Include="ViewModel\Indicators\IndicatorValueViewModel.cs" />
     <Compile Include="ViewModel\Indicators\IndicatorViewModel.cs" />
     <Compile Include="ViewModel\IListViewModel.cs" />
+    <Compile Include="ViewModel\Indicators\IndicatorViewModelFactory.cs" />
     <Compile Include="ViewModel\IViewModel.cs" />
+    <Compile Include="ViewModel\IViewModelFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
