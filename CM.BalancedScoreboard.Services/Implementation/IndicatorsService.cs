@@ -5,16 +5,15 @@ using AutoMapper.QueryableExtensions;
 using CM.BalancedScoreboard.Data.Repository.Abstract;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
 using CM.BalancedScoreboard.Services.Abstract;
-using CM.BalancedScoreboard.Services.Mapper;
 using CM.BalancedScoreboard.Services.ViewModel.Indicators;
 
 namespace CM.BalancedScoreboard.Services.Implementation
 {
-    public class IndicatorService : IIndicatorService
+    public class IndicatorsService : IIndicatorsService
     {
         private readonly IIndicatorRepository _repository;
 
-        public IndicatorService(IIndicatorRepository repository)
+        public IndicatorsService(IIndicatorRepository repository)
         {
             _repository = repository;
         }
@@ -31,8 +30,7 @@ namespace CM.BalancedScoreboard.Services.Implementation
 
         public IndicatorDetailsViewModel GetIndicator(Guid id)
         {
-            var indicator = _repository.Single(i => i.Id == id, i => i.Values);
-            indicator.Values = indicator.Values.OrderBy(iv => iv.Date).ToList();
+            var indicator = _repository.Single(i => i.Id == id, i => i.Measures);
 
             return new IndicatorDetailsViewModel()
             {
@@ -43,23 +41,42 @@ namespace CM.BalancedScoreboard.Services.Implementation
         public void Add(IndicatorViewModel indicatorVm)
         {
             var indicator = AutoMapper.Mapper.Map<Indicator>(indicatorVm);
-
             _repository.Add(indicator);
         }
 
-        public void Update(Guid id, IndicatorViewModel indicatorVm)
+        public void Update(IndicatorViewModel indicatorVm)
         {
-            var indicator = _repository.Single(i => i.Id == id, i => i.Values);
-            indicator = AutoMapper.Mapper.Map(indicatorVm, indicator);
-
-            MappingUtils.UpdateChilds(indicatorVm.Values, indicator.Values);
-
-            _repository.Update(indicator);
+            _repository.Update(AutoMapper.Mapper.Map<Indicator>(indicatorVm));
         }
 
         public void Delete(Guid id)
         {
             _repository.Delete(id);
-        } 
+        }
+
+        public IList<IndicatorMeasureViewModel> GetMeasures(Guid indicatorId)
+        {
+            var indicator = _repository.Single(i => i.Id == indicatorId, i => i.Measures);
+            if (indicator == null)
+                return null;
+
+            var indicatorMeasure = indicator.Measures.OrderBy(im => im.Date);
+            return AutoMapper.Mapper.Map<List<IndicatorMeasureViewModel>>(indicatorMeasure);
+        }
+
+        public bool AddMeasure(IndicatorMeasureViewModel indicatorMeasureVm)
+        {
+            return _repository.AddMeasure(AutoMapper.Mapper.Map<IndicatorMeasure>(indicatorMeasureVm));
+        }
+
+        public bool UpdateMeasure(IndicatorMeasureViewModel indicatorMeasureVm)
+        {
+            return _repository.UpdateMeasure(AutoMapper.Mapper.Map<IndicatorMeasure>(indicatorMeasureVm));
+        }
+
+        public bool DeleteMeasure(Guid indicatorId, Guid indicatorMeasureId)
+        {
+            return _repository.DeleteMeasure(indicatorId, indicatorMeasureId);
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using CM.BalancedScoreboard.Domain.Model.Enums;
 
 namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
@@ -32,15 +31,9 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
 
         public DateTime StartDate { get; set; }
 
-        public bool Splitted { get; set; }
-
-        public SplitType SplitType { get; set; }
-
         public Guid IndicatorTypeId { get; set; }
 
         public Guid ManagerId { get; set; }
-
-        public List<IndicatorValueViewModel> Values { get; set; }
 
         public IndicatorState? State => CalculateState(this.LastRecordValue, this.LastTargetValue, this.ObjectValueType, this.ComparisonValueType);
 
@@ -117,18 +110,5 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
                     return null;
             }
         }
-    }
-
-    public class IndicatorValueViewModel : IViewModel
-    {
-        public Guid Id { get; set; }
-
-        public string RecordValue { get; set; }
-
-        public string TargetValue { get; set; }
-
-        public DateTime Date { get; set; }
-
-        public Guid IndicatorId { get; set; }
     }
 }

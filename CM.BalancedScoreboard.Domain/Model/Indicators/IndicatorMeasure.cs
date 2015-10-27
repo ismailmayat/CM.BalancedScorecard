@@ -5,14 +5,14 @@ using CM.BalancedScoreboard.Domain.Abstract;
 
 namespace CM.BalancedScoreboard.Domain.Model.Indicators
 {
-    [Table("Indicator_Values")]
-    public class IndicatorValue : IChildEntity
+    [Table("Indicator_Measures")]
+    public class IndicatorMeasure : IChildEntity
     {
         [Key]
         public Guid Id { get; set; }
 
         [Required]
-        public string RecordValue { get; set; }
+        public string RealValue { get; set; }
 
         [Required]
         public string TargetValue { get; set; }

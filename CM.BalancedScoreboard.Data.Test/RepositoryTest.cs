@@ -74,13 +74,13 @@ namespace CM.BalancedScoreboard.Data.Tests
             var iRepo = new IndicatorRepository(uof.Object);
 
             //Act
-            var result = iRepo.Single(i => i.Name.Equals("indicator 1", StringComparison.InvariantCultureIgnoreCase), i => i.Values);
+            var result = iRepo.Single(i => i.Name.Equals("indicator 1", StringComparison.InvariantCultureIgnoreCase), i => i.Measures);
 
             //Assert
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Name.Equals("indicator 1", StringComparison.InvariantCultureIgnoreCase));
-            Assert.IsNotNull(result.Values);
-            Assert.AreEqual(result.Values.Count(), 1);
+            Assert.IsNotNull(result.Measures);
+            Assert.AreEqual(result.Measures.Count(), 1);
         }
 
         [TestMethod]
@@ -184,13 +184,13 @@ namespace CM.BalancedScoreboard.Data.Tests
                     Id = Guid.NewGuid(),
                     Name = "Indicator 1",
                     Code = "000",
-                    Values = new List<IndicatorValue>()
+                    Measures = new List<IndicatorMeasure>()
                     {
-                        new IndicatorValue()
+                        new IndicatorMeasure()
                         {
                             Id = Guid.NewGuid(),
                             Date = DateTime.Today,
-                            RecordValue = "20",
+                            RealValue = "20",
                             TargetValue = "14"
                         }
                     }
@@ -200,13 +200,13 @@ namespace CM.BalancedScoreboard.Data.Tests
                     Id = Guid.NewGuid(),
                     Name = "Indicator 2",
                     Code = "000",
-                    Values = new List<IndicatorValue>()
+                    Measures = new List<IndicatorMeasure>()
                     {
-                        new IndicatorValue()
+                        new IndicatorMeasure()
                         {
                             Id = Guid.NewGuid(),
                             Date = DateTime.Today,
-                            RecordValue = "15",
+                            RealValue = "15",
                             TargetValue = "16"
                         }
                     }
@@ -216,13 +216,13 @@ namespace CM.BalancedScoreboard.Data.Tests
                     Id = Guid.NewGuid(),
                     Name = "Indicator 3",
                     Code = "001",
-                    Values = new List<IndicatorValue>()
+                    Measures = new List<IndicatorMeasure>()
                     {
-                        new IndicatorValue()
+                        new IndicatorMeasure()
                         {
                             Id = Guid.NewGuid(),
                             Date = DateTime.Today,
-                            RecordValue = "9",
+                            RealValue = "9",
                             TargetValue = "114"
                         }
                     }
@@ -232,13 +232,13 @@ namespace CM.BalancedScoreboard.Data.Tests
                     Id = Guid.NewGuid(),
                     Name = "Indicator 4",
                     Code = "001",
-                    Values = new List<IndicatorValue>()
+                    Measures = new List<IndicatorMeasure>()
                     {
-                        new IndicatorValue()
+                        new IndicatorMeasure()
                         {
                             Id = Guid.NewGuid(),
                             Date = DateTime.Today,
-                            RecordValue = "21",
+                            RealValue = "21",
                             TargetValue = "84"
                         }
                     }

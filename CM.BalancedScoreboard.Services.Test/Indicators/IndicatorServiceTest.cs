@@ -25,7 +25,7 @@ namespace CM.BalancedScoreboard.Services.Tests.Indicators
             //Arrange
             var repo = new Mock<IIndicatorRepository>();
             repo.Setup(r => r.Get(It.IsAny<Expression<Func<Indicator, bool>>>())).Returns(GetIndicatorList());
-            var service = new IndicatorService(repo.Object);
+            var service = new IndicatorsService(repo.Object);
             var filter = "Indicator 1";//string.Empty;
 
             //Act
@@ -34,7 +34,7 @@ namespace CM.BalancedScoreboard.Services.Tests.Indicators
             //Assert
             Assert.AreEqual(result.Count(), 4);
             Assert.IsTrue(result[0].Name == "Indicator 1");
-            Assert.IsTrue(result[0].Values.Count() == 1);
+            //Assert.IsTrue(result[0].Measures.Count() == 1);
         }
 
         [TestMethod]
@@ -47,14 +47,14 @@ namespace CM.BalancedScoreboard.Services.Tests.Indicators
                 r =>
                     r.Single(It.IsAny<Expression<Func<Indicator, bool>>>(),
                         It.IsAny<Expression<Func<Indicator, object>>>())).Returns(GetIndicator(id));
-            var service = new IndicatorService(repo.Object);            
+            var service = new IndicatorsService(repo.Object);            
 
             //Act
             var result = service.GetIndicator(id);
 
             //Assert
             Assert.IsTrue(result.Indicator.Name == "Indicator 1");
-            Assert.IsTrue(result.Indicator.Values.Count() == 1);
+           // Assert.IsTrue(result.Indicator.Measures.Count() == 1);
         }
 
         private static Indicator GetIndicator(Guid id)
@@ -64,13 +64,13 @@ namespace CM.BalancedScoreboard.Services.Tests.Indicators
                 Id = id,
                 Name = "Indicator 1",
                 Code = "000",
-                Values = new List<IndicatorValue>()
+                Measures = new List<IndicatorMeasure>()
                 {
-                    new IndicatorValue()
+                    new IndicatorMeasure()
                     {
                         Id = Guid.NewGuid(),
                         Date = DateTime.Today,
-                        RecordValue = "20",
+                        RealValue = "20",
                         TargetValue = "14"
                     }
                 }
@@ -86,13 +86,13 @@ namespace CM.BalancedScoreboard.Services.Tests.Indicators
                     Id = Guid.NewGuid(),
                     Name = "Indicator 1",
                     Code = "000",
-                    Values = new List<IndicatorValue>()
+                    Measures = new List<IndicatorMeasure>()
                     {
-                        new IndicatorValue()
+                        new IndicatorMeasure()
                         {
                             Id = Guid.NewGuid(),
                             Date = DateTime.Today,
-                            RecordValue = "20",
+                            RealValue = "20",
                             TargetValue = "14"
                         }
                     }
@@ -102,13 +102,13 @@ namespace CM.BalancedScoreboard.Services.Tests.Indicators
                     Id = Guid.NewGuid(),
                     Name = "Indicator 2",
                     Code = "000",
-                    Values = new List<IndicatorValue>()
+                    Measures = new List<IndicatorMeasure>()
                     {
-                        new IndicatorValue()
+                        new IndicatorMeasure()
                         {
                             Id = Guid.NewGuid(),
                             Date = DateTime.Today,
-                            RecordValue = "15",
+                            RealValue = "15",
                             TargetValue = "16"
                         }
                     }
@@ -118,13 +118,13 @@ namespace CM.BalancedScoreboard.Services.Tests.Indicators
                     Id = Guid.NewGuid(),
                     Name = "Indicator 3",
                     Code = "001",
-                    Values = new List<IndicatorValue>()
+                    Measures = new List<IndicatorMeasure>()
                     {
-                        new IndicatorValue()
+                        new IndicatorMeasure()
                         {
                             Id = Guid.NewGuid(),
                             Date = DateTime.Today,
-                            RecordValue = "9",
+                            RealValue = "9",
                             TargetValue = "114"
                         }
                     }
@@ -134,13 +134,13 @@ namespace CM.BalancedScoreboard.Services.Tests.Indicators
                     Id = Guid.NewGuid(),
                     Name = "Indicator 4",
                     Code = "001",
-                    Values = new List<IndicatorValue>()
+                    Measures = new List<IndicatorMeasure>()
                     {
-                        new IndicatorValue()
+                        new IndicatorMeasure()
                         {
                             Id = Guid.NewGuid(),
                             Date = DateTime.Today,
-                            RecordValue = "21",
+                            RealValue = "21",
                             TargetValue = "84"
                         }
                     }

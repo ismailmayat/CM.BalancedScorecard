@@ -44,7 +44,7 @@
     <Compile Include="Model\Indicators\Indicator.cs" />
     <Compile Include="Model\Indicators\IndicatorSplit.cs" />
     <Compile Include="Model\Indicators\IndicatorType.cs" />
-    <Compile Include="Model\Indicators\IndicatorValue.cs" />
+    <Compile Include="Model\Indicators\IndicatorMeasure.cs" />
     <Compile Include="Model\Indicators\SplitRecordValue.cs" />
     <Compile Include="Model\Objetives\Objective.cs" />
     <Compile Include="Model\Objetives\ObjectiveType.cs" />

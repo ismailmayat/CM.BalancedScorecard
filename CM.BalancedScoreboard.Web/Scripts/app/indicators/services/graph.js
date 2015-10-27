@@ -1,10 +1,10 @@
 ﻿indicatorsApp.factory('graphFactory', function ($filter, utils, configuration) {
     return {
-        getGraphData: function (indicatorValues) {
+        getGraphData: function (indicatorMeasures) {
             return {
                 series: getIndicatorGraphSeriesNames(),
-                labels: getIndicatorGraphLabels(indicatorValues),
-                data: getIndicatorGraphValues(indicatorValues),
+                labels: getIndicatorGraphLabels(indicatorMeasures),
+                data: getIndicatorGraphValues(indicatorMeasures),
                 colours: getIndicatorGraphColours()
             }
         },
@@ -21,21 +21,21 @@
         return ['Record Value', 'Target Value'];
     };
 
-    function getIndicatorGraphLabels(indicatorValues) {
+    function getIndicatorGraphLabels(indicatorMeasures) {
         var labels = [];
-        for (index = 0; index < indicatorValues.length; ++index) {
-            var indicatorValue = indicatorValues[index];
-            labels.push(utils.formatGraphDate(indicatorValue.Date));
+        for (index = 0; index < indicatorMeasures.length; ++index) {
+            var indicatorMeasure = indicatorMeasures[index];
+            labels.push(utils.formatGraphDate(indicatorMeasure.Date));
         }
         return labels;
     };
 
-    function getIndicatorGraphValues(indicatorValues) {
+    function getIndicatorGraphValues(indicatorMeasures) {
         var data = [[], []];
-        for (index = 0; index < indicatorValues.length; ++index) {
-            var indicatorValue = indicatorValues[index];
-            data[0].push(indicatorValue.RecordValue);
-            data[1].push(indicatorValue.TargetValue);
+        for (index = 0; index < indicatorMeasures.length; ++index) {
+            var indicatorMeasure = indicatorMeasures[index];
+            data[0].push(indicatorMeasure.RecordValue);
+            data[1].push(indicatorMeasure.TargetValue);
         }
         return data;
     };

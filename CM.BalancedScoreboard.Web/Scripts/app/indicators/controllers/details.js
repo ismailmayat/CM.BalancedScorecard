@@ -109,17 +109,17 @@
 
     $scope.addRow = function () {
         $scope.globalEdit = true;
-        var lastIndicatorValue = _.last($scope.indicator.Values);
-        var newDate = new Date(lastIndicatorValue.Date);
+        var lastIndicatorMeasure = _.last($scope.indicator.Values);
+        var newDate = new Date(lastIndicatorMeasure.Date);
         newDate.setMonth(newDate.getMonth() + 1);
-        var newIndicatorValue = {
+        var newIndicatorMeasure = {
             Date: newDate.toDateString(),
             Id: '',
-            IndicatorId: lastIndicatorValue.IndicatorId,
+            IndicatorId: lastIndicatorMeasure.IndicatorId,
             RecordValue: '',
             TargetValue: ''
         };
-        $scope.indicator.Values.push(newIndicatorValue);
+        $scope.indicator.Values.push(newIndicatorMeasure);
         $scope.tableParams.reload();
         bindGraph();
     }
