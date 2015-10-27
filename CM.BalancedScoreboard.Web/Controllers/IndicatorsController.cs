@@ -57,6 +57,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
         {
             try
             {
+                indicatorVm.Id = id;
                 _service.Update(indicatorVm);
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
@@ -80,7 +81,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
         }
 
-        [Route("api/indicator/{id}/measures")]
+        [Route("api/indicators/{id}/measures")]
         public HttpResponseMessage GetMeasures(Guid id)
         {
             try
@@ -98,7 +99,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
         }
 
-        [Route("api/indicator/measure")]
+        [Route("api/indicators/measures")]
         [HttpPost]
         public HttpResponseMessage Post([FromBody] IndicatorMeasureViewModel indicatorMeasureVm)
         {
@@ -116,12 +117,13 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
         }
 
-        [Route("api/indicator/measure")]
+        [Route("api/indicators/measures/{measureId}")]
         [HttpPut]
-        public HttpResponseMessage Put([FromBody]IndicatorMeasureViewModel indicatorMeasureVm)
+        public HttpResponseMessage Put(Guid measureId, [FromBody]IndicatorMeasureViewModel indicatorMeasureVm)
         {
             try
             {
+                indicatorMeasureVm.Id = measureId;
                 if (_service.UpdateMeasure(indicatorMeasureVm))
                     return new HttpResponseMessage(HttpStatusCode.OK);
                 else
@@ -134,13 +136,13 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
         }
 
-        [Route("api/indicator/measure")]
+        [Route("api/indicators/{id}/measures/{measureId}")]
         [HttpDelete]
-        public HttpResponseMessage Delete(Guid indicatorId, Guid indicatorMeasureId)
+        public HttpResponseMessage Delete(Guid id, Guid measureId)
         {
             try
             {
-                if (_service.DeleteMeasure(indicatorId,indicatorMeasureId))
+                if (_service.DeleteMeasure(id, measureId))
                 return new HttpResponseMessage(HttpStatusCode.OK);
                 else
                     return new HttpResponseMessage(HttpStatusCode.NotFound);
