@@ -1,10 +1,8 @@
 using System;
 using CM.BalancedScoreboard.Data.Repository.Abstract;
 using CM.BalancedScoreboard.Data.Repository.Implementation;
-using CM.BalancedScoreboard.Domain.Model.Indicators;
 using CM.BalancedScoreboard.Services.Abstract;
 using CM.BalancedScoreboard.Services.Implementation;
-using CM.BalancedScoreboard.Web.Controllers;
 using Microsoft.Practices.Unity;
 
 namespace CM.BalancedScoreboard.Web
@@ -40,11 +38,10 @@ namespace CM.BalancedScoreboard.Web
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
             // container.LoadConfiguration();
 
-            //container.RegisterType<IndicatorController>(new InjectionConstructor());
             container.RegisterType<IIndicatorsService, IndicatorsService>(new HierarchicalLifetimeManager());
             container.RegisterType<IIndicatorRepository, IndicatorRepository>(new HierarchicalLifetimeManager());
             container.RegisterType<IUnitOfWork, UnitOfWork>(new HierarchicalLifetimeManager());
-            container.RegisterType<IDbContext>(new InjectionFactory(d => new BsContext()));
+            container.RegisterType<IDbContext>(new HierarchicalLifetimeManager(), new InjectionFactory(d => new BsContext()));
         }
     }
 }
