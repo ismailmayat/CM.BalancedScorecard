@@ -3,7 +3,7 @@
 
     $scope.onEnter = function(event) {
         if (event.charCode === 13) {
-            $scope.indicators = indicatorsApi.query({ filter: $scope.filter });
+            $scope.indicators = indicatorsApi.indicators.query({ filter: $scope.filter });
         }
     };
 });

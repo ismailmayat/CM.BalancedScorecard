@@ -99,9 +99,9 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
         }
 
-        [Route("api/indicators/measures")]
+        [Route("api/indicators/{id}/measures")]
         [HttpPost]
-        public HttpResponseMessage Post([FromBody] IndicatorMeasureViewModel indicatorMeasureVm)
+        public HttpResponseMessage Post(Guid id, [FromBody] IndicatorMeasureViewModel indicatorMeasureVm)
         {
             try
             {
@@ -117,9 +117,9 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
         }
 
-        [Route("api/indicators/measures/{measureId}")]
+        [Route("api/indicators/{id}/measures/{measureId}")]
         [HttpPut]
-        public HttpResponseMessage Put(Guid measureId, [FromBody]IndicatorMeasureViewModel indicatorMeasureVm)
+        public HttpResponseMessage Put(Guid id, Guid measureId, [FromBody]IndicatorMeasureViewModel indicatorMeasureVm)
         {
             try
             {

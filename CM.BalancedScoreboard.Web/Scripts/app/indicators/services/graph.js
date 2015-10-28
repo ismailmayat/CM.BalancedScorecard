@@ -18,7 +18,7 @@
     };
 
     function getIndicatorGraphSeriesNames() {
-        return ['Record Value', 'Target Value'];
+        return ['Real Value', 'Target Value'];
     };
 
     function getIndicatorGraphLabels(indicatorMeasures) {
@@ -34,7 +34,7 @@
         var data = [[], []];
         for (index = 0; index < indicatorMeasures.length; ++index) {
             var indicatorMeasure = indicatorMeasures[index];
-            data[0].push(indicatorMeasure.RecordValue);
+            data[0].push(indicatorMeasure.RealValue);
             data[1].push(indicatorMeasure.TargetValue);
         }
         return data;

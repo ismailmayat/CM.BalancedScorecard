@@ -66,7 +66,9 @@ namespace CM.BalancedScoreboard.Services.Implementation
 
         public bool AddMeasure(IndicatorMeasureViewModel indicatorMeasureVm)
         {
-            return _repository.AddMeasure(AutoMapper.Mapper.Map<IndicatorMeasure>(indicatorMeasureVm));
+            var indicatorMeasure = AutoMapper.Mapper.Map<IndicatorMeasure>(indicatorMeasureVm);
+            indicatorMeasure.Id = Guid.NewGuid();
+            return _repository.AddMeasure(indicatorMeasure);
         }
 
         public bool UpdateMeasure(IndicatorMeasureViewModel indicatorMeasureVm)

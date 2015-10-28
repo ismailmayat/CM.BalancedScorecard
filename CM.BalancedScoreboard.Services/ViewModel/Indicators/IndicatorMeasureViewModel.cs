@@ -6,7 +6,7 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
     {
         public Guid Id { get; set; }
 
-        public string RecordValue { get; set; }
+        public string RealValue { get; set; }
 
         public string TargetValue { get; set; }
 

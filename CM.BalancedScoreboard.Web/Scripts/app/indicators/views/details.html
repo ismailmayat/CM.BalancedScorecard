@@ -97,9 +97,9 @@
                     {{formatDate(row.Date)}}
                 </td>
                 <td data-title="'Record value'" class="text-right col-md-3" ng-form="RecordValue" ng-class="RecordValue.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
-                    <span ng-switch-default class="editable-text">{{row.RecordValue}} {{indicator.Unit}}</span>
+                    <span ng-switch-default class="editable-text">{{row.RealValue}} {{indicator.Unit}}</span>
                     <div ng-class="RecordValue.$invalid && RecordValue.$dirty ? 'has-error' : ''" ng-switch-when="true">
-                        <input type="text" name="RecordValue" ng-model="row.RecordValue" class="editable-input form-control text-right" required />
+                        <input type="text" name="RecordValue" ng-model="row.RealValue" class="editable-input form-control text-right" required />
                     </div>
                 </td>
                 <td data-title="'Target value'" class="text-right col-md-3" ng-form="TargetValue" ng-class="TargetValue.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
