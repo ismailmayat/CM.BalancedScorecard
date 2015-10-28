@@ -93,8 +93,11 @@
         <toaster-container toaster-options="{'time-out': 3000, 'animation-class': 'toast-top-right'}"></toaster-container>
         <table ng-table="tableParams" class="table table-bordered table-striped table-condensed" tracked-table="tableTracker">
             <tr ng-repeat="row in $data track by row.Id" ng-form="rowForm" tracked-table-row="row">
-                <td data-title="'Date'" sortable="'Date'" class="col-md-5">
-                    {{formatDate(row.Date)}}
+                <td data-title="'Date'" sortable="'Date'" class="col-md-5" ng-form="Date" ng-class="Date.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
+                    <span ng-switch-default class="editable-text">{{formatGraphDate(row.Date)}}</span>
+                    <div ng-class="Date.$invalid && Date.$dirty ? 'has-error' : ''" ng-switch-when="true">
+                        <input type="date" name="Date" ng-init="row.Date = formatDate(row.Date)" ng-model="row.Date" class="editable-input form-control" required />
+                    </div>
                 </td>
                 <td data-title="'Record value'" class="text-right col-md-3" ng-form="RecordValue" ng-class="RecordValue.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
                     <span ng-switch-default class="editable-text">{{row.RealValue}} {{indicator.Unit}}</span>

@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CM.BalancedScoreboard.Data.Repository.Abstract;
 using CM.BalancedScoreboard.Domain.Abstract;
+using EntityState = System.Data.Entity.EntityState;
 
 namespace CM.BalancedScoreboard.Data.Repository.Implementation
 {
@@ -54,6 +55,7 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
         public virtual void Update(TEntity entity)
         {
             _context.Set<TEntity>().Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
@@ -66,22 +68,5 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
             }
             _context.SaveChanges();
         }
-
-        //protected static System.Data.Entity.EntityState GetEntityState(Domain.Abstract.EntityState entityState)
-        //{
-        //    switch (entityState)
-        //    {
-        //        case Domain.Abstract.EntityState.Unchanged:
-        //            return System.Data.Entity.EntityState.Unchanged;
-        //        case Domain.Abstract.EntityState.Added:
-        //            return System.Data.Entity.EntityState.Added;
-        //        case Domain.Abstract.EntityState.Modified:
-        //            return System.Data.Entity.EntityState.Modified;
-        //        case Domain.Abstract.EntityState.Deleted:
-        //            return System.Data.Entity.EntityState.Deleted;
-        //        default:
-        //            return System.Data.Entity.EntityState.Detached;
-        //    }
-        //}
     }
 }

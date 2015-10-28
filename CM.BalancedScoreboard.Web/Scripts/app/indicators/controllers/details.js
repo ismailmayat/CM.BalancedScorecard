@@ -76,13 +76,6 @@
     //    });
     //}
 
-    //function assignModel() {
-    //    $scope.indicator.StartDate = $scope.startDate;
-    //    $scope.indicator.ComparisonValueType = $scope.selectedComparisonValue.id;
-    //    $scope.indicator.PeriodicityType = $scope.selectedPeriodicity.id;
-    //    $scope.indicator.ObjectValueType = $scope.selectedObjectValue.id;
-    //}
-
     //$scope.canEdit = function (row) {
     //    if (!row.isEditing) {
     //        row.isEditing = (row.RecordValue === '' && row.TargetValue === '');
@@ -147,6 +140,13 @@
     //init();
 
     var originalData = [];
+
+    function bindModel() {
+        $scope.indicator.StartDate = $scope.startDate;
+        $scope.indicator.ComparisonValueType = $scope.selectedComparisonValue.id;
+        $scope.indicator.PeriodicityType = $scope.selectedPeriodicity.id;
+        $scope.indicator.ObjectValueType = $scope.selectedObjectValue.id;
+    }
 
     function isNewRow(item) {
         return item.Id === '';
@@ -248,8 +248,23 @@
         loadIndicatorMeasures(bindIndicatorMeasures, initTable);
     }
 
-    $scope.formatDate = function (date) {
+    $scope.submitIndicator = function () {
+        bindModel();
+        indicatorsApi.indicators.update({ id: $scope.indicator.Id }, $scope.indicator).$promise
+            .then(function() {
+                toaster.success({ body: 'Indicator successfully saved!' });
+            })
+            .catch(function() {
+                toaster.error({ body: 'Indicator successfully saved!' });
+            });
+    }
+
+    $scope.formatGraphDate = function (date) {
         return utils.formatGraphDate(date);
+    }
+
+    $scope.formatDate = function (date) {
+        return new Date(date);
     }
 
     $scope.canEdit = function (row) {
@@ -258,6 +273,11 @@
         }
 
         return row.isEditing;
+    }
+
+    $scope.editRow = function (row) {
+        $scope.globalEdit = true;
+        row.isEditing = true;
     }
 
     $scope.deleteRow = function (row) {
@@ -295,7 +315,7 @@
             resetRow(row, rowForm);
         } else {
             _.remove($scope.indicatorMeasures, function (item) {
-                return isNewRow(row);
+                return isNewRow(item);
             });
         }
 
