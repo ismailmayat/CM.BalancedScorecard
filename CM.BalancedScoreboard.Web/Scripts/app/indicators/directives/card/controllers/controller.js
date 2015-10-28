@@ -1,7 +1,9 @@
 ﻿var myIndicatorCardController = ['$scope', '$animate', '$location', 'indicatorsApi', 'graphFactory', function ($scope, $animate, $location, indicatorsApi, graphFactory) {
 
+
+    //todo: Refactor this shit
     function bindGraph() {
-        indicatorsApi.get({ id: $scope.indicator.Id }).$promise
+        indicatorsApi.indicatorMeasures.get({ id: $scope.indicator.Id }).$promise
             .then(function (data) {
                 if (data.Indicator.Values.length > 0) {
                     $scope.showingPanel = true;
