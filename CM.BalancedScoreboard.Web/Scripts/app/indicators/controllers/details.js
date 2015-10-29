@@ -192,5 +192,7 @@
         bindIndicatorMeasures($scope.indicatorMeasures, updateTable);
     }
 
+    $scope.onlyNumbers = /^[0-9]+$/;
+
     init();
 });
