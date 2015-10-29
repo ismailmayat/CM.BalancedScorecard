@@ -52,5 +52,16 @@
         $location.path('/Details/' + $scope.indicator.Id);
     }
 
+    $scope.getIndicatorStateClass = function() {
+        switch ($scope.indicator.State) {
+            case 0:
+                return 'panel-success';
+            case 2:
+                return 'panel-danger';
+            default:
+                return 'panel-default';
+        }
+    }
+
     init();
 }];
