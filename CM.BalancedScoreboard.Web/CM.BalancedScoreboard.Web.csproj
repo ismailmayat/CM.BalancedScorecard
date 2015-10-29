@@ -259,6 +259,7 @@
     <Content Include="Scripts\app\indicators\services\api.js" />
     <Content Include="Scripts\app\indicators\directives\card\views\view.html" />
     <Content Include="Scripts\app\shared\app.js" />
+    <Content Include="Scripts\app\shared\directives\validation.js" />
     <Content Include="Scripts\app\shared\services\configuration.js" />
     <Content Include="Scripts\app\shared\services\utils.js" />
     <Content Include="Scripts\bootstrap.js" />

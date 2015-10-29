@@ -16,6 +16,7 @@
 /// <reference path="app/indicators/services/api.js" />
 /// <reference path="app/indicators/services/graph.js" />
 /// <reference path="app/shared/app.js" />
+/// <reference path="app/shared/directives/validation.js" />
 /// <reference path="app/shared/services/configuration.js" />
 /// <reference path="app/shared/services/utils.js" />
 /// <reference path="bootstrap.min.js" />

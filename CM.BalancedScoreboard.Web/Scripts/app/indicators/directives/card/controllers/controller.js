@@ -1,28 +1,14 @@
-﻿var myIndicatorCardController = ['$scope', '$animate', '$location', 'indicatorsApi', 'graphFactory', function ($scope, $animate, $location, indicatorsApi, graphFactory) {
+﻿var myIndicatorCardController = ['$scope', '$animate', '$location', 'indicatorsApi', 'graphFactory', 'toaster', function ($scope, $animate, $location, indicatorsApi, graphFactory, toaster) {  
 
-
-    //todo: Refactor this shit
-    function bindGraph() {
-        indicatorsApi.indicatorMeasures.get({ id: $scope.indicator.Id }).$promise
+    function loadIndicatorMeasures(callback) {
+        indicatorsApi.indicatorMeasures.query({ id: $scope.indicator.Id }).$promise
             .then(function (data) {
-                if (data.Indicator.Values.length > 0) {
-                    $scope.showingPanel = true;
-                    var graphData = graphFactory.getGraphData(data.Indicator.Values);
-                    $scope.colours = graphData.colours;
-                    $scope.series = graphData.series;
-                    $scope.labels = graphData.labels;
-                    $scope.data = graphData.data;
-                }
+                callback(data);
             })
-            .catch(function (msg) {
-                console.error(msg);
+            .catch(function () {
+                toaster.error({body: "An error ocurred while trying to load the measures of the selected indicator"});
             });
-    };
-
-    function init() {
-        $scope.showingPanel = false;
-        initGraph();
-    };
+    }
 
     function initGraph() {
         $scope.labels = [];
@@ -31,14 +17,36 @@
         $scope.colours = [];
     };
 
-    $scope.showPanel = function () {
-        if ($scope.showingPanel) {
-            $scope.showingPanel = false;
-            initGraph();
-        } else {
-            bindGraph();
-        }
+    function bindGraph(data) {
+        var graphData = graphFactory.getGraphData(data);
+        $scope.colours = graphData.colours;
+        $scope.series = graphData.series;
+        $scope.labels = graphData.labels;
+        $scope.data = graphData.data;
+    }
+
+    function init() {
+        $scope.showingPanel = false;
+        initGraph();
     };
+
+    $scope.showGraph = function () {
+        $scope.showingPanel = true;
+        loadIndicatorMeasures(bindGraph);
+    }
+
+    $scope.hideGraph = function () {
+        $scope.showingPanel = false;
+        initGraph();
+    }
+
+    $scope.action = function() {
+        if ($scope.showingPanel) {
+            $scope.hideGraph();
+        } else {
+            $scope.showGraph();
+        }
+    }
 
     $scope.navigateToDetails = function () {
         $location.path('/Details/' + $scope.indicator.Id);

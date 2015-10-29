@@ -109,6 +109,10 @@
     }
 
     $scope.submitIndicator = function () {
+        if ($scope.indicatorForm.$invalid) {
+            return;
+        }
+
         bindModel();
         indicatorsApi.indicators.update({ id: $scope.indicator.Id }, $scope.indicator).$promise
             .then(function() {
