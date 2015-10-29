@@ -1,4 +1,4 @@
-﻿indicatorsApp.controller('indicatorsDetailsCtrl', function ($scope, $routeParams, indicatorsApi, $filter, utils, graphFactory, ngTableParams, toaster) {
+﻿indicatorsApp.controller('indicatorsDetailsCtrl', function ($scope, $routeParams, indicatorsApi, $filter, utils, graphFactory, ngTableParams, toaster, $location) {
     var originalData = [];
 
     function bindModel() {
@@ -109,7 +109,7 @@
     }
 
     $scope.submitIndicator = function () {
-        if ($scope.indicatorForm.$invalid) {
+        if ($scope.indicatorForm.$invalid || $scope.globalEdit) {
             return;
         }
 
@@ -119,7 +119,17 @@
                 toaster.success({ body: 'Indicator successfully saved!' });
             })
             .catch(function() {
-                toaster.error({ body: 'Indicator successfully saved!' });
+                toaster.error({ body: 'An error ocurred while trying to save the indicator...' });
+            });
+    }
+
+    $scope.deleteIndicator = function () {
+        indicatorsApi.indicators.delete({ id: $scope.indicator.Id }).$promise
+            .then(function () {
+                $location.path('/List');
+            })
+            .catch(function () {
+                toaster.error({ body: 'An error ocurred while trying to save the indicator...' });
             });
     }
 

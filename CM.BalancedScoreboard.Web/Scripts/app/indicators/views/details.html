@@ -3,7 +3,8 @@
         <form name="indicatorForm" novalidate>
             <div class="row">
                 <div class="col-md-12">
-                    <button class="btn btn-default" type="submit" ng-disabled="globalEdit" ng-click="submitIndicator()">Save</button>
+                    <button class="btn btn-default btn-primary" type="submit" ng-click="submitIndicator()"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
+                    <button class="btn btn-default btn-danger" type="submit" ng-click="deleteIndicator()"><span class="glyphicon glyphicon-remove"></span> Delete</button>
                 </div>
             </div>
             <div class="row">
