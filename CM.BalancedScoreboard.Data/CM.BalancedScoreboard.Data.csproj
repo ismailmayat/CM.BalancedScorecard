@@ -62,6 +62,8 @@
     <Compile Include="Repository\Abstract\IBaseRepository.cs" />
     <Compile Include="Repository\Abstract\IDbContext.cs" />
     <Compile Include="Repository\Abstract\IIndicatorRepository.cs" />
+    <Compile Include="Repository\Abstract\IObjectiveRepository.cs" />
+    <Compile Include="Repository\Abstract\IProjectRepository.cs" />
     <Compile Include="Repository\Abstract\IUnitOfWork.cs" />
     <Compile Include="Repository\Implementation\BaseRepository.cs" />
     <Compile Include="Repository\Implementation\BsContext.cs" />

@@ -19,5 +19,15 @@ namespace CM.BalancedScoreboard.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult Projects()
+        {
+            return View();
+        }
+
+        public ActionResult Objectives(Guid projectId)
+        {
+            return View();
+        }
     }
 }

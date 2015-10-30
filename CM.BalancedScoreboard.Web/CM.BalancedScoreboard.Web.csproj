@@ -205,6 +205,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndicatorsController.cs" />
+    <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -298,6 +299,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Indicators.cshtml" />
     <Content Include="Scripts\ng-table.min.js.map" />
+    <Content Include="Views\Home\Projects.cshtml" />
+    <Content Include="Views\Home\Objectives.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

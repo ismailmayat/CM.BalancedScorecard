@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IIndicatorsService.cs" />
+    <Compile Include="Abstract\IProjectsService.cs" />
+    <Compile Include="Implementation\ProjectService.cs" />
     <Compile Include="Mapper\MappingUtils.cs" />
     <Compile Include="Utils\EnumUtil.cs" />
     <Compile Include="ViewModel\Indicators\Enums.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="ViewModel\Indicators\IndicatorMeasureViewModel.cs" />
     <Compile Include="ViewModel\Indicators\IndicatorViewModel.cs" />
     <Compile Include="ViewModel\IViewModel.cs" />
+    <Compile Include="ViewModel\Projects\ProjectViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -64,7 +67,9 @@
       <Name>CM.BalancedScoreboard.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ViewModel\Objectives\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
