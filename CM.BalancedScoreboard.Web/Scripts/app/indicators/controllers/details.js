@@ -15,7 +15,12 @@
     function resetRow(row, rowForm) {
         row.isEditing = false;
         rowForm.$setPristine();
-        var originalRow = _.find(originalData, function (r) {
+
+        var originalYearData = _.find(originalData, function (r) {
+            return r.Year === $scope.selectedYear;
+        });
+
+        var originalRow = _.find(originalYearData.Measures, function (r) {
             return r.Id === row.Id;
         });
 
@@ -34,8 +39,8 @@
         };
     }
 
-    function getSelecteYearData() {
-        var element = _.find(originalData, function (r) {
+    function getSelectedYearData() {
+        var element = _.find($scope.indicatorMeasures, function (r) {
             return r.Year === $scope.selectedYear;
         });
 
@@ -52,10 +57,10 @@
             }
         },
         {
-            total: getSelecteYearData.length,
+            total: getSelectedYearData.length,
             counts: [],
             getData: function ($defer, params) {
-                $defer.resolve($filter('orderBy')(getSelecteYearData(), params.orderBy()));
+                $defer.resolve($filter('orderBy')(getSelectedYearData(), params.orderBy()));
             }
         });
     }
@@ -65,7 +70,7 @@
     }
 
     function bindGraph() {
-        var graphData = graphFactory.getGraphData(getSelecteYearData());
+        var graphData = graphFactory.getGraphData(getSelectedYearData());
         $scope.series = graphData.series;
         $scope.labels = graphData.labels;
         $scope.data = graphData.data;
@@ -209,7 +214,7 @@
         if (!isNewRow(row)) {
             resetRow(row, rowForm);
         } else {
-            _.remove($scope.indicatorMeasures, function (item) {
+            _.remove(getSelectedYearData(), function (item) {
                 return isNewRow(item);
             });
         }
@@ -219,7 +224,7 @@
 
     $scope.addRow = function () {
         $scope.globalEdit = true;
-        $scope.indicatorMeasures.push(createMeasure());
+        getSelectedYearData().push(createMeasure());
         bindIndicatorMeasures($scope.indicatorMeasures, updateTable);
     }
 
