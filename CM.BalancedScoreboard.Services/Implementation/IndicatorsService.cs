@@ -18,7 +18,7 @@ namespace CM.BalancedScoreboard.Services.Implementation
             _repository = repository;
         }
 
-        public IList<IndicatorViewModel> GetIndicators(string filter)
+        public List<IndicatorViewModel> GetIndicators(string filter)
         {
             var indicators =
                 _repository.Get(
@@ -55,14 +55,12 @@ namespace CM.BalancedScoreboard.Services.Implementation
             _repository.Delete(id);
         }
 
-        public IList<IndicatorMeasureViewModel> GetMeasures(Guid indicatorId)
+        public Dictionary<int, List<IndicatorMeasureViewModel>> GetMeasures(Guid indicatorId)
         {
             var indicator = _repository.Single(i => i.Id == indicatorId, i => i.Measures);
-            if (indicator == null)
-                return null;
 
-            var indicatorMeasure = indicator.Measures.OrderBy(im => im.Date);
-            return AutoMapper.Mapper.Map<List<IndicatorMeasureViewModel>>(indicatorMeasure);
+            return indicator?.Measures.GroupBy(i => i.Date.Year)
+                .ToDictionary(gb => gb.Key, AutoMapper.Mapper.Map<List<IndicatorMeasureViewModel>>);
         }
 
         public bool AddMeasure(IndicatorMeasureViewModel indicatorMeasureVm)
