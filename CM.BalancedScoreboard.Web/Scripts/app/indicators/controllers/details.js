@@ -44,7 +44,7 @@
             return r.Year === $scope.selectedYear;
         });
 
-        return element.Measures;
+        return element !== undefined ? element.Measures : undefined;
     }
 
     function initTable() {
@@ -112,7 +112,7 @@
     function bindIndicatorMeasures(data, tableAction) {
         originalData = angular.copy(data);
         $scope.indicatorMeasures = data;
-        if ($scope.selectedYear === undefined) {
+        if ($scope.selectedYear === undefined || getSelectedYearData() === undefined) {
             $scope.selectedYear = data[0].Year;
         }
         tableAction();
