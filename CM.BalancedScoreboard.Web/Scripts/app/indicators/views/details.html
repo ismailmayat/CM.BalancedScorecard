@@ -12,14 +12,14 @@
                     <div class="form-group" show-errors>
                         <label for="Name">Name</label>
                         <input type="text" class="form-control" id="Name" name="name" placeholder="Name" ng-model="indicator.Name" required />
-                        <p class="help-block" ng-if="indicatorForm.name.$error.required">The indicator's name is required</p>
+                        <p class="help-block ng-hide">The indicator's name is required</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group" show-errors>
                         <label for="Code">Code</label>
                         <input type="text" class="form-control" id="Code" name="code" placeholder="Code" ng-model="indicator.Code" required />
-                        <p class="help-block" ng-if="indicatorForm.code.$error.required">The indicator's code is required</p>
+                        <p class="help-block" ng-show="false">The indicator's code is required</p>
                     </div>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                     <div class="form-group" show-errors>
                         <label for="Description">Description</label>
                         <input type="text" class="form-control" id="Description" name="description" placeholder="Description" ng-model="indicator.Description" required />
-                        <p class="help-block" ng-if="indicatorForm.description.$error.required">The indicator's description is required</p>
+                        <p class="help-block" ng-show="false">The indicator's description is required</p>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                     <div class="form-group" show-errors>
                         <label for="Unit">Unit</label>
                         <input type="text" class="form-control" id="Unit" name="unit" placeholder="Unit" ng-model="indicator.Unit" required />
-                        <p class="help-block" ng-if="indicatorForm.unit.$error.required">The indicator's unit is required</p>
+                        <p class="help-block" ng-show="false">The indicator's unit is required</p>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -55,7 +55,7 @@
                     <div class="form-group" show-errors>
                         <label for="StartDate">StartDate</label>
                         <input type="date" class="form-control" id="StartDate" name="startDate" placeholder="Start Date" ng-model="startDate" required />
-                        <p class="help-block" ng-if="indicatorForm.startDate.$error.required">The indicator's start date is required</p>
+                        <p class="help-block" ng-show="false">The indicator's start date is required</p>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -104,7 +104,7 @@
                             <li ng-repeat="indicatorMeasure in indicatorMeasures">
                                 <a ng-show="showYear(indicatorMeasure.Year)" ng-click="switchYear(indicatorMeasure.Year)">Show {{indicatorMeasure.Year}}</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a ng-disabled="globalEdit" ng-click="addRow()">Add period</a></li>
+                            <li><a ng-disabled="globalEdit" ng-click="addPeriod()">Add period</a></li>
                         </ul>
                     </div>
                 </div>
@@ -118,30 +118,30 @@
                                 <span ng-switch-default class="editable-text">{{formatGraphDate(row.Date)}}</span>
                                 <div ng-switch-when="true" show-errors>
                                     <input type="date" name="date" ng-init="row.Date = formatDate(row.Date)" ng-model="row.Date" class="editable-input form-control" required />
+                                    <p class="help-block ng-hide">The date is required</p>
                                 </div>
-                                <p class="help-block" ng-if="date.$error.required">The date is required</p>
                             </td>
                             <td data-title="'Real value'" class="text-right col-md-3" ng-form="realValue" ng-class="realValue.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
                                 <span ng-switch-default class="editable-text">{{row.RealValue}} {{indicator.Unit}}</span>
                                 <div ng-switch-when="true" show-errors>
                                     <input type="text" name="realValue" ng-model="row.RealValue" class="editable-input form-control text-right" ng-pattern="onlyNumbers" required />
+                                    <p class="help-block ng-hide">Real value is required</p>
+                                    <p class="help-block" ng-if="realValue.$error.pattern">Real value should be a number</p>
                                 </div>
-                                <p class="help-block" ng-if="realValue.$error.required">Real value is required</p>
-                                <p class="help-block" ng-if="realValue.$error.pattern">Real value should be a number</p>
                             </td>
                             <td data-title="'Target value'" class="text-right col-md-3" ng-form="targetValue" ng-class="targetValue.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
                                 <span ng-switch-default class="editable-text">{{row.TargetValue}} {{indicator.Unit}}</span>
                                 <div ng-switch-when="true" show-errors>
                                     <input type="text" name="targetValue" ng-model="row.TargetValue" class="editable-input form-control text-right" ng-pattern="onlyNumbers" required />
+                                    <p class="help-block ng-hide">Target value is required</p>
+                                    <p class="help-block" ng-if="targetValue.$error.pattern">Target value should be a number</p>
                                 </div>
-                                <p class="help-block" ng-if="targetValue.$error.required">Target value is required</p>
-                                <p class="help-block" ng-if="targetValue.$error.pattern">Target value should be a number</p>
                             </td>
                             <td class="text-right col-md-1">
-                                <button class="btn btn-primary btn-sm" ng-click="updateRow(row, rowForm)" ng-if="canEdit(row)" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
-                                <button class="btn btn-default btn-sm" ng-click="cancelRow(row, rowForm)" ng-if="canEdit(row)"><span class="glyphicon glyphicon-remove"></span></button>
-                                <button class="btn btn-default btn-sm" ng-click="editRow(row)" ng-if="!canEdit(row)" ng-disabled="globalEdit"><span class="glyphicon glyphicon-pencil"></span></button>
-                                <button class="btn btn-danger btn-sm" ng-click="deleteRow(row)" ng-if="!canEdit(row)" ng-disabled="globalEdit"><span class="glyphicon glyphicon-trash"></span></button>
+                                <button class="btn btn-primary btn-sm" ng-click="updatePeriod(row, rowForm)" ng-if="canEdit(row)" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
+                                <button class="btn btn-default btn-sm" ng-click="cancelPeriod(row, rowForm)" ng-if="canEdit(row)"><span class="glyphicon glyphicon-remove"></span></button>
+                                <button class="btn btn-default btn-sm" ng-click="editPeriod(row)" ng-if="!canEdit(row)" ng-disabled="globalEdit"><span class="glyphicon glyphicon-pencil"></span></button>
+                                <button class="btn btn-danger btn-sm" ng-click="deletePeriod(row)" ng-if="!canEdit(row)" ng-disabled="globalEdit"><span class="glyphicon glyphicon-trash"></span></button>
                             </td>
                         </tr>
                     </table>

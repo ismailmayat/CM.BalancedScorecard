@@ -8,11 +8,11 @@
         $scope.indicator.ObjectValueType = $scope.selectedObjectValue.id;
     }
 
-    function isNewRow(item) {
+    function isNewPeriod(item) {
         return item.Id === '';
     };
 
-    function resetRow(row, rowForm) {
+    function resetPeriod(row, rowForm) {
         row.isEditing = false;
         rowForm.$setPristine();
 
@@ -169,18 +169,18 @@
 
     $scope.canEdit = function (row) {
         if (!row.isEditing) {
-            row.isEditing = isNewRow(row);
+            row.isEditing = isNewPeriod(row);
         }
 
         return row.isEditing;
     }
 
-    $scope.editRow = function (row) {
+    $scope.editPeriod = function (row) {
         $scope.globalEdit = true;
         row.isEditing = true;
     }
 
-    $scope.deleteRow = function (row) {
+    $scope.deletePeriod = function (row) {
         indicatorsApi.indicatorMeasures.delete({ id: $routeParams.indicatorId, measureId: row.Id }).$promise
             .then(function() {
                 loadIndicatorMeasures(bindIndicatorMeasures, updateTable);
@@ -190,11 +190,11 @@
             });
     }
 
-    $scope.updateRow = function(row) {
+    $scope.updatePeriod = function(row) {
         $scope.globalEdit = false;
         row.isEditing = false;
         var promise = null;
-        if (isNewRow(row)) {
+        if (isNewPeriod(row)) {
             promise = indicatorsApi.indicatorMeasures.save({ id: $routeParams.indicatorId }, row).$promise;
         } else {
             promise = indicatorsApi.indicatorMeasures.update({ id: $routeParams.indicatorId, measureId: row.Id }, row).$promise;
@@ -209,20 +209,20 @@
             });
     }
 
-    $scope.cancelRow = function (row, rowForm) {
+    $scope.cancelPeriod = function (row, rowForm) {
         $scope.globalEdit = false;
-        if (!isNewRow(row)) {
-            resetRow(row, rowForm);
+        if (!isNewPeriod(row)) {
+            resetPeriod(row, rowForm);
         } else {
             _.remove(getSelectedYearData(), function (item) {
-                return isNewRow(item);
+                return isNewPeriod(item);
             });
         }
 
         bindIndicatorMeasures($scope.indicatorMeasures, updateTable);
     }
 
-    $scope.addRow = function () {
+    $scope.addPeriod = function () {
         $scope.globalEdit = true;
         getSelectedYearData().push(createMeasure());
         bindIndicatorMeasures($scope.indicatorMeasures, updateTable);
