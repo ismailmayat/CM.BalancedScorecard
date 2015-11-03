@@ -18,14 +18,14 @@ namespace CM.BalancedScoreboard.Services.Implementation
             _repository = repository;
         }
 
-        public List<IndicatorViewModel> GetIndicators(string filter)
+        public IEnumerable<IndicatorViewModel> GetIndicators(string filter)
         {
             var indicators =
                 _repository.Get(
                     i => i.Name.Contains(filter) || i.Code.Contains(filter) || i.Description.Contains(filter) ||
                          (i.Manager.Firstname + i.Manager.Surname).Contains(filter));
 
-            return indicators.Project().To<IndicatorViewModel>().ToList();
+            return indicators.Project().To<IndicatorViewModel>();
         }
 
         public IndicatorDetailsViewModel GetIndicator(Guid id)
@@ -55,12 +55,16 @@ namespace CM.BalancedScoreboard.Services.Implementation
             _repository.Delete(id);
         }
 
-        public Dictionary<int, List<IndicatorMeasureViewModel>> GetMeasures(Guid indicatorId)
+        public IEnumerable<IndicatorMeasureListViewModel> GetMeasures(Guid indicatorId)
         {
             var indicator = _repository.Single(i => i.Id == indicatorId, i => i.Measures);
 
             return indicator?.Measures.GroupBy(i => i.Date.Year)
-                .ToDictionary(gb => gb.Key, AutoMapper.Mapper.Map<List<IndicatorMeasureViewModel>>);
+                .Select(gb => new IndicatorMeasureListViewModel()
+                {
+                    Year = gb.Key,
+                    Measures = AutoMapper.Mapper.Map<List<IndicatorMeasureViewModel>>(gb)
+                });
         }
 
         public bool AddMeasure(IndicatorMeasureViewModel indicatorMeasureVm)

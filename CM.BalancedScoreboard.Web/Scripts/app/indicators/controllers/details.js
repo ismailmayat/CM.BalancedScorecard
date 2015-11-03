@@ -34,6 +34,14 @@
         };
     }
 
+    function getSelecteYearData() {
+        var element = _.find(originalData, function (r) {
+            return r.Year === $scope.selectedYear;
+        });
+
+        return element.Measures;
+    }
+
     function initTable() {
         $scope.tableParams = new ngTableParams(
         {
@@ -44,10 +52,10 @@
             }
         },
         {
-            total: $scope.indicatorMeasures.length,
+            total: getSelecteYearData.length,
             counts: [],
             getData: function ($defer, params) {
-                $defer.resolve($filter('orderBy')($scope.indicatorMeasures, params.orderBy()));
+                $defer.resolve($filter('orderBy')(getSelecteYearData(), params.orderBy()));
             }
         });
     }
@@ -57,7 +65,7 @@
     }
 
     function bindGraph() {
-        var graphData = graphFactory.getGraphData($scope.indicatorMeasures);
+        var graphData = graphFactory.getGraphData(getSelecteYearData());
         $scope.series = graphData.series;
         $scope.labels = graphData.labels;
         $scope.data = graphData.data;
@@ -99,6 +107,9 @@
     function bindIndicatorMeasures(data, tableAction) {
         originalData = angular.copy(data);
         $scope.indicatorMeasures = data;
+        if ($scope.selectedYear === undefined) {
+            $scope.selectedYear = data[0].Year;
+        }
         tableAction();
         bindGraph();
     }
@@ -106,6 +117,16 @@
     function init() {
         loadIndicator(bindIndicator);
         loadIndicatorMeasures(bindIndicatorMeasures, initTable);
+    }
+
+    $scope.switchYear = function(year) {
+        $scope.selectedYear = year;
+        updateTable();
+        bindGraph();
+    }
+
+    $scope.showYear = function (year) {
+        return $scope.selectedYear !== year;
     }
 
     $scope.submitIndicator = function () {

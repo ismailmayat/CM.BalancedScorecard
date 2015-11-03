@@ -17,7 +17,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
             _service = service;
         }
 
-        public IList<IndicatorViewModel> Get(string filter)
+        public IEnumerable<IndicatorViewModel> Get(string filter)
         {
             return _service.GetIndicators(filter);
         }

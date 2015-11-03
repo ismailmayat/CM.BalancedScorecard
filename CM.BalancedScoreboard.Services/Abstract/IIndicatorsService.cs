@@ -6,7 +6,7 @@ namespace CM.BalancedScoreboard.Services.Abstract
 {
     public interface IIndicatorsService
     {
-        List<IndicatorViewModel> GetIndicators(string filter);
+        IEnumerable<IndicatorViewModel> GetIndicators(string filter);
 
         IndicatorDetailsViewModel GetIndicator(Guid id);
 
@@ -16,7 +16,7 @@ namespace CM.BalancedScoreboard.Services.Abstract
 
         void Delete(Guid id);
 
-        Dictionary<int, List<IndicatorMeasureViewModel>> GetMeasures(Guid indicatorId);
+        IEnumerable<IndicatorMeasureListViewModel> GetMeasures(Guid indicatorId);
 
         bool AddMeasure(IndicatorMeasureViewModel indicatorMeasureVm);
 

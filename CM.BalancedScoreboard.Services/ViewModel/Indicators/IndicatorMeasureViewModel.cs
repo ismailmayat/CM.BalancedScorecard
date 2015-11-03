@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
 {
@@ -13,5 +14,11 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
         public DateTime Date { get; set; }
 
         public Guid IndicatorId { get; set; }
+    }
+
+    public class IndicatorMeasureListViewModel
+    {
+        public int Year { get; set; }
+        public List<IndicatorMeasureViewModel> Measures { get; set; }
     }
 }
