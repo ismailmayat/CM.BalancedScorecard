@@ -12,10 +12,10 @@ namespace CM.BalancedScoreboard.Services.Implementation
 {
     public class IndicatorsService : IIndicatorsService
     {
-        private readonly IIndicatorRepository _repository;
+        private readonly IIndicatorsRepository _repository;
         private readonly IIndicatorStateCalculator _stateCalculator;
 
-        public IndicatorsService(IIndicatorRepository repository, IIndicatorStateCalculator stateCalculator)
+        public IndicatorsService(IIndicatorsRepository repository, IIndicatorStateCalculator stateCalculator)
         {
             _repository = repository;
             _stateCalculator = stateCalculator;

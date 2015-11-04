@@ -20,7 +20,7 @@ namespace CM.BalancedScoreboard.Data.Tests
             var dbSet = GetDbSetTest<Indicator>(GetIndicatorList());
             var dbContext = GetDbContextTest<Indicator>(dbSet.Object);
             var uof = GetUnitfOfWorkTest(dbContext.Object);
-            var iRepo = new IndicatorRepository(uof.Object);
+            var iRepo = new IndicatorsRepository(uof.Object);
 
             //Act
             var result = iRepo.Get();
@@ -36,7 +36,7 @@ namespace CM.BalancedScoreboard.Data.Tests
             var dbSet = GetDbSetTest<Indicator>(GetIndicatorList());
             var dbContext = GetDbContextTest<Indicator>(dbSet.Object);
             var uof = GetUnitfOfWorkTest(dbContext.Object);
-            var iRepo = new IndicatorRepository(uof.Object);
+            var iRepo = new IndicatorsRepository(uof.Object);
 
             //Act
             var result = iRepo.Get(i => i.Code.Equals("000", StringComparison.InvariantCultureIgnoreCase));
@@ -54,7 +54,7 @@ namespace CM.BalancedScoreboard.Data.Tests
             var dbSet = GetDbSetTest<Indicator>(GetIndicatorList());
             var dbContext = GetDbContextTest<Indicator>(dbSet.Object);
             var uof = GetUnitfOfWorkTest(dbContext.Object);
-            var iRepo = new IndicatorRepository(uof.Object);
+            var iRepo = new IndicatorsRepository(uof.Object);
 
             //Act
             var result = iRepo.Single(i => i.Name.Equals("indicator 1", StringComparison.InvariantCultureIgnoreCase));
@@ -71,7 +71,7 @@ namespace CM.BalancedScoreboard.Data.Tests
             var dbSet = GetDbSetTest<Indicator>(GetIndicatorList());
             var dbContext = GetDbContextTest<Indicator>(dbSet.Object);
             var uof = GetUnitfOfWorkTest(dbContext.Object);
-            var iRepo = new IndicatorRepository(uof.Object);
+            var iRepo = new IndicatorsRepository(uof.Object);
 
             //Act
             var result = iRepo.Single(i => i.Name.Equals("indicator 1", StringComparison.InvariantCultureIgnoreCase), i => i.Measures);
@@ -90,7 +90,7 @@ namespace CM.BalancedScoreboard.Data.Tests
             var dbSet = GetDbSetTest<Indicator>(GetIndicatorList());
             var dbContext = GetDbContextTest<Indicator>(dbSet.Object);
             var uof = GetUnitfOfWorkTest(dbContext.Object);
-            var iRepo = new IndicatorRepository(uof.Object);
+            var iRepo = new IndicatorsRepository(uof.Object);
 
             //Act
             iRepo.Add(
@@ -113,7 +113,7 @@ namespace CM.BalancedScoreboard.Data.Tests
             var dbSet = GetDbSetTest<Indicator>(GetIndicatorList());
             var dbContext = GetDbContextTest<Indicator>(dbSet.Object);
             var uof = GetUnitfOfWorkTest(dbContext.Object);
-            var iRepo = new IndicatorRepository(uof.Object);
+            var iRepo = new IndicatorsRepository(uof.Object);
 
             //Act
             iRepo.Update(
@@ -137,7 +137,7 @@ namespace CM.BalancedScoreboard.Data.Tests
             var dbSet = GetDbSetTest<Indicator>(GetIndicatorList());
             var dbContext = GetDbContextTest<Indicator>(dbSet.Object);
             var uof = GetUnitfOfWorkTest(dbContext.Object);
-            var iRepo = new IndicatorRepository(uof.Object);
+            var iRepo = new IndicatorsRepository(uof.Object);
 
             //Act
             iRepo.Delete(new Guid());

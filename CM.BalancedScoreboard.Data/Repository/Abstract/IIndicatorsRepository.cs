@@ -3,7 +3,7 @@ using CM.BalancedScoreboard.Domain.Model.Indicators;
 
 namespace CM.BalancedScoreboard.Data.Repository.Abstract
 {
-    public interface IIndicatorRepository : IBaseRepository<Indicator>
+    public interface IIndicatorsRepository : IBaseRepository<Indicator>
     {
         bool AddMeasure(IndicatorMeasure indicatorMeasure);
 

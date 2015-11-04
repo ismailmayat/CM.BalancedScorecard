@@ -6,9 +6,9 @@ using CM.BalancedScoreboard.Domain.Model.Indicators;
 
 namespace CM.BalancedScoreboard.Data.Repository.Implementation
 {
-    public class IndicatorRepository : BaseRepository<Indicator>, IIndicatorRepository
+    public class IndicatorsRepository : BaseRepository<Indicator>, IIndicatorsRepository
     {
-        public IndicatorRepository(IUnitOfWork uof) : base(uof) { }
+        public IndicatorsRepository(IUnitOfWork uof) : base(uof) { }
 
         public bool AddMeasure(IndicatorMeasure indicatorMeasure)
         {
