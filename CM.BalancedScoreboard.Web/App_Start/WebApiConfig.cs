@@ -20,8 +20,6 @@ namespace CM.BalancedScoreboard.Web
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
-            //config.Services.Replace(typeof(IHttpControllerActivator), new ServiceActivator(config));
         }
     }
 }
