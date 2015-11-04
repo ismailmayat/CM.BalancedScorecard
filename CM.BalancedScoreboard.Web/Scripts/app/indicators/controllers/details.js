@@ -33,36 +33,10 @@
         return {
             Date: new Date().toDateString(),
             Id: '',
-            IndicatorId: $routeParams.indicatorId,
+            IndicatorId: '',
             RealValue: '',
             TargetValue: ''
         };
-    }
-
-    function getSelectedYearData() {
-        var element = _.find($scope.indicatorMeasures, function (r) {
-            return r.Year === $scope.selectedYear;
-        });
-
-        return element !== undefined ? element.Measures : undefined;
-    }
-
-    function initTable() {
-        $scope.tableParams = new ngTableParams(
-        {
-            page: 1,
-            count: 20,
-            sorting: {
-                Date: 'desc'
-            }
-        },
-        {
-            total: getSelectedYearData.length,
-            counts: [],
-            getData: function ($defer, params) {
-                $defer.resolve($filter('orderBy')(getSelectedYearData(), params.orderBy()));
-            }
-        });
     }
 
     function updateTable() {
@@ -75,6 +49,31 @@
         $scope.labels = graphData.labels;
         $scope.data = graphData.data;
         $scope.colours = graphData.colours;
+    }
+
+    function getSelectedYearData() {
+        var element = _.find($scope.indicatorMeasures, function (r) {
+            return r.Year === $scope.selectedYear;
+        });
+
+        return element !== undefined ? element.Measures : [];
+    }
+
+    function initTable() {
+        $scope.tableParams = new ngTableParams(
+        {
+            page: 1,
+            sorting: {
+                Date: 'desc'
+            }
+        },
+        {
+            total: getSelectedYearData().length,
+            counts: [],
+            getData: function ($defer, params) {
+                $defer.resolve($filter('orderBy')(getSelectedYearData(), params.orderBy()));
+            }
+        });
     }
 
     function loadIndicator(callback) {
@@ -101,7 +100,7 @@
 
     function loadIndicatorMeasures(callback, tableAction) {
         indicatorsApi.indicatorMeasures.query({ id: $routeParams.indicatorId }).$promise
-            .then(function(data) {
+            .then(function (data) {              
                 callback(data, tableAction);
             })
             .catch(function(msg) {
@@ -110,13 +109,17 @@
     }
 
     function bindIndicatorMeasures(data, tableAction) {
-        originalData = angular.copy(data);
-        $scope.indicatorMeasures = data;
-        if ($scope.selectedYear === undefined || getSelectedYearData() === undefined) {
-            $scope.selectedYear = data[0].Year;
+        if (data.length > 0) {
+            $scope.indicatorMeasures = data;
+            originalData = angular.copy(data);
+            if ($scope.selectedYear === undefined) {
+                $scope.selectedYear = data[0].Year;
+            }
+            bindGraph();
+        } else {
+            $scope.indicatorMeasures = [];
         }
         tableAction();
-        bindGraph();
     }
 
     function init() {
@@ -224,11 +227,21 @@
 
     $scope.addPeriod = function () {
         $scope.globalEdit = true;
-        getSelectedYearData().push(createMeasure());
+        if (getSelectedYearData().length === 0) {
+            var measures = [];
+            measures.push(createMeasure());
+            $scope.indicatorMeasures.push({
+                Year: new Date().getFullYear(),
+                Measures: measures
+            });
+        } else {
+            getSelectedYearData().push(createMeasure());
+        }
         bindIndicatorMeasures($scope.indicatorMeasures, updateTable);
     }
 
     $scope.onlyNumbers = /^[0-9]+$/;
+
 
     init();
 });

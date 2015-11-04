@@ -105,6 +105,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
         {
             try
             {
+                indicatorMeasureVm.IndicatorId = id;
                 if (_service.AddMeasure(indicatorMeasureVm))
                     return new HttpResponseMessage(HttpStatusCode.Created);
                 else

@@ -60,5 +60,10 @@ namespace CM.BalancedScoreboard.Domain.Model.Indicators
         public virtual List<Dashboard> Dashboards { get; set; }
         public virtual List<Objective> Objectives { get; set; }
         public virtual List<IndicatorMeasure> Measures { get; set; }
+
+        public Indicator()
+        {
+            Measures = new List<IndicatorMeasure>();
+        }
     }
 }

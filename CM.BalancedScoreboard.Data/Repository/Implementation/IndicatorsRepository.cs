@@ -12,7 +12,7 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
 
         public bool AddMeasure(IndicatorMeasure indicatorMeasure)
         {
-            var indicator = Single(i => i.Id == indicatorMeasure.IndicatorId);
+            var indicator = Single(i => i.Id == indicatorMeasure.IndicatorId, i => i.Measures);
             if (indicator == null)
                 return false;
 
@@ -25,7 +25,7 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
 
         public bool UpdateMeasure(IndicatorMeasure indicatorMeasure)
         {
-            var indicator = Single(i => i.Id == indicatorMeasure.IndicatorId);
+            var indicator = Single(i => i.Id == indicatorMeasure.IndicatorId, i => i.Measures);
 
             var indicatorMeasureDb = indicator?.Measures.FirstOrDefault(im => im.Id == indicatorMeasure.Id);
             if (indicatorMeasure == null)
@@ -40,7 +40,7 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
 
         public bool DeleteMeasure(Guid indicatorId, Guid indicatorMeasureId)
         {
-            var indicator = Single(i => i.Id == indicatorId);
+            var indicator = Single(i => i.Id == indicatorId, i => i.Measures);
 
             var indicatorMeasure = indicator?.Measures.FirstOrDefault(im => im.Id == indicatorMeasureId);
             if (indicatorMeasure == null)
