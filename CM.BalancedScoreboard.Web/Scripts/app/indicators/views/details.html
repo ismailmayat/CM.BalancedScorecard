@@ -86,6 +86,12 @@
                         <select class="form-control" id="Manager" name="manager"></select>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="form-group" show-errors>
+                        <label for="FulfillmentRate">Fulfillment rate</label>
+                        <input type="number" class="form-control" id="FulfillmentRate" name="fulFillmentRate" placeholder="Fulfillment rate" ng-model="indicator.FulfillmentRate"/>
+                    </div>
+                </div>
             </div>
         </form>
     </div>
@@ -103,7 +109,7 @@
                         <ul class="dropdown-menu">
                             <li ng-repeat="indicatorMeasure in indicatorMeasures">
                                 <a ng-show="showYear(indicatorMeasure.Year)" ng-click="switchYear(indicatorMeasure.Year)">Show {{indicatorMeasure.Year}}</a></li>
-                            <li role="separator" class="divider"></li>
+                            <li role="separator" ng-if="indicatorMeasures.length > 1" class="divider"></li>
                             <li><a ng-disabled="globalEdit" ng-click="addPeriod()">Add period</a></li>
                         </ul>
                     </div>

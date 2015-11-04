@@ -43,10 +43,6 @@ namespace CM.BalancedScoreboard.Domain.Model.Indicators
         [Required]
         public ObjectValueType ObjectValueType { get; set; }
 
-        //public bool Splitted { get; set; }
-
-        //public SplitType SplitType { get; set; }
-
         [Required]
         public Guid IndicatorTypeId { get; set; }
 
@@ -59,9 +55,10 @@ namespace CM.BalancedScoreboard.Domain.Model.Indicators
         [ForeignKey("ManagerId")]
         public User Manager { get; set; }
 
+        public int? FulfillmentRate { get; set; }
+
         public virtual List<Dashboard> Dashboards { get; set; }
         public virtual List<Objective> Objectives { get; set; }
         public virtual List<IndicatorMeasure> Measures { get; set; }
-        //public virtual List<IndicatorSplit> Splits { get; set; }
     }
 }

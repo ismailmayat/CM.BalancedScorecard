@@ -1,13 +1,24 @@
-﻿namespace CM.BalancedScoreboard.Domain.Model.Enums
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CM.BalancedScoreboard.Domain.Model.Enums
 {
     public enum PeriodicityType
     {
+        [Display (Name = "Weekly")]
         Week,
+        [Display(Name = "Every 2 weeks")]
         TwoWeek,
+        [Display(Name = "Monthly")]
         Month,
+        [Display(Name = "2 months")]
         TwoMonth,
+        [Display(Name = "3 months")]
         ThreeMonth,
+        [Display(Name = "4 months")]
+        FourMonth,
+        [Display(Name = "Half year")]
         SixMonth,
+        [Display(Name = "Yearly")]
         TwelveMonth
     }
 
@@ -18,13 +29,6 @@
         Equal,
         Inbound ,
         Outbound
-    }
-
-    public enum State
-    {
-        Green,
-        Yellow,
-        Red
     }
 
     public enum SplitType
@@ -38,5 +42,13 @@
         Integer,
         Decimal,
         Boolean
+    }
+
+    public enum State
+    {
+        Grey,
+        Green,
+        Yellow,
+        Red
     }
 }

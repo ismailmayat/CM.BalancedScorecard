@@ -44,7 +44,6 @@
     <Compile Include="Implementation\ProjectService.cs" />
     <Compile Include="Mapper\MappingUtils.cs" />
     <Compile Include="Utils\EnumUtil.cs" />
-    <Compile Include="ViewModel\Indicators\Enums.cs" />
     <Compile Include="Implementation\IndicatorsService.cs" />
     <Compile Include="Mapper\Mappings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

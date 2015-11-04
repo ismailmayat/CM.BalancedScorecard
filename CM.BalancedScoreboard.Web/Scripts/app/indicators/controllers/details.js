@@ -34,7 +34,7 @@
             Date: new Date().toDateString(),
             Id: '',
             IndicatorId: $routeParams.indicatorId,
-            RecordValue: '',
+            RealValue: '',
             TargetValue: ''
         };
     }

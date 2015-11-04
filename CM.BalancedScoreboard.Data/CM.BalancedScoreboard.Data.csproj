@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201510271415341_Update_2.Designer.cs">
       <DependentUpon>201510271415341_Update_2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511041136527_Update_Fields_Added_To_Indicator.cs" />
+    <Compile Include="Migrations\201511041136527_Update_Fields_Added_To_Indicator.Designer.cs">
+      <DependentUpon>201511041136527_Update_Fields_Added_To_Indicator.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Abstract\IBaseRepository.cs" />
@@ -89,6 +93,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510271415341_Update_2.resx">
       <DependentUpon>201510271415341_Update_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511041136527_Update_Fields_Added_To_Indicator.resx">
+      <DependentUpon>201511041136527_Update_Fields_Added_To_Indicator.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

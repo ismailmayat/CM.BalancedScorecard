@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper.QueryableExtensions;
 using CM.BalancedScoreboard.Data.Repository.Abstract;
+using CM.BalancedScoreboard.Domain.Abstract.Indicators;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
 using CM.BalancedScoreboard.Services.Abstract;
 using CM.BalancedScoreboard.Services.ViewModel.Indicators;
@@ -12,10 +13,12 @@ namespace CM.BalancedScoreboard.Services.Implementation
     public class IndicatorsService : IIndicatorsService
     {
         private readonly IIndicatorRepository _repository;
+        private readonly IIndicatorStateCalculator _stateCalculator;
 
-        public IndicatorsService(IIndicatorRepository repository)
+        public IndicatorsService(IIndicatorRepository repository, IIndicatorStateCalculator stateCalculator)
         {
             _repository = repository;
+            _stateCalculator = stateCalculator;
         }
 
         public IEnumerable<IndicatorViewModel> GetIndicators(string filter)
@@ -25,16 +28,29 @@ namespace CM.BalancedScoreboard.Services.Implementation
                     i => i.Name.Contains(filter) || i.Code.Contains(filter) || i.Description.Contains(filter) ||
                          (i.Manager.Firstname + i.Manager.Surname).Contains(filter));
 
-            return indicators.Project().To<IndicatorViewModel>();
+            var indicatorVms = indicators.Project().To<IndicatorViewModel>().ToList();
+            foreach (var indicatorVm in indicatorVms)
+            {
+                indicatorVm.State = _stateCalculator.Calculate(indicatorVm.LastMeasureDate, indicatorVm.LastRealValue,
+                indicatorVm.LastTargetValue, indicatorVm.PeriodicityType, indicatorVm.ComparisonValueType,
+                indicatorVm.ObjectValueType, indicatorVm.FulfillmentRate);
+            }
+
+            return indicatorVms;
         }
 
         public IndicatorDetailsViewModel GetIndicator(Guid id)
         {
             var indicator = _repository.Single(i => i.Id == id, i => i.Measures);
 
+            var indicatorVm = AutoMapper.Mapper.Map<IndicatorViewModel>(indicator);
+            indicatorVm.State = _stateCalculator.Calculate(indicatorVm.LastMeasureDate, indicatorVm.LastRealValue,
+                indicatorVm.LastTargetValue, indicatorVm.PeriodicityType, indicatorVm.ComparisonValueType,
+                indicatorVm.ObjectValueType, indicatorVm.FulfillmentRate);
+
             return new IndicatorDetailsViewModel()
             {
-                Indicator = AutoMapper.Mapper.Map<IndicatorViewModel>(indicator)
+                Indicator = indicatorVm
             };
         }
 

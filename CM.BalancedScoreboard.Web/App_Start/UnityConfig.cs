@@ -1,6 +1,8 @@
 using System;
 using CM.BalancedScoreboard.Data.Repository.Abstract;
 using CM.BalancedScoreboard.Data.Repository.Implementation;
+using CM.BalancedScoreboard.Domain.Abstract.Indicators;
+using CM.BalancedScoreboard.Domain.Implementation.Indicators;
 using CM.BalancedScoreboard.Services.Abstract;
 using CM.BalancedScoreboard.Services.Implementation;
 using Microsoft.Practices.Unity;
@@ -42,6 +44,7 @@ namespace CM.BalancedScoreboard.Web
             container.RegisterType<IIndicatorRepository, IndicatorRepository>(new HierarchicalLifetimeManager());
             container.RegisterType<IUnitOfWork, UnitOfWork>(new HierarchicalLifetimeManager());
             container.RegisterType<IDbContext>(new HierarchicalLifetimeManager(), new InjectionFactory(d => new BsContext()));
+            container.RegisterType<IIndicatorStateCalculator, StateCalculator>(new HierarchicalLifetimeManager());
         }
     }
 }

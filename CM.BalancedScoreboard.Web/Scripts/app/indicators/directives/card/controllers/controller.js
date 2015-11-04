@@ -55,8 +55,12 @@
     $scope.getIndicatorStateClass = function() {
         switch ($scope.indicator.State) {
             case 0:
+                return 'panel-default';
+            case 1:
                 return 'panel-success';
             case 2:
+                return 'panel-warning';
+            case 3:
                 return 'panel-danger';
             default:
                 return 'panel-default';
