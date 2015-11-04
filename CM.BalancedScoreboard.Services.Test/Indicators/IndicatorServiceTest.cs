@@ -33,7 +33,7 @@ namespace CM.BalancedScoreboard.Services.Tests.Indicators
 
             //Assert
             Assert.AreEqual(result.Count(), 4);
-            Assert.IsTrue(result[0].Name == "Indicator 1");
+            Assert.IsTrue(result.ToList()[0].Name == "Indicator 1");
             //Assert.IsTrue(result[0].Measures.Count() == 1);
         }
 

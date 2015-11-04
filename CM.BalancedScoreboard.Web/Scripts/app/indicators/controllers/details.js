@@ -8,14 +8,19 @@
         $scope.indicator.ObjectValueType = $scope.selectedObjectValue.id;
     }
 
-    function isNewRow(item) {
+    function isNewPeriod(item) {
         return item.Id === '';
     };
 
-    function resetRow(row, rowForm) {
+    function resetPeriod(row, rowForm) {
         row.isEditing = false;
         rowForm.$setPristine();
-        var originalRow = _.find(originalData, function (r) {
+
+        var originalYearData = _.find(originalData, function (r) {
+            return r.Year === $scope.selectedYear;
+        });
+
+        var originalRow = _.find(originalYearData.Measures, function (r) {
             return r.Id === row.Id;
         });
 
@@ -34,6 +39,14 @@
         };
     }
 
+    function getSelectedYearData() {
+        var element = _.find($scope.indicatorMeasures, function (r) {
+            return r.Year === $scope.selectedYear;
+        });
+
+        return element !== undefined ? element.Measures : undefined;
+    }
+
     function initTable() {
         $scope.tableParams = new ngTableParams(
         {
@@ -44,10 +57,10 @@
             }
         },
         {
-            total: $scope.indicatorMeasures.length,
+            total: getSelectedYearData.length,
             counts: [],
             getData: function ($defer, params) {
-                $defer.resolve($filter('orderBy')($scope.indicatorMeasures, params.orderBy()));
+                $defer.resolve($filter('orderBy')(getSelectedYearData(), params.orderBy()));
             }
         });
     }
@@ -57,7 +70,7 @@
     }
 
     function bindGraph() {
-        var graphData = graphFactory.getGraphData($scope.indicatorMeasures);
+        var graphData = graphFactory.getGraphData(getSelectedYearData());
         $scope.series = graphData.series;
         $scope.labels = graphData.labels;
         $scope.data = graphData.data;
@@ -99,6 +112,9 @@
     function bindIndicatorMeasures(data, tableAction) {
         originalData = angular.copy(data);
         $scope.indicatorMeasures = data;
+        if ($scope.selectedYear === undefined || getSelectedYearData() === undefined) {
+            $scope.selectedYear = data[0].Year;
+        }
         tableAction();
         bindGraph();
     }
@@ -106,6 +122,16 @@
     function init() {
         loadIndicator(bindIndicator);
         loadIndicatorMeasures(bindIndicatorMeasures, initTable);
+    }
+
+    $scope.switchYear = function(year) {
+        $scope.selectedYear = year;
+        updateTable();
+        bindGraph();
+    }
+
+    $scope.showYear = function (year) {
+        return $scope.selectedYear !== year;
     }
 
     $scope.submitIndicator = function () {
@@ -143,18 +169,18 @@
 
     $scope.canEdit = function (row) {
         if (!row.isEditing) {
-            row.isEditing = isNewRow(row);
+            row.isEditing = isNewPeriod(row);
         }
 
         return row.isEditing;
     }
 
-    $scope.editRow = function (row) {
+    $scope.editPeriod = function (row) {
         $scope.globalEdit = true;
         row.isEditing = true;
     }
 
-    $scope.deleteRow = function (row) {
+    $scope.deletePeriod = function (row) {
         indicatorsApi.indicatorMeasures.delete({ id: $routeParams.indicatorId, measureId: row.Id }).$promise
             .then(function() {
                 loadIndicatorMeasures(bindIndicatorMeasures, updateTable);
@@ -164,11 +190,11 @@
             });
     }
 
-    $scope.updateRow = function(row) {
+    $scope.updatePeriod = function(row) {
         $scope.globalEdit = false;
         row.isEditing = false;
         var promise = null;
-        if (isNewRow(row)) {
+        if (isNewPeriod(row)) {
             promise = indicatorsApi.indicatorMeasures.save({ id: $routeParams.indicatorId }, row).$promise;
         } else {
             promise = indicatorsApi.indicatorMeasures.update({ id: $routeParams.indicatorId, measureId: row.Id }, row).$promise;
@@ -183,22 +209,22 @@
             });
     }
 
-    $scope.cancelRow = function (row, rowForm) {
+    $scope.cancelPeriod = function (row, rowForm) {
         $scope.globalEdit = false;
-        if (!isNewRow(row)) {
-            resetRow(row, rowForm);
+        if (!isNewPeriod(row)) {
+            resetPeriod(row, rowForm);
         } else {
-            _.remove($scope.indicatorMeasures, function (item) {
-                return isNewRow(item);
+            _.remove(getSelectedYearData(), function (item) {
+                return isNewPeriod(item);
             });
         }
 
         bindIndicatorMeasures($scope.indicatorMeasures, updateTable);
     }
 
-    $scope.addRow = function () {
+    $scope.addPeriod = function () {
         $scope.globalEdit = true;
-        $scope.indicatorMeasures.push(createMeasure());
+        getSelectedYearData().push(createMeasure());
         bindIndicatorMeasures($scope.indicatorMeasures, updateTable);
     }
 
