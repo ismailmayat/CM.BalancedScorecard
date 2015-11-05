@@ -3,7 +3,7 @@
         <form name="indicatorForm" novalidate>
             <div class="row">
                 <div class="col-md-12">
-                    <button class="btn btn-default btn-primary" type="submit" ng-click="submitIndicator()"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
+                    <button class="btn btn-default btn-primary" type="submit" ng-click="saveIndicator()"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
                     <button class="btn btn-default btn-danger" type="submit" ng-click="deleteIndicator()"><span class="glyphicon glyphicon-remove"></span> Delete</button>
                 </div>
             </div>
@@ -107,9 +107,9 @@
                             Actions <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li ng-repeat="indicatorMeasure in indicatorMeasures">
-                                <a ng-show="showYear(indicatorMeasure.Year)" ng-click="switchYear(indicatorMeasure.Year)">Show {{indicatorMeasure.Year}}</a></li>
-                            <li role="separator" ng-if="indicatorMeasures.length > 1" class="divider"></li>
+                            <li ng-repeat="measure in measures">
+                                <a ng-if="measure.Year !== 0" ng-show="showYear(measure.Year)" ng-click="switchYear(measure.Year)">Show {{measure.Year}}</a></li>
+                            <li role="separator" ng-if="measures.length > 1" class="divider"></li>
                             <li><a ng-disabled="globalEdit" ng-click="addPeriod()">Add period</a></li>
                         </ul>
                     </div>
@@ -144,7 +144,7 @@
                                 </div>
                             </td>
                             <td class="text-right col-md-1">
-                                <button class="btn btn-primary btn-sm" ng-click="updatePeriod(row, rowForm)" ng-if="canEdit(row)" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
+                                <button class="btn btn-primary btn-sm" ng-click="savePeriod(row, rowForm)" ng-if="canEdit(row)" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
                                 <button class="btn btn-default btn-sm" ng-click="cancelPeriod(row, rowForm)" ng-if="canEdit(row)"><span class="glyphicon glyphicon-remove"></span></button>
                                 <button class="btn btn-default btn-sm" ng-click="editPeriod(row)" ng-if="!canEdit(row)" ng-disabled="globalEdit"><span class="glyphicon glyphicon-pencil"></span></button>
                                 <button class="btn btn-danger btn-sm" ng-click="deletePeriod(row)" ng-if="!canEdit(row)" ng-disabled="globalEdit"><span class="glyphicon glyphicon-trash"></span></button>
@@ -156,7 +156,7 @@
         </fieldset>
     </div>
 </div>
-<div class="row" ng-show="getSelectedYearData().length > 0">
+<div class="row" ng-show="selectedYear !== 0 && getSelectedYearData().length > 0">
     <div class="col-md-12">
         <canvas id="line" class="chart chart-line" chart-data="data"
                 chart-labels="labels" chart-legend="true" chart-series="series"
