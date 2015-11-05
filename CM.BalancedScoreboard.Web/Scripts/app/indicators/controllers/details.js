@@ -44,19 +44,11 @@
     }
 
     function bindGraph() {
-        var graphData = graphFactory.getGraphData(getSelectedYearData());
+        var graphData = graphFactory.getGraphData($scope.getSelectedYearData());
         $scope.series = graphData.series;
         $scope.labels = graphData.labels;
         $scope.data = graphData.data;
         $scope.colours = graphData.colours;
-    }
-
-    function getSelectedYearData() {
-        var element = _.find($scope.indicatorMeasures, function (r) {
-            return r.Year === $scope.selectedYear;
-        });
-
-        return element !== undefined ? element.Measures : [];
     }
 
     function initTable() {
@@ -68,10 +60,10 @@
             }
         },
         {
-            total: getSelectedYearData().length,
+            total: $scope.getSelectedYearData().length,
             counts: [],
             getData: function ($defer, params) {
-                $defer.resolve($filter('orderBy')(getSelectedYearData(), params.orderBy()));
+                $defer.resolve($filter('orderBy')($scope.getSelectedYearData(), params.orderBy()));
             }
         });
     }
@@ -115,16 +107,24 @@
             if ($scope.selectedYear === undefined) {
                 $scope.selectedYear = data[0].Year;
             }
-            bindGraph();
         } else {
             $scope.indicatorMeasures = [];
         }
         tableAction();
+        bindGraph();
     }
 
     function init() {
         loadIndicator(bindIndicator);
         loadIndicatorMeasures(bindIndicatorMeasures, initTable);
+    }
+
+    $scope.getSelectedYearData = function () {
+        var element = _.find($scope.indicatorMeasures, function (r) {
+            return r.Year === $scope.selectedYear;
+        });
+
+        return element !== undefined ? element.Measures : [];
     }
 
     $scope.switchYear = function(year) {
@@ -217,9 +217,14 @@
         if (!isNewPeriod(row)) {
             resetPeriod(row, rowForm);
         } else {
-            _.remove(getSelectedYearData(), function (item) {
+            _.remove($scope.getSelectedYearData(), function (item) {
                 return isNewPeriod(item);
             });
+            if ($scope.getSelectedYearData().length === 0) {
+                _.remove($scope.indicatorMeasures, function (item) {
+                    return item.Year = $scope.selectedYear;
+                });
+            }
         }
 
         bindIndicatorMeasures($scope.indicatorMeasures, updateTable);
@@ -227,21 +232,24 @@
 
     $scope.addPeriod = function () {
         $scope.globalEdit = true;
-        if (getSelectedYearData().length === 0) {
+        if ($scope.getSelectedYearData().length === 0) {
             var measures = [];
             measures.push(createMeasure());
-            $scope.indicatorMeasures.push({
-                Year: new Date().getFullYear(),
-                Measures: measures
-            });
+            if ($scope.indicatorMeasures.length == 0) {
+                $scope.indicatorMeasures.push({
+                    Year: new Date().getFullYear(),
+                    Measures: measures
+                });
+            } else {
+                $scope.getSelectedYearData() = measures;
+            }
         } else {
-            getSelectedYearData().push(createMeasure());
+            $scope.getSelectedYearData().push(createMeasure());
         }
         bindIndicatorMeasures($scope.indicatorMeasures, updateTable);
     }
 
     $scope.onlyNumbers = /^[0-9]+$/;
-
 
     init();
 });

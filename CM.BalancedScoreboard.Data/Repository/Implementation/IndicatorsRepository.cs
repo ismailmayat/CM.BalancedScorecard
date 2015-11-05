@@ -1,8 +1,8 @@
-﻿using System;
+﻿using CM.BalancedScoreboard.Data.Repository.Abstract;
+using CM.BalancedScoreboard.Domain.Model.Indicators;
+using System;
 using System.Data.Entity;
 using System.Linq;
-using CM.BalancedScoreboard.Data.Repository.Abstract;
-using CM.BalancedScoreboard.Domain.Model.Indicators;
 
 namespace CM.BalancedScoreboard.Data.Repository.Implementation
 {

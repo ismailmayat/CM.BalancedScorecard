@@ -12,9 +12,11 @@ namespace CM.BalancedScoreboard.Domain.Model.Indicators
         public Guid Id { get; set; }
 
         [Required]
+        [MaxLength(6)]
         public string RealValue { get; set; }
 
         [Required]
+        [MaxLength(6)]
         public string TargetValue { get; set; }
 
         [Required]

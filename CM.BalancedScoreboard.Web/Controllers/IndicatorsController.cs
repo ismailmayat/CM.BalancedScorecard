@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Http;
-using CM.BalancedScoreboard.Services.Abstract;
-using System.Net.Http;
-using System.Net;
+﻿using CM.BalancedScoreboard.Services.Abstract;
 using CM.BalancedScoreboard.Services.ViewModel.Indicators;
+using System;
+using System.Web.Http;
 
 namespace CM.BalancedScoreboard.Web.Controllers
 {
@@ -17,141 +14,179 @@ namespace CM.BalancedScoreboard.Web.Controllers
             _service = service;
         }
 
-        public IEnumerable<IndicatorViewModel> Get(string filter)
+        public IHttpActionResult Get(string filter)
         {
-            return _service.GetIndicators(filter);
+            try
+            {
+                return Ok(_service.GetIndicators(filter));
+            }
+            catch (Exception ex)
+            {
+                //log error
+                return InternalServerError();
+            }
         }
 
-        public HttpResponseMessage Get(Guid id)
+        public IHttpActionResult Get(Guid id)
         {
             try
             {
                 var indicatorVm = _service.GetIndicator(id);
                 if (indicatorVm != null)
-                    return Request.CreateResponse(HttpStatusCode.OK, indicatorVm);
+                    return Ok(indicatorVm);
                 else
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return BadRequest();
             }
             catch (Exception ex)
             {
                 //log error
-                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                return InternalServerError();
             }
         }
 
-        public HttpResponseMessage Post([FromBody]IndicatorViewModel indicatorVm)
+        public IHttpActionResult Post([FromBody]IndicatorViewModel indicatorVm)
         {
             try
             {
-                _service.Add(indicatorVm);
-                return new HttpResponseMessage(HttpStatusCode.Created);
+                if (ModelState.IsValid)
+                {
+                    _service.Add(indicatorVm);
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
             }
             catch (Exception ex)
             {
                 //log error
-                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                return InternalServerError();
             }
         }
 
-        public HttpResponseMessage Put(Guid id, [FromBody]IndicatorViewModel indicatorVm)
+        public IHttpActionResult Put(Guid id, [FromBody]IndicatorViewModel indicatorVm)
         {
             try
             {
                 indicatorVm.Id = id;
-                _service.Update(indicatorVm);
-                return new HttpResponseMessage(HttpStatusCode.OK);
+                if (ModelState.IsValid)
+                {
+                    _service.Update(indicatorVm);
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
             }
             catch (Exception ex)
             {
                 //log error
-                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                return InternalServerError();
             }
         }
 
-        public HttpResponseMessage Delete(Guid id)
+        public IHttpActionResult Delete(Guid id)
         {
             try
             {
                 _service.Delete(id);
-                return new HttpResponseMessage(HttpStatusCode.OK);
+                return Ok();
             }
             catch (Exception ex)
             {
-                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                return InternalServerError();
             }
         }
 
         [Route("api/indicators/{id}/measures")]
-        public HttpResponseMessage GetMeasures(Guid id)
+        public IHttpActionResult GetMeasures(Guid id)
         {
             try
             {
                 var indicatorMeasures = _service.GetMeasures(id);
                 if (indicatorMeasures != null)
-                    return Request.CreateResponse(HttpStatusCode.OK, indicatorMeasures);
+                    return Ok(indicatorMeasures);
                 else
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return BadRequest();
             }
             catch (Exception ex)
             {
                 //log error
-                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                return InternalServerError();
             }
         }
 
         [Route("api/indicators/{id}/measures")]
         [HttpPost]
-        public HttpResponseMessage Post(Guid id, [FromBody] IndicatorMeasureViewModel indicatorMeasureVm)
+        public IHttpActionResult Post(Guid id, [FromBody] IndicatorMeasureViewModel indicatorMeasureVm)
         {
             try
             {
                 indicatorMeasureVm.IndicatorId = id;
-                if (_service.AddMeasure(indicatorMeasureVm))
-                    return new HttpResponseMessage(HttpStatusCode.Created);
+                if (ModelState.IsValid)
+                {
+                    if (_service.AddMeasure(indicatorMeasureVm))
+                        return Ok();
+                    else
+                        return BadRequest();
+                }
                 else
-                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                {
+                    return BadRequest(ModelState);
+                }
+
             }
             catch (Exception ex)
             {
                 //log error
-                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                return InternalServerError();
             }
         }
 
         [Route("api/indicators/{id}/measures/{measureId}")]
         [HttpPut]
-        public HttpResponseMessage Put(Guid id, Guid measureId, [FromBody]IndicatorMeasureViewModel indicatorMeasureVm)
+        public IHttpActionResult Put(Guid id, Guid measureId, [FromBody]IndicatorMeasureViewModel indicatorMeasureVm)
         {
             try
             {
+                indicatorMeasureVm.IndicatorId = id;
                 indicatorMeasureVm.Id = measureId;
-                if (_service.UpdateMeasure(indicatorMeasureVm))
-                    return new HttpResponseMessage(HttpStatusCode.OK);
+                if (ModelState.IsValid)
+                {
+                    if (_service.UpdateMeasure(indicatorMeasureVm))
+                        return Ok();
+                    else
+                        return BadRequest();
+                }
                 else
-                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                {
+                    return BadRequest(ModelState);
+                }
             }
             catch (Exception ex)
             {
                 //log error
-                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                return InternalServerError();
             }
         }
 
         [Route("api/indicators/{id}/measures/{measureId}")]
         [HttpDelete]
-        public HttpResponseMessage Delete(Guid id, Guid measureId)
+        public IHttpActionResult Delete(Guid id, Guid measureId)
         {
             try
             {
                 if (_service.DeleteMeasure(id, measureId))
-                return new HttpResponseMessage(HttpStatusCode.OK);
+                    return Ok();
                 else
-                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                    return BadRequest();
             }
             catch (Exception ex)
             {
                 //log error
-                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                return InternalServerError();
             }
         }
     }

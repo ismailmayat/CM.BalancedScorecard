@@ -7,13 +7,13 @@ namespace CM.BalancedScoreboard.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Update_Fields_Added_To_Indicator : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Update_Fields_Added_To_Indicator));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201511041136527_Update_Fields_Added_To_Indicator"; }
+            get { return "201511052103313_Initial"; }
         }
         
         string IMigrationMetadata.Source
