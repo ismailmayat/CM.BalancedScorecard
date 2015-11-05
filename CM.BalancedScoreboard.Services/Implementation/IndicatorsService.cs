@@ -79,7 +79,7 @@ namespace CM.BalancedScoreboard.Services.Implementation
                 .Select(gb => new IndicatorMeasureListViewModel()
                 {
                     Year = gb.Key,
-                    Measures = AutoMapper.Mapper.Map<List<IndicatorMeasureViewModel>>(gb)
+                    Measures = AutoMapper.Mapper.Map<List<IndicatorMeasureViewModel>>(gb).OrderBy(im => im.Date).ToList()
                 }).OrderByDescending(im => im.Year);
         }
 

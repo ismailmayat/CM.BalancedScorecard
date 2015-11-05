@@ -105,7 +105,7 @@
             $scope.measures = data;
             originalData = angular.copy(data);
             if ($scope.selectedYear === undefined || $scope.getSelectedYearData().length == 0) {
-                $scope.selectedYear = _.last($scope.measures).Year;
+                $scope.selectedYear = _.first($scope.measures).Year;
             }
         } else {
             $scope.measures = [];
@@ -219,19 +219,10 @@
         if (!isNewPeriod(row)) {
             resetPeriod(row, rowForm);
         } else {
-            _.remove($scope.getSelectedYearData(), function (item) {
-                return isNewPeriod(item);
+            _.remove($scope.measures, function (item) {
+                return item.Year == $scope.selectedYear;
             });
-            if ($scope.getSelectedYearData().length === 0) {
-                _.remove($scope.measures, function (item) {
-                    return item.Year == $scope.selectedYear;
-                });
-                if ($scope.measures.length > 0) {
-                    $scope.selectedYear = _.last($scope.measures).Year;
-                } else {
-                    $scope.selectedYear = undefined;
-                }
-            }
+            $scope.selectedYear = undefined;
         }
 
         bindIndicatorMeasures($scope.measures, updateTable);
@@ -239,16 +230,14 @@
 
     $scope.addPeriod = function () {
         $scope.globalEdit = true;
-        if ($scope.selectedYear === undefined) {
-            var measures = [];
-            measures.push(createMeasure());
-            $scope.measures.push({
-                Year: 0,
-                Measures: measures
-            });
-        } else {
-            $scope.getSelectedYearData().push(createMeasure());
-        }
+        $scope.selectedYear = 0;
+        var measures = [];
+        measures.push(createMeasure());
+        $scope.measures.push({
+            Year: $scope.selectedYear,
+            Measures: measures
+        });
+
         bindIndicatorMeasures($scope.measures, updateTable);
     }
 
