@@ -130,14 +130,14 @@
                             <td data-title="'Real value'" class="text-right col-md-3" ng-form="realValue" ng-class="realValue.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
                                 <span ng-switch-default class="editable-text">{{row.RealValue}} {{indicator.Unit}}</span>
                                 <div ng-switch-when="true" show-errors>
-                                    <input type="text" name="realValue" ng-model="row.RealValue" class="editable-input form-control text-right" required />
+                                    <input type="{{row.ValueInputType}}" name="realValue" ng-model="row.RealValue" class="editable-input form-control text-right" ng-pattern="" required />
                                     <p class="help-block"></p>
                                 </div>
                             </td>
                             <td data-title="'Target value'" class="text-right col-md-3" ng-form="targetValue" ng-class="targetValue.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
                                 <span ng-switch-default class="editable-text">{{row.TargetValue}} {{indicator.Unit}}</span>
                                 <div ng-switch-when="true" show-errors>
-                                    <input type="text" name="targetValue" ng-model="row.TargetValue" class="editable-input form-control text-right" required />
+                                    <input type="{{row.ValueInputType}}" name="targetValue" ng-model="row.TargetValue" class="editable-input form-control text-right" required />
                                     <p class="help-block"></p>
                                 </div>
                             </td>

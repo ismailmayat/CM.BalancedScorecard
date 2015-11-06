@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using CM.BalancedScoreboard.Domain.Model.Enums;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
 using CM.BalancedScoreboard.Services.ViewModel.Indicators;
 
@@ -19,7 +21,22 @@ namespace CM.BalancedScoreboard.Services.Mapper
                 .ForMember(dest => dest.ManagerName,
                     opt => opt.MapFrom(o => o.Manager != null ? o.Manager.Firstname + " " + o.Manager.Surname : string.Empty)).ReverseMap();
 
-            AutoMapper.Mapper.CreateMap<IndicatorMeasure, IndicatorMeasureViewModel>().ReverseMap();
+            AutoMapper.Mapper.CreateMap<IndicatorMeasure, IndicatorMeasureViewModel>()
+                .ForMember(dest => dest.ValueInputType,
+                    opt => opt.ResolveUsing(ResolveIndicatorMeasureInputType))
+                .ReverseMap();
+        }
+
+        public static string ResolveIndicatorMeasureInputType(IndicatorMeasure im)
+        {
+            switch (im.Indicator.ObjectValueType)
+            {
+                case ObjectValueType.Decimal:
+                case ObjectValueType.Integer:
+                    return "number";
+                default:
+                    return "text";
+            }
         }
     }
 }
