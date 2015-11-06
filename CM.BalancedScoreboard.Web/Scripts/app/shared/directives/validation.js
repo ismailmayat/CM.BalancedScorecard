@@ -1,4 +1,14 @@
 ﻿shared.directive('showErrors', function () {
+    function getErrorMessage(input) {
+        if (input.$error.required) {
+            return "This field is required";
+        }
+        if (input.$error.pattern) {
+            return "This field is incorrect";
+        }
+        return "";
+    }
+
     return {
         restrict: 'A',
         require: '^form',
@@ -12,6 +22,9 @@
                 el.toggleClass('has-success', ctrl[inputName].$valid && ctrl[inputName].$dirty);
                 help.toggleClass('ng-show', ctrl[inputName].$invalid);
                 help.toggleClass('ng-hide', ctrl[inputName].$valid);
+                if (ctrl[inputName].$invalid) {
+                    help[0].innerText = getErrorMessage(ctrl[inputName]);
+                }
             });
         }
     }
