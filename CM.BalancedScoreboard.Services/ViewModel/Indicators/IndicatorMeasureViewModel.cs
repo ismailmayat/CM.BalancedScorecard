@@ -32,27 +32,5 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
     {
         public int Year { get; set; }
         public List<IndicatorMeasureViewModel> Measures { get; set; }
-
-        public Dictionary<string, string> DisplayNames
-        {
-            get
-            {
-                var dictionary =  new Dictionary<string,string>();
-
-                var type = typeof(IndicatorMeasureViewModel);
-
-                type.GetProperties().Where(p => p.CustomAttributes.Any(at => at is typeof(DisplayNameAttribute)))
-                foreach (var property in type.GetProperties())
-                {
-
-                    if (property.GetCustomAttribute(typeof(DisplayNameAttribute)))
-                    {
-                        
-                    }
-                }
-
-                return dictionary;
-            }
-        }
     }
 }

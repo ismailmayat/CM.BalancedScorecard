@@ -10,15 +10,15 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group" show-errors>
-                        <label for="Name">Name</label>
-                        <input type="text" class="form-control" id="Name" name="name" placeholder="Name" ng-model="indicator.Name" required />
+                        <label for="Name">{{displayNames.Name}}</label>
+                        <input type="text" class="form-control" id="Name" name="name" placeholder="{{displayNames.Name}}" ng-model="indicator.Name" required />
                         <p class="help-block"></p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group" show-errors>
-                        <label for="Code">Code</label>
-                        <input type="text" class="form-control" id="Code" name="code" placeholder="Code" ng-model="indicator.Code" required />
+                        <label for="Code">{{displayNames.Code}}</label>
+                        <input type="text" class="form-control" id="Code" name="code" placeholder="{{displayNames.Code}}" ng-model="indicator.Code" required />
                         <p class="help-block"></p>
                     </div>
                 </div>
@@ -26,8 +26,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group" show-errors>
-                        <label for="Description">Description</label>
-                        <input type="text" class="form-control" id="Description" name="description" placeholder="Description" ng-model="indicator.Description" required />
+                        <label for="Description">{{displayNames.Description}}</label>
+                        <input type="text" class="form-control" id="Description" name="description" placeholder="{{displayNames.Description}}" ng-model="indicator.Description" required />
                         <p class="help-block"></p>
                     </div>
                 </div>
@@ -35,8 +35,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group" show-errors>
-                        <label for="Unit">Unit</label>
-                        <input type="text" class="form-control" id="Unit" name="unit" placeholder="Unit" ng-model="indicator.Unit" required />
+                        <label for="Unit">{{displayNames.Unit}}</label>
+                        <input type="text" class="form-control" id="Unit" name="unit" placeholder="{{displayNames.Unit}}" ng-model="indicator.Unit" required />
                         <p class="help-block"></p>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                     <div class="form-group">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="active" ng-model="indicator.Active">Active
+                                <input type="checkbox" name="active" ng-model="indicator.Active">{{displayNames.Active}}
                             </label>
                         </div>
                     </div>
@@ -53,14 +53,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group" show-errors>
-                        <label for="StartDate">StartDate</label>
-                        <input type="date" class="form-control" id="StartDate" name="startDate" placeholder="Start Date" ng-model="startDate" required />
+                        <label for="StartDate">{{displayNames.StartDate}}</label>
+                        <input type="date" class="form-control" id="StartDate" name="startDate" placeholder="{{displayNames.StartDate}} ng-model="startDate" required />
                         <p class="help-block"></p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="ComparisonValueType">Comparison Value</label>
+                        <label for="ComparisonValueType">{{displayNames.ComparisonValueType}}</label>
                         <select class="form-control" id="ComparisonValueType" name="comparisonValueType" ng-model="selectedComparisonValue" ng-options="c.name for c in comparisonValueTypeList track by c.id"></select>
                     </div>
                 </div>
@@ -68,13 +68,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="PeriodicityType">Periodicity Type</label>
+                        <label for="PeriodicityType">{{displayNames.PeriodicityType}}</label>
                         <select class="form-control" id="PeriodicityType" name="periodicityType" ng-model="selectedPeriodicity" ng-options="p.name for p in periodicityTypeList track by p.id"></select>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="ObjectValueType">Value Type</label>
+                        <label for="ObjectValueType">{{displayNames.ObjectValueType}}</label>
                         <select class="form-control" id="ObjectValueType" name="objectValueType" ng-model="selectedObjectValue" ng-options="o.name for o in objectValueTypeList track by o.id"></select>
                     </div>
                 </div>
@@ -82,14 +82,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="Manager">Manager</label>
+                        <label for="Manager">{{displayNames.ManagerId}}</label>
                         <select class="form-control" id="Manager" name="manager"></select>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group" show-errors>
-                        <label for="FulfillmentRate">Fulfillment rate</label>
-                        <input type="number" class="form-control" id="FulfillmentRate" name="fulFillmentRate" placeholder="Fulfillment rate" ng-model="indicator.FulfillmentRate"/>
+                        <label for="FulfillmentRate">{{displayNames.FulfillmentRate}}</label>
+                        <input type="number" class="form-control" id="FulfillmentRate" name="fulFillmentRate" placeholder="{{displayNames.FulfillmentRate}}" ng-model="indicator.FulfillmentRate"/>
                     </div>
                 </div>
             </div>

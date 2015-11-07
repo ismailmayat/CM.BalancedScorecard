@@ -43,6 +43,7 @@
     <Compile Include="Abstract\IProjectsService.cs" />
     <Compile Include="Implementation\ProjectService.cs" />
     <Compile Include="Mapper\MappingUtils.cs" />
+    <Compile Include="Utils\DataAnnotationsUtils.cs" />
     <Compile Include="Utils\EnumUtil.cs" />
     <Compile Include="Implementation\IndicatorsService.cs" />
     <Compile Include="Mapper\Mappings.cs" />
