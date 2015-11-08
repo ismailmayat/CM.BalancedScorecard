@@ -36,9 +36,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\EntityType.cs" />
-    <Compile Include="Abstract\IChildEntity.cs" />
-    <Compile Include="Abstract\IEntity.cs" />
+    <Compile Include="Model\Abstract\EntityType.cs" />
+    <Compile Include="Model\Abstract\IChildEntity.cs" />
+    <Compile Include="Model\Abstract\IEntity.cs" />
     <Compile Include="Abstract\Indicators\IIndicatorStateCalculator.cs" />
     <Compile Include="Implementation\Indicators\IndicatorStateCalculator.cs" />
     <Compile Include="Model\Dashboards\Dashboard.cs" />

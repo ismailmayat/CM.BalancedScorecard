@@ -13,6 +13,7 @@ namespace CM.BalancedScoreboard.Web
             //ConfigureAuth(app);
             
             Mappings.Configure();
+            log4net.Config.XmlConfigurator.Configure();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CM.BalancedScoreboard.Services.Abstract;
 using CM.BalancedScoreboard.Services.ViewModel.Indicators;
+using log4net;
 using System;
 using System.Web.Http;
 
@@ -7,11 +8,13 @@ namespace CM.BalancedScoreboard.Web.Controllers
 {
     public class IndicatorsController : ApiController
     {
-        private readonly IIndicatorsService _service;
+        readonly IIndicatorsService _service;
+        readonly ILog _logger;
 
         public IndicatorsController(IIndicatorsService service)
         {
             _service = service;
+            _logger = LogManager.GetLogger(typeof(IndicatorsController));
         }
 
         public IHttpActionResult Get(string filter)
@@ -22,7 +25,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
             catch (Exception ex)
             {
-                //log error
+                _logger.Error(ex);
                 return InternalServerError();
             }
         }
@@ -39,7 +42,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
             catch (Exception ex)
             {
-                //log error
+                _logger.Error(ex);
                 return InternalServerError();
             }
         }
@@ -60,7 +63,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
             catch (Exception ex)
             {
-                //log error
+                _logger.Error(ex);
                 return InternalServerError();
             }
         }
@@ -82,7 +85,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
             catch (Exception ex)
             {
-                //log error
+                _logger.Error(ex);
                 return InternalServerError();
             }
         }
@@ -96,6 +99,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
             catch (Exception ex)
             {
+                _logger.Error(ex);
                 return InternalServerError();
             }
         }
@@ -113,7 +117,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
             catch (Exception ex)
             {
-                //log error
+                _logger.Error(ex);
                 return InternalServerError();
             }
         }
@@ -140,7 +144,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
             catch (Exception ex)
             {
-                //log error
+                _logger.Error(ex);
                 return InternalServerError();
             }
         }
@@ -167,7 +171,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
             catch (Exception ex)
             {
-                //log error
+                _logger.Error(ex);
                 return InternalServerError();
             }
         }
@@ -185,7 +189,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
             catch (Exception ex)
             {
-                //log error
+                _logger.Error(ex);
                 return InternalServerError();
             }
         }
