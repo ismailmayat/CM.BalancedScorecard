@@ -1,98 +1,101 @@
 ﻿<div class="row">
     <div class="col-md-12">
+        <button class="btn btn-default btn-primary" type="submit" ng-click="saveIndicator()"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
+        <button class="btn btn-default btn-danger" type="submit" ng-click="deleteIndicator()"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
         <form name="indicatorForm" novalidate>
-            <div class="row">
-                <div class="col-md-12">
-                    <button class="btn btn-default btn-primary" type="submit" ng-click="saveIndicator()"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
-                    <button class="btn btn-default btn-danger" type="submit" ng-click="deleteIndicator()"><span class="glyphicon glyphicon-remove"></span> Delete</button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group" show-errors>
-                        <label for="Name">{{displayNames.Name}}</label>
-                        <input type="text" class="form-control" id="Name" name="name" placeholder="{{displayNames.Name}}" ng-model="indicator.Name" required />
-                        <p class="help-block"></p>
+            <fieldset>
+                <legend>Details</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" show-errors>
+                            <label for="Name">{{resources.Name.DisplayName}}</label>
+                            <input type="text" class="form-control" id="Name" name="name" placeholder="{{resources.Name.DisplayName}}" ng-model="indicator.Name" maxlength="{{resources.Name.MaxLength}}" required />
+                            <p class="help-block"></p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group" show-errors>
-                        <label for="Code">{{displayNames.Code}}</label>
-                        <input type="text" class="form-control" id="Code" name="code" placeholder="{{displayNames.Code}}" ng-model="indicator.Code" required />
-                        <p class="help-block"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group" show-errors>
-                        <label for="Description">{{displayNames.Description}}</label>
-                        <input type="text" class="form-control" id="Description" name="description" placeholder="{{displayNames.Description}}" ng-model="indicator.Description" required />
-                        <p class="help-block"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group" show-errors>
-                        <label for="Unit">{{displayNames.Unit}}</label>
-                        <input type="text" class="form-control" id="Unit" name="unit" placeholder="{{displayNames.Unit}}" ng-model="indicator.Unit" required />
-                        <p class="help-block"></p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="active" ng-model="indicator.Active">{{displayNames.Active}}
-                            </label>
+                    <div class="col-md-6">
+                        <div class="form-group" show-errors>
+                            <label for="Code">{{resources.Code.DisplayName}}</label>
+                            <input type="text" class="form-control" id="Code" name="code" placeholder="{{resources.Code.DisplayName}}" ng-model="indicator.Code" maxlength="{{resources.Code.MaxLength}}" required />
+                            <p class="help-block"></p>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group" show-errors>
-                        <label for="StartDate">{{displayNames.StartDate}}</label>
-                        <input type="date" class="form-control" id="StartDate" name="startDate" placeholder="{{displayNames.StartDate}} ng-model="startDate" required />
-                        <p class="help-block"></p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" show-errors>
+                            <label for="Description">{{resources.Description.DisplayName}}</label>
+                            <input type="text" class="form-control" id="Description" name="description" placeholder="{{resources.Description.DisplayName}}" ng-model="indicator.Description" maxlength="{{resources.Description.MaxLength}}" required />
+                            <p class="help-block"></p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="ComparisonValueType">{{displayNames.ComparisonValueType}}</label>
-                        <select class="form-control" id="ComparisonValueType" name="comparisonValueType" ng-model="selectedComparisonValue" ng-options="c.name for c in comparisonValueTypeList track by c.id"></select>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" show-errors>
+                            <label for="Unit">{{resources.Unit.DisplayName}}</label>
+                            <input type="text" class="form-control" id="Unit" name="unit" placeholder="{{resources.Unit.DisplayName}}" ng-model="indicator.Unit" maxlength="{{resources.Unit.MaxLength}}" required />
+                            <p class="help-block"></p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="active" ng-model="indicator.Active">{{resources.Active.DisplayName}}
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="PeriodicityType">{{displayNames.PeriodicityType}}</label>
-                        <select class="form-control" id="PeriodicityType" name="periodicityType" ng-model="selectedPeriodicity" ng-options="p.name for p in periodicityTypeList track by p.id"></select>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" show-errors>
+                            <label for="StartDate">{{resources.StartDate.DisplayName}}</label>
+                            <input type="date" class="form-control" id="StartDate" name="startDate" placeholder="{{resources.StartDate.DisplayName}}" ng-model="startDate" required />
+                            <p class="help-block"></p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="ComparisonValueType">{{resources.ComparisonValueType.DisplayName}}</label>
+                            <select class="form-control" id="ComparisonValueType" name="comparisonValueType" ng-model="selectedComparisonValue" ng-options="c.name for c in comparisonValueTypeList track by c.id"></select>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="ObjectValueType">{{displayNames.ObjectValueType}}</label>
-                        <select class="form-control" id="ObjectValueType" name="objectValueType" ng-model="selectedObjectValue" ng-options="o.name for o in objectValueTypeList track by o.id"></select>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="PeriodicityType">{{resources.PeriodicityType.DisplayName}}</label>
+                            <select class="form-control" id="PeriodicityType" name="periodicityType" ng-model="selectedPeriodicity" ng-options="p.name for p in periodicityTypeList track by p.id"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="ObjectValueType">{{resources.ObjectValueType.DisplayName}}</label>
+                            <select class="form-control" id="ObjectValueType" name="objectValueType" ng-model="selectedObjectValue" ng-options="o.name for o in objectValueTypeList track by o.id"></select>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="Manager">{{displayNames.ManagerId}}</label>
-                        <select class="form-control" id="Manager" name="manager"></select>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Manager">{{resources.ManagerId.DisplayName}}</label>
+                            <select class="form-control" id="Manager" name="manager"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group" show-errors>
+                            <label for="FulfillmentRate">{{resources.FulfillmentRate.DisplayName}}</label>
+                            <input type="number" class="form-control" id="FulfillmentRate" name="fulFillmentRate" placeholder="{{resources.FulfillmentRate.DisplayName}}" min="{{resources.FulfillmentRate.Range.MinValue}}" max="{{resources.FulfillmentRate.Range.MaxValue}}" ng-model="indicator.FulfillmentRate" />
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group" show-errors>
-                        <label for="FulfillmentRate">{{displayNames.FulfillmentRate}}</label>
-                        <input type="number" class="form-control" id="FulfillmentRate" name="fulFillmentRate" placeholder="{{displayNames.FulfillmentRate}}" ng-model="indicator.FulfillmentRate"/>
-                    </div>
-                </div>
-            </div>
+            </fieldset>
         </form>
     </div>
 </div>

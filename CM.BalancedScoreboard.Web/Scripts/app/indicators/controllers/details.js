@@ -88,7 +88,7 @@
         $scope.selectedComparisonValue = $.grep($scope.comparisonValueTypeList, function (e) { return e.id === data.Indicator.ComparisonValueType; })[0];
         $scope.selectedPeriodicity = $.grep($scope.periodicityTypeList, function (e) { return e.id === data.Indicator.PeriodicityType; })[0];
         $scope.selectedObjectValue = $.grep($scope.objectValueTypeList, function (e) { return e.id === data.Indicator.ObjectValueType; })[0];
-        $scope.displayNames = data.DisplayNames;
+        $scope.resources = data.Resources;
     }
 
     function loadIndicatorMeasures(callback, tableAction) {

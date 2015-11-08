@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CM.BalancedScoreboard.Web",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CM.BalancedScoreboard.Web.Tests", "CM.BalancedScoreboard.Web.Tests\CM.BalancedScoreboard.Web.Tests.csproj", "{0BF9B529-1711-456E-8251-AD09AD33ED1A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CM.BalancedScoreboard.Resources", "CM.BalancedScoreboard.Resources\CM.BalancedScoreboard.Resources.csproj", "{43C2C880-6201-49FF-A8BB-86127D1F55B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{0BF9B529-1711-456E-8251-AD09AD33ED1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BF9B529-1711-456E-8251-AD09AD33ED1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BF9B529-1711-456E-8251-AD09AD33ED1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43C2C880-6201-49FF-A8BB-86127D1F55B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43C2C880-6201-49FF-A8BB-86127D1F55B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43C2C880-6201-49FF-A8BB-86127D1F55B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43C2C880-6201-49FF-A8BB-86127D1F55B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,5 +73,6 @@ Global
 		{E6F27A20-A0B3-4CCE-8C52-4CBC7A866E35} = {C7C9B5C0-A090-457B-8CDD-6724E0BE784C}
 		{06B13AEC-39B5-4FC5-BC5F-AF49E1CE4429} = {C90D3BCB-5B6B-4DA3-8062-6846D70874A5}
 		{0BF9B529-1711-456E-8251-AD09AD33ED1A} = {C7C9B5C0-A090-457B-8CDD-6724E0BE784C}
+		{43C2C880-6201-49FF-A8BB-86127D1F55B0} = {C90D3BCB-5B6B-4DA3-8062-6846D70874A5}
 	EndGlobalSection
 EndGlobal

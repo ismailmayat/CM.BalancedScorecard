@@ -65,6 +65,10 @@
       <Project>{4feecdb2-1eda-4cee-bdbb-39be2045520c}</Project>
       <Name>CM.BalancedScoreboard.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CM.BalancedScoreboard.Resources\CM.BalancedScoreboard.Resources.csproj">
+      <Project>{43c2c880-6201-49ff-a8bb-86127d1f55b0}</Project>
+      <Name>CM.BalancedScoreboard.Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\Objectives\" />
