@@ -12,15 +12,15 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group" show-errors>
-                            <label for="Name">{{resources.Name.DisplayName}}</label>
-                            <input type="text" class="form-control" id="Name" name="name" placeholder="{{resources.Name.DisplayName}}" ng-model="indicator.Name" maxlength="{{resources.Name.MaxLength}}" required />
+                            <label for="Name">{{config.Name.DisplayName}}</label>
+                            <input type="text" class="form-control" id="Name" name="name" placeholder="{{config.Name.DisplayName}}" ng-model="indicator.Name" maxlength="{{config.Name.MaxLength}}" required />
                             <p class="help-block"></p>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group" show-errors>
-                            <label for="Code">{{resources.Code.DisplayName}}</label>
-                            <input type="text" class="form-control" id="Code" name="code" placeholder="{{resources.Code.DisplayName}}" ng-model="indicator.Code" maxlength="{{resources.Code.MaxLength}}" required />
+                            <label for="Code">{{config.Code.DisplayName}}</label>
+                            <input type="text" class="form-control" id="Code" name="code" placeholder="{{config.Code.DisplayName}}" ng-model="indicator.Code" maxlength="{{config.Code.MaxLength}}" required />
                             <p class="help-block"></p>
                         </div>
                     </div>
@@ -28,8 +28,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group" show-errors>
-                            <label for="Description">{{resources.Description.DisplayName}}</label>
-                            <input type="text" class="form-control" id="Description" name="description" placeholder="{{resources.Description.DisplayName}}" ng-model="indicator.Description" maxlength="{{resources.Description.MaxLength}}" required />
+                            <label for="Description">{{config.Description.DisplayName}}</label>
+                            <input type="text" class="form-control" id="Description" name="description" placeholder="{{config.Description.DisplayName}}" ng-model="indicator.Description" maxlength="{{config.Description.MaxLength}}" required />
                             <p class="help-block"></p>
                         </div>
                     </div>
@@ -37,8 +37,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group" show-errors>
-                            <label for="Unit">{{resources.Unit.DisplayName}}</label>
-                            <input type="text" class="form-control" id="Unit" name="unit" placeholder="{{resources.Unit.DisplayName}}" ng-model="indicator.Unit" maxlength="{{resources.Unit.MaxLength}}" required />
+                            <label for="Unit">{{config.Unit.DisplayName}}</label>
+                            <input type="text" class="form-control" id="Unit" name="unit" placeholder="{{config.Unit.DisplayName}}" ng-model="indicator.Unit" maxlength="{{config.Unit.MaxLength}}" required />
                             <p class="help-block"></p>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                         <div class="form-group">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="active" ng-model="indicator.Active">{{resources.Active.DisplayName}}
+                                    <input type="checkbox" name="active" ng-model="indicator.Active">{{config.Active.DisplayName}}
                                 </label>
                             </div>
                         </div>
@@ -55,14 +55,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group" show-errors>
-                            <label for="StartDate">{{resources.StartDate.DisplayName}}</label>
-                            <input type="date" class="form-control" id="StartDate" name="startDate" placeholder="{{resources.StartDate.DisplayName}}" ng-model="startDate" required />
+                            <label for="StartDate">{{config.StartDate.DisplayName}}</label>
+                            <input type="date" class="form-control" id="StartDate" name="startDate" placeholder="{{config.StartDate.DisplayName}}" ng-model="startDate" required />
                             <p class="help-block"></p>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="ComparisonValueType">{{resources.ComparisonValueType.DisplayName}}</label>
+                            <label for="ComparisonValueType">{{config.ComparisonValueType.DisplayName}}</label>
                             <select class="form-control" id="ComparisonValueType" name="comparisonValueType" ng-model="selectedComparisonValue" ng-options="c.name for c in comparisonValueTypeList track by c.id"></select>
                         </div>
                     </div>
@@ -70,13 +70,13 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="PeriodicityType">{{resources.PeriodicityType.DisplayName}}</label>
+                            <label for="PeriodicityType">{{config.PeriodicityType.DisplayName}}</label>
                             <select class="form-control" id="PeriodicityType" name="periodicityType" ng-model="selectedPeriodicity" ng-options="p.name for p in periodicityTypeList track by p.id"></select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="ObjectValueType">{{resources.ObjectValueType.DisplayName}}</label>
+                            <label for="ObjectValueType">{{config.ObjectValueType.DisplayName}}</label>
                             <select class="form-control" id="ObjectValueType" name="objectValueType" ng-model="selectedObjectValue" ng-options="o.name for o in objectValueTypeList track by o.id"></select>
                         </div>
                     </div>
@@ -84,14 +84,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="Manager">{{resources.ManagerId.DisplayName}}</label>
+                            <label for="Manager">{{config.ManagerId.DisplayName}}</label>
                             <select class="form-control" id="Manager" name="manager"></select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group" show-errors>
-                            <label for="FulfillmentRate">{{resources.FulfillmentRate.DisplayName}}</label>
-                            <input type="number" class="form-control" id="FulfillmentRate" name="fulFillmentRate" placeholder="{{resources.FulfillmentRate.DisplayName}}" min="{{resources.FulfillmentRate.Range.MinValue}}" max="{{resources.FulfillmentRate.Range.MaxValue}}" ng-model="indicator.FulfillmentRate" />
+                            <label for="FulfillmentRate">{{config.FulfillmentRate.DisplayName}}</label>
+                            <input type="number" class="form-control" id="FulfillmentRate" name="fulFillmentRate" placeholder="{{config.FulfillmentRate.DisplayName}}" min="{{config.FulfillmentRate.Range.MinValue}}" max="{{config.FulfillmentRate.Range.MaxValue}}" ng-model="indicator.FulfillmentRate" />
                         </div>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
                     <toaster-container toaster-options="{'time-out': 3000, 'animation-class': 'toast-top-right'}"></toaster-container>
                     <table ng-table="tableParams" class="table table-bordered table-striped table-condensed" tracked-table="tableTracker">
                         <tr ng-repeat="row in $data track by row.Id" ng-form="rowForm" tracked-table-row="row">
-                            <td data-title="'Date'" sortable="'Date'" class="col-md-5" ng-form="date" ng-class="date.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
+                            <td data-title="'Date'" sortable="'Date'" class="col-md-4" ng-form="date" ng-class="date.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
                                 <span ng-switch-default class="editable-text">{{formatGraphDate(row.Date)}}</span>
                                 <div ng-switch-when="true" show-errors>
                                     <input type="month" name="date" ng-init="row.Date = formatDate(row.Date)" ng-model="row.Date" class="editable-input form-control" required />
@@ -144,7 +144,7 @@
                                     <p class="help-block"></p>
                                 </div>
                             </td>
-                            <td class="text-right col-md-1">
+                            <td class="text-right col-md-2">
                                 <button class="btn btn-primary btn-sm" ng-click="savePeriod(row, rowForm)" ng-if="canEdit(row)" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
                                 <button class="btn btn-default btn-sm" ng-click="cancelPeriod(row, rowForm)" ng-if="canEdit(row)"><span class="glyphicon glyphicon-remove"></span></button>
                                 <button class="btn btn-default btn-sm" ng-click="editPeriod(row)" ng-if="!canEdit(row)" ng-disabled="globalEdit"><span class="glyphicon glyphicon-pencil"></span></button>

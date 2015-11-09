@@ -4,31 +4,28 @@ namespace CM.BalancedScoreboard.Domain.Model.Enums
 {
     public enum PeriodicityType
     {
-        [Display (Name = "Weekly")]
-        Week,
-        [Display(Name = "Every 2 weeks")]
-        TwoWeek,
         [Display(Name = "Monthly")]
         Month,
-        [Display(Name = "2 months")]
+        [Display(Name = "TwoMonth")]
         TwoMonth,
-        [Display(Name = "3 months")]
+        [Display(Name = "ThreeMonth")]
         ThreeMonth,
-        [Display(Name = "4 months")]
+        [Display(Name = "FourMonth")]
         FourMonth,
-        [Display(Name = "Half year")]
+        [Display(Name = "SixMonth")]
         SixMonth,
-        [Display(Name = "Yearly")]
+        [Display(Name = "TwelveMonth")]
         TwelveMonth
     }
 
     public enum ComparisonValueType
     {
+        [Display(Name = "Greater")]
         Greater,
+        [Display(Name = "Smaller")]
         Smaller,
+        [Display(Name = "Equal")]
         Equal,
-        Inbound ,
-        Outbound
     }
 
     public enum SplitType
@@ -39,8 +36,11 @@ namespace CM.BalancedScoreboard.Domain.Model.Enums
 
     public enum ObjectValueType
     {
+        [Display(Name = "Integer")]
         Integer,
+        [Display(Name = "Decimal")]
         Decimal,
+        [Display(Name = "Boolean")]
         Boolean
     }
 

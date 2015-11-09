@@ -15,6 +15,12 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Resources;
+using CM.BalancedScoreboard.Resources;
+using CM.BalancedScoreboard.Services.Abstract.Indicators;
+using CM.BalancedScoreboard.Services.Utils;
+using CM.BalancedScoreboard.Services.ViewModel.Indicators;
+
 namespace CM.BalancedScoreboard.Web.DependencyResolution {
     using Data.Repository.Implementation;
     using Data.Repository.Abstract;
@@ -39,6 +45,9 @@ namespace CM.BalancedScoreboard.Web.DependencyResolution {
             For<IIndicatorsRepository>().Use<IndicatorsRepository>();
             For<IIndicatorsService>().Use<IndicatorsService>();
             For<IIndicatorStateCalculator>().Use<StateCalculator>();
+            For<ITypeConfig>().Use<DataAnnotationsConfig>();
+            For<IResourceManager>().Use<LocalResourceManager>();
+            For<IIndicatorViewModelFactory>().Use<IndicatorViewModelFactory>();
         }
 
         #endregion

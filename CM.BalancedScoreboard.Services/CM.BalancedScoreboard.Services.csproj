@@ -39,17 +39,20 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\IIndicatorsService.cs" />
+    <Compile Include="Abstract\Indicators\IIndicatorsService.cs" />
+    <Compile Include="Abstract\Indicators\IIndicatorViewModelFactory.cs" />
     <Compile Include="Abstract\IProjectsService.cs" />
+    <Compile Include="Abstract\ITypeConfig.cs" />
     <Compile Include="Implementation\ProjectService.cs" />
     <Compile Include="Mapper\MappingUtils.cs" />
-    <Compile Include="Utils\DataAnnotationsUtils.cs" />
+    <Compile Include="Utils\DataAnnotationsConfig.cs" />
     <Compile Include="Utils\EnumUtil.cs" />
     <Compile Include="Implementation\IndicatorsService.cs" />
     <Compile Include="Mapper\Mappings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\Indicators\IndicatorMeasureViewModel.cs" />
     <Compile Include="ViewModel\Indicators\IndicatorViewModel.cs" />
+    <Compile Include="ViewModel\Indicators\IndicatorViewModelFactory.cs" />
     <Compile Include="ViewModel\IViewModel.cs" />
     <Compile Include="ViewModel\Projects\ProjectViewModel.cs" />
   </ItemGroup>

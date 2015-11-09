@@ -3,51 +3,52 @@ using CM.BalancedScoreboard.Services.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using CM.BalancedScoreboard.Services.Abstract;
 
 namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
 {
     public class IndicatorViewModel : IViewModel
-    {
+    { 
         public Guid? Id { get; set; }
 
-        [Display(Name = "Name", ResourceType = typeof(Resources.Resources))]
+        [Display(Name = "Name")]
         [StringLength(30)]
         [Required]
         public string Name { get; set; }
 
-        [Display(Name = "Description", ResourceType = typeof(Resources.Resources))]
+        [Display(Name = "Description")]
         [StringLength(100)]
         [Required]
         public string Description { get; set; }
 
-        [Display(Name = "Code", ResourceType = typeof(Resources.Resources))]
+        [Display(Name = "Code")]
         [StringLength(6)]
         [Required]
         public string Code { get; set; }
 
-        [Display(Name = "Unit", ResourceType = typeof(Resources.Resources))]
+        [Display(Name = "Unit")]
         [StringLength(15)]
         [Required]
         public string Unit { get; set; }
 
-        [Display(Name = "Active", ResourceType = typeof(Resources.Resources))]
+        [Display(Name = "Active")]
         [Required]
         public bool Active { get; set; }
 
-        [Display(Name = "StartDate", ResourceType = typeof(Resources.Resources))]
+        [Display(Name = "StartDate")]
         [DataType(DataType.Date)]
         [Required]
         public DateTime StartDate { get; set; }
 
-        [Display(Name = "ComparisonValueType", ResourceType = typeof(Resources.Resources))]
+        [Display(Name = "ComparisonValueType")]
         [Required]
         public ComparisonValueType ComparisonValueType { get; set; }
 
-        [Display(Name = "PeriodicityType", ResourceType = typeof(Resources.Resources))]
+        [Display(Name = "PeriodicityType")]
         [Required]
         public PeriodicityType PeriodicityType { get; set; }
 
-        [Display(Name = "ObjectValueType", ResourceType = typeof(Resources.Resources))]
+        [Display(Name = "ObjectValueType")]
         [Required]
         public ObjectValueType ObjectValueType { get; set; }
 
@@ -61,11 +62,11 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
 
         public Guid IndicatorTypeId { get; set; }
 
-        [Display(Name = "Manager", ResourceType = typeof(Resources.Resources))]
+        [Display(Name = "Manager")]
         [Required]
         public Guid ManagerId { get; set; }
 
-        [Display(Name = "FulfillmentRate", ResourceType = typeof(Resources.Resources))]
+        [Display(Name = "FulfillmentRate")]
         [Range(50,100)]
         public int? FulfillmentRate { get; set; }
 
@@ -76,20 +77,12 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
     {
         public IndicatorViewModel Indicator { get; set; }
 
-        public IEnumerable<object> PeriodicityTypeList => EnumUtil.GetOptions<PeriodicityType>();
+        public IEnumerable<object> PeriodicityTypeList { get; set; }
 
-        public IEnumerable<object> ComparisonValueTypeList => EnumUtil.GetOptions<ComparisonValueType>();
+        public IEnumerable<object> ComparisonValueTypeList { get; set; }
 
-        public IEnumerable<object> ObjectValueTypeList => EnumUtil.GetOptions<ObjectValueType>();
+        public IEnumerable<object> ObjectValueTypeList { get; set; }
 
-        public IEnumerable<object> SplitTypeList => EnumUtil.GetOptions<SplitType>();
-
-        public Dictionary<string,Dictionary<string, object>> Resources
-        {
-            get
-            {
-                return DataAnnotationsUtils.GetObjectAttributes<IndicatorViewModel>();
-            }
-        }
+        public Dictionary<string,Dictionary<string, object>> Config { get; set; }
     }
 }

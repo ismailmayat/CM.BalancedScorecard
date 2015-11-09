@@ -6,19 +6,22 @@ using CM.BalancedScoreboard.Data.Repository.Abstract;
 using CM.BalancedScoreboard.Domain.Abstract.Indicators;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
 using CM.BalancedScoreboard.Services.Abstract;
+using CM.BalancedScoreboard.Services.Abstract.Indicators;
 using CM.BalancedScoreboard.Services.ViewModel.Indicators;
 
 namespace CM.BalancedScoreboard.Services.Implementation
 {
     public class IndicatorsService : IIndicatorsService
     {
-        private readonly IIndicatorsRepository _repository;
-        private readonly IIndicatorStateCalculator _stateCalculator;
+        readonly IIndicatorsRepository _repository;
+        readonly IIndicatorStateCalculator _stateCalculator;
+        readonly IIndicatorViewModelFactory _viewModelFactory;
 
-        public IndicatorsService(IIndicatorsRepository repository, IIndicatorStateCalculator stateCalculator)
+        public IndicatorsService(IIndicatorsRepository repository, IIndicatorStateCalculator stateCalculator, IIndicatorViewModelFactory viewModelFactory)
         {
             _repository = repository;
             _stateCalculator = stateCalculator;
+            _viewModelFactory = viewModelFactory;
         }
 
         public IEnumerable<IndicatorViewModel> GetIndicators(string filter)
@@ -42,16 +45,7 @@ namespace CM.BalancedScoreboard.Services.Implementation
         public IndicatorDetailsViewModel GetIndicator(Guid id)
         {
             var indicator = _repository.Single(i => i.Id == id, i => i.Measures);
-
-            var indicatorVm = AutoMapper.Mapper.Map<IndicatorViewModel>(indicator);
-            indicatorVm.State = _stateCalculator.Calculate(indicatorVm.LastMeasureDate, indicatorVm.LastRealValue,
-                indicatorVm.LastTargetValue, indicatorVm.PeriodicityType, indicatorVm.ComparisonValueType,
-                indicatorVm.ObjectValueType, indicatorVm.FulfillmentRate);
-
-            return new IndicatorDetailsViewModel()
-            {
-                Indicator = indicatorVm
-            };
+            return _viewModelFactory.CreateDetailsViewModel(indicator);
         }
 
         public void Add(IndicatorViewModel indicatorVm)
