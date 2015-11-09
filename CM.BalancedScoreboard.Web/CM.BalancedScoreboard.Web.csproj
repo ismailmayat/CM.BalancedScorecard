@@ -340,6 +340,10 @@
       <Project>{4feecdb2-1eda-4cee-bdbb-39be2045520c}</Project>
       <Name>CM.BalancedScoreboard.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CM.BalancedScoreboard.Resources\CM.BalancedScoreboard.Resources.csproj">
+      <Project>{43c2c880-6201-49ff-a8bb-86127d1f55b0}</Project>
+      <Name>CM.BalancedScoreboard.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CM.BalancedScoreboard.Services\CM.BalancedScoreboard.Services.csproj">
       <Project>{ef09c4d6-8fb6-4e3b-b5d2-8b715c19b2ef}</Project>
       <Name>CM.BalancedScoreboard.Services</Name>

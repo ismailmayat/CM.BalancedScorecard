@@ -1,5 +1,5 @@
-﻿using System;
-using CM.BalancedScoreboard.Domain.Model.Enums;
+﻿using CM.BalancedScoreboard.Domain.Model.Enums;
+using System;
 
 namespace CM.BalancedScoreboard.Domain.Abstract.Indicators
 {

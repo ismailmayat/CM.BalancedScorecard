@@ -1,5 +1,5 @@
-﻿using System;
-using CM.BalancedScoreboard.Domain.Model.Indicators;
+﻿using CM.BalancedScoreboard.Domain.Model.Indicators;
+using System;
 
 namespace CM.BalancedScoreboard.Data.Repository.Abstract
 {
