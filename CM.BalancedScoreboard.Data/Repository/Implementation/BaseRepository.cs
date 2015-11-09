@@ -1,10 +1,10 @@
-﻿using System;
+﻿using CM.BalancedScoreboard.Data.Repository.Abstract;
+using CM.BalancedScoreboard.Domain.Abstract;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using CM.BalancedScoreboard.Data.Repository.Abstract;
-using CM.BalancedScoreboard.Domain.Abstract;
 using EntityState = System.Data.Entity.EntityState;
 
 namespace CM.BalancedScoreboard.Data.Repository.Implementation

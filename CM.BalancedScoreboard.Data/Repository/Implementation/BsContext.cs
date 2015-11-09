@@ -1,11 +1,11 @@
-﻿using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using CM.BalancedScoreboard.Data.Repository.Abstract;
+﻿using CM.BalancedScoreboard.Data.Repository.Abstract;
 using CM.BalancedScoreboard.Domain.Model.Dashboards;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
 using CM.BalancedScoreboard.Domain.Model.Objetives;
 using CM.BalancedScoreboard.Domain.Model.Projects;
 using CM.BalancedScoreboard.Domain.Model.Users;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace CM.BalancedScoreboard.Data.Repository.Implementation
 {

@@ -1,14 +1,16 @@
 ﻿<div class="row">
     <div class="col-md-12">
-        <button class="btn btn-default btn-primary" type="submit" ng-click="saveIndicator()"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
-        <button class="btn btn-default btn-danger" type="submit" ng-click="deleteIndicator()"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+        <div class="form-group">
+            <button class="btn btn-default btn-primary" type="button" ng-click="saveIndicator()"><span class="glyphicon glyphicon-floppy-save"></span> {{resources.Save}}</button>
+            <button class="btn btn-default btn-danger" type="button" ng-click="deleteIndicator()"><span class="glyphicon glyphicon-remove"></span> {{resources.Delete}}</button>
+        </div>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
         <form name="indicatorForm" novalidate>
             <fieldset>
-                <legend>Details</legend>
+                <legend>{{resources.Details}}</legend>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group" show-errors>
@@ -44,11 +46,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="active" ng-model="indicator.Active">{{config.Active.DisplayName}}
-                                </label>
-                            </div>
+                            <label for="Unit">{{config.Active.DisplayName}}</label>
+                            <input type="checkbox" id="Active" name="active" ng-model="indicator.Active">
                         </div>
                     </div>
                 </div>
@@ -102,18 +101,18 @@
 <div class="row">
     <div class="col-md-12">
         <fieldset>
-            <legend>Measures</legend>
+            <legend>{{measuresResources.Measures}}</legend>
             <div class="row">
                 <div class="col-md-12">
                     <div class="btn-group text-right">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Actions <span class="caret"></span>
+                            {{measuresResources.Actions}} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
                             <li ng-repeat="measure in measures">
-                                <a ng-if="measure.Year !== 0" ng-show="showYear(measure.Year)" ng-click="switchYear(measure.Year)">Show {{measure.Year}}</a></li>
+                                <a ng-if="measure.Year !== 0" ng-show="showYear(measure.Year)" ng-click="switchYear(measure.Year)">{{measuresResources.Show}} {{measure.Year}}</a></li>
                             <li role="separator" ng-if="measures.length > 1" class="divider"></li>
-                            <li><a ng-disabled="globalEdit" ng-click="addPeriod()">Add period</a></li>
+                            <li><a ng-disabled="globalEdit" ng-click="addPeriod()">{{measuresResources.AddPeriod}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -123,21 +122,21 @@
                     <toaster-container toaster-options="{'time-out': 3000, 'animation-class': 'toast-top-right'}"></toaster-container>
                     <table ng-table="tableParams" class="table table-bordered table-striped table-condensed" tracked-table="tableTracker">
                         <tr ng-repeat="row in $data track by row.Id" ng-form="rowForm" tracked-table-row="row">
-                            <td data-title="'Date'" sortable="'Date'" class="col-md-4" ng-form="date" ng-class="date.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
+                            <td data-title="measuresResources.Date" sortable="'Date'" class="col-md-4" ng-form="date" ng-class="date.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
                                 <span ng-switch-default class="editable-text">{{formatGraphDate(row.Date)}}</span>
                                 <div ng-switch-when="true" show-errors>
                                     <input type="month" name="date" ng-init="row.Date = formatDate(row.Date)" ng-model="row.Date" class="editable-input form-control" required />
                                     <p class="help-block"></p>
                                 </div>
                             </td>
-                            <td data-title="'Real value'" class="text-right col-md-3" ng-form="realValue" ng-class="realValue.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
+                            <td data-title="measuresResources.RealValue" class="text-right col-md-3" ng-form="realValue" ng-class="realValue.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
                                 <span ng-switch-default class="editable-text">{{row.RealValue}} {{indicator.Unit}}</span>
                                 <div ng-switch-when="true" show-errors>
                                     <input type="{{row.ValueInputType}}" name="realValue" ng-model="row.RealValue" class="editable-input form-control text-right" ng-pattern="" required />
                                     <p class="help-block"></p>
                                 </div>
                             </td>
-                            <td data-title="'Target value'" class="text-right col-md-3" ng-form="targetValue" ng-class="targetValue.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
+                            <td data-title="measuresResources.TargetValue" class="text-right col-md-3" ng-form="targetValue" ng-class="targetValue.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
                                 <span ng-switch-default class="editable-text">{{row.TargetValue}} {{indicator.Unit}}</span>
                                 <div ng-switch-when="true" show-errors>
                                     <input type="{{row.ValueInputType}}" name="targetValue" ng-model="row.TargetValue" class="editable-input form-control text-right" required />

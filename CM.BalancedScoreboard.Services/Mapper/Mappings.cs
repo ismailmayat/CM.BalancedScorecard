@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CM.BalancedScoreboard.Domain.Model.Enums;
+﻿using CM.BalancedScoreboard.Domain.Model.Enums;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
 using CM.BalancedScoreboard.Services.ViewModel.Indicators;
+using System;
+using System.Linq;
 
 namespace CM.BalancedScoreboard.Services.Mapper
 {

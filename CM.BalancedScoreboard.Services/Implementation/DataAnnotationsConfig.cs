@@ -4,7 +4,7 @@ using System.Reflection;
 using CM.BalancedScoreboard.Resources;
 using CM.BalancedScoreboard.Services.Abstract;
 
-namespace CM.BalancedScoreboard.Services.Utils
+namespace CM.BalancedScoreboard.Services.Implementation
 {
     public class DataAnnotationsConfig : ITypeConfig
     {

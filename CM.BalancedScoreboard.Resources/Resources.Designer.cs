@@ -61,11 +61,29 @@ namespace CM.BalancedScoreboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        public static string Actions {
+            get {
+                return ResourceManager.GetString("Actions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active.
         /// </summary>
         public static string Active {
             get {
                 return ResourceManager.GetString("Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add period.
+        /// </summary>
+        public static string AddPeriod {
+            get {
+                return ResourceManager.GetString("AddPeriod", resourceCulture);
             }
         }
         
@@ -97,6 +115,15 @@ namespace CM.BalancedScoreboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decimal.
         /// </summary>
         public static string Decimal {
@@ -106,11 +133,29 @@ namespace CM.BalancedScoreboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string Description {
             get {
                 return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
             }
         }
         
@@ -178,6 +223,15 @@ namespace CM.BalancedScoreboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Measures.
+        /// </summary>
+        public static string Measures {
+            get {
+                return ResourceManager.GetString("Measures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monthly.
         /// </summary>
         public static string Monthly {
@@ -214,6 +268,33 @@ namespace CM.BalancedScoreboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Real value.
+        /// </summary>
+        public static string RealValue {
+            get {
+                return ResourceManager.GetString("RealValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show.
+        /// </summary>
+        public static string Show {
+            get {
+                return ResourceManager.GetString("Show", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 6 months.
         /// </summary>
         public static string SixMonth {
@@ -237,6 +318,15 @@ namespace CM.BalancedScoreboard.Resources {
         public static string StartDate {
             get {
                 return ResourceManager.GetString("StartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target value.
+        /// </summary>
+        public static string TargetValue {
+            get {
+                return ResourceManager.GetString("TargetValue", resourceCulture);
             }
         }
         

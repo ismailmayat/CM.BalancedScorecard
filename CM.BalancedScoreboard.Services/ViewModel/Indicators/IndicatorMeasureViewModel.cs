@@ -29,6 +29,13 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
     public class IndicatorMeasureListViewModel
     {
         public int Year { get; set; }
-        public List<IndicatorMeasureViewModel> Measures { get; set; }
+        public List<IndicatorMeasureViewModel> Measures { get; set; }  
+    }
+
+    public class IndicatorMeasureDetailsViewModel
+    {
+        public List<IndicatorMeasureListViewModel> Data {get;set; }
+        public Dictionary<string, Dictionary<string, object>> Config { get; set; }
+        public Dictionary<string, string> Resources { get; set; }
     }
 }

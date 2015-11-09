@@ -18,8 +18,6 @@
 using System.Resources;
 using CM.BalancedScoreboard.Resources;
 using CM.BalancedScoreboard.Services.Abstract.Indicators;
-using CM.BalancedScoreboard.Services.Utils;
-using CM.BalancedScoreboard.Services.ViewModel.Indicators;
 
 namespace CM.BalancedScoreboard.Web.DependencyResolution {
     using Data.Repository.Implementation;
@@ -30,6 +28,7 @@ namespace CM.BalancedScoreboard.Web.DependencyResolution {
     using Services.Implementation;
     using Domain.Abstract.Indicators;
     using Domain.Implementation.Indicators;
+    using Services.Implementation.Indicators;
 
     public class DefaultRegistry : Registry {
         #region Constructors and Destructors

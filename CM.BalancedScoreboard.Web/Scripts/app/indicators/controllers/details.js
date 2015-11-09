@@ -78,17 +78,18 @@
             });
     }
 
-    function bindIndicator(data) {
-        $scope.indicator = data.Indicator;
-        $scope.comparisonValueTypeList = data.ComparisonValueTypeList;
-        $scope.periodicityTypeList = data.PeriodicityTypeList;
-        $scope.objectValueTypeList = data.ObjectValueTypeList;
-        $scope.splitTypeList = data.SplitTypeList;
-        $scope.startDate = new Date(data.Indicator.StartDate);
-        $scope.selectedComparisonValue = $.grep($scope.comparisonValueTypeList, function (e) { return e.id === data.Indicator.ComparisonValueType; })[0];
-        $scope.selectedPeriodicity = $.grep($scope.periodicityTypeList, function (e) { return e.id === data.Indicator.PeriodicityType; })[0];
-        $scope.selectedObjectValue = $.grep($scope.objectValueTypeList, function (e) { return e.id === data.Indicator.ObjectValueType; })[0];
-        $scope.config = data.Config;
+    function bindIndicator(response) {
+        $scope.indicator = response.Data;
+        $scope.comparisonValueTypeList = response.ComparisonValueTypeList;
+        $scope.periodicityTypeList = response.PeriodicityTypeList;
+        $scope.objectValueTypeList = response.ObjectValueTypeList;
+        $scope.splitTypeList = response.SplitTypeList;
+        $scope.startDate = new Date(response.Data.StartDate);
+        $scope.selectedComparisonValue = $.grep($scope.comparisonValueTypeList, function (e) { return e.id === response.Data.ComparisonValueType; })[0];
+        $scope.selectedPeriodicity = $.grep($scope.periodicityTypeList, function (e) { return e.id === response.Data.PeriodicityType; })[0];
+        $scope.selectedObjectValue = $.grep($scope.objectValueTypeList, function (e) { return e.id === response.Data.ObjectValueType; })[0];
+        $scope.config = response.Config;
+        $scope.resources = response.Resources;
     }
 
     function loadIndicatorMeasures(callback, tableAction) {
@@ -101,10 +102,12 @@
             });
     }
 
-    function bindIndicatorMeasures(data, tableAction) {
-        if (data.length > 0) {
-            $scope.measures = data;
-            originalData = angular.copy(data);
+    function bindIndicatorMeasures(response, tableAction) {
+        if (response.Data.length > 0) {
+            $scope.measures = response.Data;
+            $scope.measuresConfig = response.Config;
+            $scope.measuresResources = response.Resources;
+            originalData = angular.copy(response.Data);
             if ($scope.selectedYear === undefined || $scope.getSelectedYearData().length == 0) {
                 $scope.selectedYear = _.first($scope.measures).Year;
             }
@@ -226,7 +229,7 @@
             $scope.selectedYear = undefined;
         }
 
-        bindIndicatorMeasures($scope.measures, updateTable);
+        bindIndicatorMeasures($scope, updateTable);
     }
 
     $scope.addPeriod = function () {
@@ -241,8 +244,6 @@
 
         bindIndicatorMeasures($scope.measures, updateTable);
     }
-
-    $scope.onlyNumbers = /^[0-9]+$/;
 
     init();
 });

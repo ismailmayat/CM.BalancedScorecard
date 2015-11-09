@@ -5,6 +5,8 @@ namespace CM.BalancedScoreboard.Services.Abstract.Indicators
 {
     public interface IIndicatorViewModelFactory
     {
-        IndicatorDetailsViewModel CreateDetailsViewModel(Indicator indicator);
+        IndicatorDetailsViewModel CreateIndicatorDetailsViewModel(Indicator indicator);
+
+        IndicatorMeasureDetailsViewModel CreateMeasureDetailsViewModel(Indicator indicator);
     }
 }

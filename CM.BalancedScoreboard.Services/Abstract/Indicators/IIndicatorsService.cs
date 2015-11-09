@@ -1,8 +1,8 @@
-﻿using System;
+﻿using CM.BalancedScoreboard.Services.ViewModel.Indicators;
+using System;
 using System.Collections.Generic;
-using CM.BalancedScoreboard.Services.ViewModel.Indicators;
 
-namespace CM.BalancedScoreboard.Services.Abstract
+namespace CM.BalancedScoreboard.Services.Abstract.Indicators
 {
     public interface IIndicatorsService
     {
@@ -16,7 +16,7 @@ namespace CM.BalancedScoreboard.Services.Abstract
 
         void Delete(Guid id);
 
-        IEnumerable<IndicatorMeasureListViewModel> GetMeasures(Guid indicatorId);
+        IndicatorMeasureDetailsViewModel GetMeasures(Guid indicatorId);
 
         bool AddMeasure(IndicatorMeasureViewModel indicatorMeasureVm);
 

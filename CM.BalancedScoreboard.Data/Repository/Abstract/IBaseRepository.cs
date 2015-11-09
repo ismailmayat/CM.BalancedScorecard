@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CM.BalancedScoreboard.Domain.Abstract;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using CM.BalancedScoreboard.Domain.Abstract;
 
 namespace CM.BalancedScoreboard.Data.Repository.Abstract
 {

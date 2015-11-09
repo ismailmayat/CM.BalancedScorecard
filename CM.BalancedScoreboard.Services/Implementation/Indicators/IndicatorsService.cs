@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper.QueryableExtensions;
+﻿using AutoMapper.QueryableExtensions;
 using CM.BalancedScoreboard.Data.Repository.Abstract;
 using CM.BalancedScoreboard.Domain.Abstract.Indicators;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
-using CM.BalancedScoreboard.Services.Abstract;
 using CM.BalancedScoreboard.Services.Abstract.Indicators;
 using CM.BalancedScoreboard.Services.ViewModel.Indicators;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace CM.BalancedScoreboard.Services.Implementation
+namespace CM.BalancedScoreboard.Services.Implementation.Indicators
 {
     public class IndicatorsService : IIndicatorsService
     {
@@ -45,7 +44,7 @@ namespace CM.BalancedScoreboard.Services.Implementation
         public IndicatorDetailsViewModel GetIndicator(Guid id)
         {
             var indicator = _repository.Single(i => i.Id == id, i => i.Measures);
-            return _viewModelFactory.CreateDetailsViewModel(indicator);
+            return _viewModelFactory.CreateIndicatorDetailsViewModel(indicator);
         }
 
         public void Add(IndicatorViewModel indicatorVm)
@@ -65,16 +64,11 @@ namespace CM.BalancedScoreboard.Services.Implementation
             _repository.Delete(id);
         }
 
-        public IEnumerable<IndicatorMeasureListViewModel> GetMeasures(Guid indicatorId)
+        public IndicatorMeasureDetailsViewModel GetMeasures(Guid indicatorId)
         {
             var indicator = _repository.Single(i => i.Id == indicatorId, i => i.Measures);
 
-            return indicator?.Measures.GroupBy(i => i.Date.Year)
-                .Select(gb => new IndicatorMeasureListViewModel()
-                {
-                    Year = gb.Key,
-                    Measures = AutoMapper.Mapper.Map<List<IndicatorMeasureViewModel>>(gb).OrderBy(im => im.Date).ToList()
-                }).OrderByDescending(im => im.Year);
+            return _viewModelFactory.CreateMeasureDetailsViewModel(indicator);
         }
 
         public bool AddMeasure(IndicatorMeasureViewModel indicatorMeasureVm)

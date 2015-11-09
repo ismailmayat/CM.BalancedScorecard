@@ -1,6 +1,6 @@
-﻿using System;
-using CM.BalancedScoreboard.Domain.Abstract.Indicators;
+﻿using CM.BalancedScoreboard.Domain.Abstract.Indicators;
 using CM.BalancedScoreboard.Domain.Model.Enums;
+using System;
 
 namespace CM.BalancedScoreboard.Domain.Implementation.Indicators
 {

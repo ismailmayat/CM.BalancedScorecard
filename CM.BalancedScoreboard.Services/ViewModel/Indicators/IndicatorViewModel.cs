@@ -1,14 +1,12 @@
 ﻿using CM.BalancedScoreboard.Domain.Model.Enums;
-using CM.BalancedScoreboard.Services.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using CM.BalancedScoreboard.Services.Abstract;
 
 namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
 {
     public class IndicatorViewModel : IViewModel
-    { 
+    {
         public Guid? Id { get; set; }
 
         [Display(Name = "Name")]
@@ -67,7 +65,7 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
         public Guid ManagerId { get; set; }
 
         [Display(Name = "FulfillmentRate")]
-        [Range(50,100)]
+        [Range(50, 100)]
         public int? FulfillmentRate { get; set; }
 
         public State State { get; set; }
@@ -75,7 +73,7 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
 
     public class IndicatorDetailsViewModel
     {
-        public IndicatorViewModel Indicator { get; set; }
+        public IndicatorViewModel Data { get; set; }
 
         public IEnumerable<object> PeriodicityTypeList { get; set; }
 
@@ -83,6 +81,8 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
 
         public IEnumerable<object> ObjectValueTypeList { get; set; }
 
-        public Dictionary<string,Dictionary<string, object>> Config { get; set; }
+        public Dictionary<string, Dictionary<string, object>> Config { get; set; }
+
+        public Dictionary<string, string> Resources { get; set; }
     }
 }
