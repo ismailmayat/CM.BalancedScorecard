@@ -3,8 +3,46 @@
         <input type="text" name="filter" class="form-control" ng-model="filter" ng-keypress="onEnter($event)" />
     </div>
 </div>
-<div class="row" ng-repeat="indicator in indicators">
+<div class="row">
     <div class="col-md-12">
-        <my-Indicator-Card indicator="indicator"></my-Indicator-Card>
+        <fieldset>
+            <legend ng-show="showLegend()">Results</legend>
+            <div class="row" ng-repeat="indicator in indicators">
+                <div class="col-md-12">
+                    <div class="panel" ng-class="getIndicatorStateClass(indicator)">
+                        <div class="panel-heading" ng-click="navigateToDetails(indicator.Id)">
+                            {{indicator.Name}}
+                        </div>
+                        <div class="panel-body" ng-click="navigateToDetails(indicator.Id)">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{indicator.Description}}
+                                </div>
+                                <div class="col-md-3">
+                                    {{indicator.ManagerName}}
+                                </div>
+                                <div class="col-md-2">
+                                    {{indicator.LastRealValue}}/{{indicator.LastTargetValue}}
+                                </div>
+                                <div class="col-md-1">
+                                    {{indicator.State}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row" ng-show="showingPanel(indicator.Id)">
+                                <div class="col-md-12">
+                                    <canvas id="line" class="chart chart-line" chart-data="data"
+                                            chart-labels="labels" chart-legend="true" chart-series="series"
+                                            chart-click="onClick" chart-colours="colours"></canvas>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-default btn-xs" ng-click="showGraph(indicator.Id)" style="width: 100%"><<>></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
     </div>
 </div>
+

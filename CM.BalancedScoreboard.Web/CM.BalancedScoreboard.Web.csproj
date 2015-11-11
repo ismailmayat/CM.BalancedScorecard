@@ -234,9 +234,12 @@
     <Content Include="app\indicators\controllers\list.js" />
     <Content Include="app\indicators\main.js" />
     <Content Include="app\indicators\services\api.js" />
+    <Content Include="app\indicators\services\graph.js" />
     <Content Include="app\indicators\views\list.html" />
     <Content Include="app\main.js" />
     <Content Include="app\shared\main.js" />
+    <Content Include="app\shared\services\configuration.js" />
+    <Content Include="app\shared\services\utils.js" />
     <Content Include="Content\angular-chart.css" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\animate.min.css" />

@@ -1,4 +1,1 @@
-﻿require("./controllers/list");
-
-angular.module("indicators", []);
-
+﻿angular.module("indicators", ["ngResource", "ngAnimate", "chart.js", "shared"]);

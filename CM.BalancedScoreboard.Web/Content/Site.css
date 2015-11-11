@@ -9,12 +9,12 @@
     padding-right: 15px;
 }
 
-.indicatorApp {
+.app {
     padding-top: 30px;
 }
 
-.indicatorApp .row {
-    margin-top: 5px;
+.app .row {
+    margin-top: 10px;
     margin-bottom: 5px;    
 }
 
