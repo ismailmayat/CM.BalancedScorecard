@@ -3,12 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/angular")
+    <title></title>
 </head>
-<body ng-app="app">
+<body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -17,25 +14,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a ng-href="/#/Indicators/List">Indicators</a></li>
+                    <li><a ng-href="/Indicators/List">Indicators</a></li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="container body-content" >
-        @RenderBody()
-        <hr />
-        <footer>
-        </footer>
-    </div>
+    <div class="container body-content" ng-app="app">
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
+        <hr/>
+        <footer></footer>
+    </div>
     <script src="Built/main.bundle.js"></script>
 </body>
 </html>

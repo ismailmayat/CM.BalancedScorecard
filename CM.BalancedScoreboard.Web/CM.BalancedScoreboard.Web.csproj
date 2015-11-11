@@ -231,6 +231,12 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\indicators\controllers\list.js" />
+    <Content Include="app\indicators\main.js" />
+    <Content Include="app\indicators\services\api.js" />
+    <Content Include="app\indicators\views\list.html" />
+    <Content Include="app\main.js" />
+    <Content Include="app\shared\main.js" />
     <Content Include="Content\angular-chart.css" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\animate.min.css" />
@@ -252,6 +258,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="index.html" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-chart.js" />
@@ -291,6 +298,7 @@
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Content\ng-table.less" />
     <Content Include="Content\toaster.scss" />
+    <Content Include="webpack.config.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />
@@ -321,8 +329,8 @@
     <Content Include="Views\Home\Objectives.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Areas\" />
+    <Folder Include="built\" />
     <Folder Include="Models\" />
     <Folder Include="Providers\" />
     <Folder Include="Results\" />
