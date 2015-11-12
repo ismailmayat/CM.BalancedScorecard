@@ -1,4 +1,4 @@
-﻿using CM.BalancedScoreboard.Resources;
+﻿using CM.BalancedScoreboard.Resources.Abstract;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

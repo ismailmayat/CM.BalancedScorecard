@@ -1,18 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using CM.BalancedScoreboard.Resources;
+using CM.BalancedScoreboard.Resources.Abstract;
+using CM.BalancedScoreboard.Services.Abstract;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using CM.BalancedScoreboard.Resources;
-using CM.BalancedScoreboard.Services.Abstract;
 
 namespace CM.BalancedScoreboard.Services.Implementation
 {
     public class DataAnnotationsConfig : ITypeConfig
     {
-        private readonly IResourceManager _resourceManager;
+        readonly IResourceManager _resourceManager;
 
-        public DataAnnotationsConfig(IResourceManager reourceManager)
+        public DataAnnotationsConfig(IResourceFactory resourceFactory)
         {
-            _resourceManager = reourceManager;
+            _resourceManager = resourceFactory.GetResourceManager(ResourceType.Indicators);
         }
 
         public Dictionary<string, Dictionary<string, object>> GetAttributes<T>() where T : class

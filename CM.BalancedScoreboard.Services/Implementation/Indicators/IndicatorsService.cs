@@ -1,12 +1,9 @@
-﻿using AutoMapper.QueryableExtensions;
-using CM.BalancedScoreboard.Data.Repository.Abstract;
+﻿using CM.BalancedScoreboard.Data.Repository.Abstract;
 using CM.BalancedScoreboard.Domain.Abstract.Indicators;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
 using CM.BalancedScoreboard.Services.Abstract.Indicators;
 using CM.BalancedScoreboard.Services.ViewModel.Indicators;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CM.BalancedScoreboard.Services.Implementation.Indicators
 {
@@ -23,22 +20,14 @@ namespace CM.BalancedScoreboard.Services.Implementation.Indicators
             _viewModelFactory = viewModelFactory;
         }
 
-        public IEnumerable<IndicatorViewModel> GetIndicators(string filter)
+        public IndicatorListViewModel GetIndicators(string filter)
         {
             var indicators =
                 _repository.Get(
                     i => i.Name.Contains(filter) || i.Code.Contains(filter) || i.Description.Contains(filter) ||
                          (i.Manager.Firstname + i.Manager.Surname).Contains(filter));
 
-            var indicatorVms = indicators.Project().To<IndicatorViewModel>().ToList();
-            foreach (var indicatorVm in indicatorVms)
-            {
-                indicatorVm.State = _stateCalculator.Calculate(indicatorVm.LastMeasureDate, indicatorVm.LastRealValue,
-                indicatorVm.LastTargetValue, indicatorVm.PeriodicityType, indicatorVm.ComparisonValueType,
-                indicatorVm.ObjectValueType, indicatorVm.FulfillmentRate);
-            }
-
-            return indicatorVms;
+            return _viewModelFactory.CreateIndicatorListViewModel(indicators);
         }
 
         public IndicatorDetailsViewModel GetIndicator(Guid id)
@@ -67,7 +56,6 @@ namespace CM.BalancedScoreboard.Services.Implementation.Indicators
         public IndicatorMeasureDetailsViewModel GetMeasures(Guid indicatorId)
         {
             var indicator = _repository.Single(i => i.Id == indicatorId, i => i.Measures);
-
             return _viewModelFactory.CreateMeasureDetailsViewModel(indicator);
         }
 

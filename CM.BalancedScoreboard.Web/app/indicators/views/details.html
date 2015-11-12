@@ -90,7 +90,7 @@
                     <div class="col-md-6">
                         <div class="form-group" show-errors>
                             <label for="FulfillmentRate">{{config.FulfillmentRate.DisplayName}}</label>
-                            <input type="number" class="form-control" id="FulfillmentRate" name="fulFillmentRate" placeholder="{{config.FulfillmentRate.DisplayName}}" min="{{config.FulfillmentRate.Range.MinValue}}" max="{{config.FulfillmentRate.Range.MaxValue}}" ng-model="indicator.FulfillmentRate" />
+                            <input type="range" form-control" id="FulfillmentRate" name="fulFillmentRate" placeholder="{{config.FulfillmentRate.DisplayName}}" min="{{config.FulfillmentRate.Range.MinValue}}" max="{{config.FulfillmentRate.Range.MaxValue}}" ng-model="indicator.FulfillmentRate" />
                         </div>
                     </div>
                 </div>
@@ -139,7 +139,7 @@
                             <td data-title="measuresResources.TargetValue" class="text-right col-md-3" ng-form="targetValue" ng-switch="canEdit(row)">
                                 <span ng-switch-default class="editable-text">{{row.TargetValue}} {{indicator.Unit}}</span>
                                 <div ng-switch-when="true" show-errors>
-                                    <input type="{{row.ValueInputType}}" name="targetValue" ng-model="row.TargetValue" class="editable-input form-control text-right" required />
+                                    <input type="" name="targetValue" ng-model="row.TargetValue" class="editable-input form-control text-right" required />
                                     <p class="help-block"></p>
                                 </div>
                             </td>

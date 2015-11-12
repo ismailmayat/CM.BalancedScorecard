@@ -179,6 +179,10 @@ angular.module("indicators").controller('indicatorsDetailsCtrl', function ($scop
         return new Date(date);
     }
 
+    $scope.formatMeasureValue = function (valueType, value) {
+
+    }
+
     $scope.canEdit = function (row) {
         if (!row.isEditing) {
             row.isEditing = isNewPeriod(row);

@@ -80,7 +80,6 @@
 
 	angular.module("indicators", ["ngResource", "ngAnimate", "chart.js", "ngTable", "toaster", "shared"]);
 
-
 /***/ },
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {

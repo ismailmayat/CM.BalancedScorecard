@@ -1,7 +1,9 @@
-﻿using CM.BalancedScoreboard.Domain.Abstract.Indicators;
+﻿using AutoMapper.QueryableExtensions;
+using CM.BalancedScoreboard.Domain.Abstract.Indicators;
 using CM.BalancedScoreboard.Domain.Model.Enums;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
 using CM.BalancedScoreboard.Resources;
+using CM.BalancedScoreboard.Resources.Abstract;
 using CM.BalancedScoreboard.Services.Abstract;
 using CM.BalancedScoreboard.Services.Abstract.Indicators;
 using CM.BalancedScoreboard.Services.Utils;
@@ -15,12 +17,12 @@ namespace CM.BalancedScoreboard.Services.Implementation.Indicators
     {
         readonly ITypeConfig _typeConfig;
         readonly IResourceManager _resourceManager;
-        private readonly IIndicatorStateCalculator _stateCalculator;
+        readonly IIndicatorStateCalculator _stateCalculator;
 
-        public IndicatorViewModelFactory(ITypeConfig typeConfig, IResourceManager resourceManager, IIndicatorStateCalculator stateCalculator)
+        public IndicatorViewModelFactory(ITypeConfig typeConfig, IResourceFactory resourceFactory, IIndicatorStateCalculator stateCalculator)
         {
             _typeConfig = typeConfig;
-            _resourceManager = resourceManager;
+            _resourceManager = resourceFactory.GetResourceManager(ResourceType.Indicators);
             _stateCalculator = stateCalculator;
         }
 
@@ -39,7 +41,7 @@ namespace CM.BalancedScoreboard.Services.Implementation.Indicators
                 PeriodicityTypeList = EnumUtil<PeriodicityType>.GetOptions(_resourceManager),
                 ComparisonValueTypeList = EnumUtil<ComparisonValueType>.GetOptions(_resourceManager),
                 ObjectValueTypeList = EnumUtil<ObjectValueType>.GetOptions(_resourceManager),
-                Resources = CreateDetailsViewResources()
+                Resources = _resourceManager.GetStrings()
             };
         }
 
@@ -56,52 +58,69 @@ namespace CM.BalancedScoreboard.Services.Implementation.Indicators
             {
                 Data = data,
                 Config = _typeConfig.GetAttributes<IndicatorMeasureViewModel>(),
-                Resources = CreateMeasuresViewResources()
+                Resources = _resourceManager.GetStrings()
             };
         }
 
-        private Dictionary<string, string> CreateDetailsViewResources()
+        public IndicatorListViewModel CreateIndicatorListViewModel(IQueryable<Indicator> indicators)
         {
-            return new Dictionary<string, string>()
+            var indicatorVms = indicators.Project().To<IndicatorViewModel>().ToList();
+            foreach (var indicatorVm in indicatorVms)
             {
-                {
-                    "Save", _resourceManager.GetString("Save")
-                },
-                {
-                    "Delete", _resourceManager.GetString("Delete")
-                },
-                {
-                    "Details", _resourceManager.GetString("Details")
-                }
+                indicatorVm.State = _stateCalculator.Calculate(indicatorVm.LastMeasureDate, indicatorVm.LastRealValue,
+                indicatorVm.LastTargetValue, indicatorVm.PeriodicityType, indicatorVm.ComparisonValueType,
+                indicatorVm.ObjectValueType, indicatorVm.FulfillmentRate);
+            }
+
+            return new IndicatorListViewModel()
+            {
+                Data = indicatorVms,
+                Resources = _resourceManager.GetStrings()
             };
         }
 
-        private Dictionary<string, string> CreateMeasuresViewResources()
-        {
-            return new Dictionary<string, string>()
-            {
-                {
-                    "RealValue", _resourceManager.GetString("RealValue")
-                },
-                {
-                    "TargetValue", _resourceManager.GetString("TargetValue")
-                },
-                {
-                    "Measures", _resourceManager.GetString("Measures")
-                },
-                {
-                    "Date", _resourceManager.GetString("Date")
-                },
-                {
-                    "Actions", _resourceManager.GetString("Actions")
-                },
-                {
-                    "AddPeriod", _resourceManager.GetString("AddPeriod")
-                },
-                {
-                    "Show", _resourceManager.GetString("Show")
-                },
-            };
-        }
+        //private Dictionary<string, string> CreateDetailsViewResources()
+        //{
+        //    return new Dictionary<string, string>()
+        //    {
+        //        {
+        //            "Save", _resourceManager.GetString("Save")
+        //        },
+        //        {
+        //            "Delete", _resourceManager.GetString("Delete")
+        //        },
+        //        {
+        //            "Details", _resourceManager.GetString("Details")
+        //        }
+        //    };
+        //}
+
+        //private Dictionary<string, string> CreateMeasuresViewResources()
+        //{
+        //    return new Dictionary<string, string>()
+        //    {
+        //        {
+        //            _resourceManager.GetKeyValue("RealValue")
+        //        },
+        //        {
+        //            "TargetValue", _resourceManager.GetString("TargetValue")
+        //        },
+        //        {
+        //            "Measures", _resourceManager.GetString("Measures")
+        //        },
+        //        {
+        //            "Date", _resourceManager.GetString("Date")
+        //        },
+        //        {
+        //            "Actions", _resourceManager.GetString("Actions")
+        //        },
+        //        {
+        //            "AddPeriod", _resourceManager.GetString("AddPeriod")
+        //        },
+        //        {
+        //            "Show", _resourceManager.GetString("Show")
+        //        },
+        //    };
+        //}
     }
 }

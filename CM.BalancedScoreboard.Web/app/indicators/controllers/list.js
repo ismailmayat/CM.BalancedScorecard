@@ -16,7 +16,8 @@ angular.module("indicators").controller('indicatorsListCtrl', function ($scope, 
     function loadIndicators() {
         $scope.indicators = indicatorsApi.indicators.query({ filter: $scope.filter }).$promise
             .then(function(response) {
-                $scope.indicators = response;
+                $scope.indicators = response.Data;
+                $scope.resources = response.Resources;
             })
             .catch(function () {
                 toaster.error({ body: "An error ocurred while trying to load the indicators" });
@@ -80,19 +81,19 @@ angular.module("indicators").controller('indicatorsListCtrl', function ($scope, 
     $scope.showMeasures = function (indicatorId, anchor) {
         if ($scope.showingIndicator === undefined) {
             loadMeasures(indicatorId, loadMeasuresCallback);
-            var hash = "indicator" + anchor;
-            if ($location.hash() !== hash) {
-                // set the $location.hash to `newHash` and
-                // $anchorScroll will automatically scroll to it
-                $location.hash(hash);
-            } else {
-                $anchorScroll();
-            }
+            //var hash = "indicator" + anchor;
+            //if ($location.hash() !== hash) {
+            //    // set the $location.hash to `newHash` and
+            //    // $anchorScroll will automatically scroll to it
+            //    $location.hash(hash);
+            //} else {
+            //    $anchorScroll();
+            //}
         } else {
             if ($scope.showingIndicator === indicatorId) {
                 $scope.showingIndicator = undefined;
                 initGraph();
-                $anchorScroll();
+                //$anchorScroll();
             }
         }
     }

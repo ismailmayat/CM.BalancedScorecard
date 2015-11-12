@@ -15,11 +15,6 @@ namespace CM.BalancedScoreboard.Web.Controllers
             return View();
         }
 
-        public ActionResult Indicators()
-        {
-            return View();
-        }
-
         public ActionResult Projects()
         {
             return View();

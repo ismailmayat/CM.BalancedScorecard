@@ -50,6 +50,7 @@
     <Compile Include="Implementation\Indicators\IndicatorsService.cs" />
     <Compile Include="Mapper\Mappings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\Indicators\IndicatorListViewModel.cs" />
     <Compile Include="ViewModel\Indicators\IndicatorMeasureViewModel.cs" />
     <Compile Include="ViewModel\Indicators\IndicatorViewModel.cs" />
     <Compile Include="Implementation\Indicators\IndicatorViewModelFactory.cs" />

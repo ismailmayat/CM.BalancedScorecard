@@ -44,3 +44,23 @@
    at CM.BalancedScoreboard.Web.Controllers.IndicatorsController.Get(String filter) in C:\GitHub\CM.BalancedScoreboard\CM.BalancedScoreboard.Web\Controllers\IndicatorsController.cs:line 24
 ClientConnectionId:88e896d3-29ef-4ba7-9927-d6b7290a3f94
 Error Number:40615,State:1,Class:14
+2015-11-12 21:33:00,129 [6] ERROR CM.BalancedScoreboard.Web.Controllers.IndicatorsController - System.Resources.MissingManifestResourceException: Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure "CM.BalancedScoreboard.Resources.Resources.resources" was correctly embedded or linked into assembly "CM.BalancedScoreboard.Resources" at compile time, or that all the satellite assemblies required are loadable and fully signed.
+   at System.Resources.ManifestBasedResourceGroveler.HandleResourceStreamMissing(String fileName)
+   at System.Resources.ManifestBasedResourceGroveler.GrovelForResourceSet(CultureInfo culture, Dictionary`2 localResourceSets, Boolean tryParents, Boolean createIfNotExists, StackCrawlMark& stackMark)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo requestedCulture, Boolean createIfNotExists, Boolean tryParents, StackCrawlMark& stackMark)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at CM.BalancedScoreboard.Resources.Implementation.LocalResourceManager.GetStrings() in C:\GitHub\CM.BalancedScoreboard\CM.BalancedScoreboard.Resources\Implementation\LocalResourceManager.cs:line 28
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorViewModelFactory.CreateIndicatorListViewModel(IQueryable`1 indicators) in C:\GitHub\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorViewModelFactory.cs:line 75
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorsService.GetIndicators(String filter) in C:\GitHub\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorsService.cs:line 30
+   at CM.BalancedScoreboard.Web.Controllers.IndicatorsController.Get(String filter) in C:\GitHub\CM.BalancedScoreboard\CM.BalancedScoreboard.Web\Controllers\IndicatorsController.cs:line 24
+2015-11-12 21:33:41,736 [6] ERROR CM.BalancedScoreboard.Web.Controllers.IndicatorsController - System.Resources.MissingManifestResourceException: Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure "CM.BalancedScoreboard.Resources.Resources.resources" was correctly embedded or linked into assembly "CM.BalancedScoreboard.Resources" at compile time, or that all the satellite assemblies required are loadable and fully signed.
+   at System.Resources.ManifestBasedResourceGroveler.HandleResourceStreamMissing(String fileName)
+   at System.Resources.ManifestBasedResourceGroveler.GrovelForResourceSet(CultureInfo culture, Dictionary`2 localResourceSets, Boolean tryParents, Boolean createIfNotExists, StackCrawlMark& stackMark)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo requestedCulture, Boolean createIfNotExists, Boolean tryParents, StackCrawlMark& stackMark)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at CM.BalancedScoreboard.Resources.Implementation.LocalResourceManager.GetStrings() in C:\GitHub\CM.BalancedScoreboard\CM.BalancedScoreboard.Resources\Implementation\LocalResourceManager.cs:line 28
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorViewModelFactory.CreateIndicatorListViewModel(IQueryable`1 indicators) in C:\GitHub\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorViewModelFactory.cs:line 75
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorsService.GetIndicators(String filter) in C:\GitHub\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorsService.cs:line 30
+   at CM.BalancedScoreboard.Web.Controllers.IndicatorsController.Get(String filter) in C:\GitHub\CM.BalancedScoreboard\CM.BalancedScoreboard.Web\Controllers\IndicatorsController.cs:line 24
