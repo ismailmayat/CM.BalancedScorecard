@@ -331,6 +331,7 @@
     <Content Include="Views\Home\Objectives.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\indicators\directives\" />
     <Folder Include="Areas\" />
     <Folder Include="built\" />
     <Folder Include="Models\" />

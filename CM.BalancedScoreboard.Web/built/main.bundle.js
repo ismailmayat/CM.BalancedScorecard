@@ -46,7 +46,7 @@
 
 	__webpack_require__(1);
 	__webpack_require__(2);
-	__webpack_require__(3)
+	__webpack_require__(3);
 
 	angular.module("app", ["ngRoute", "indicators"])
 	    .config([
@@ -77,7 +77,7 @@
 /* 2 */
 /***/ function(module, exports) {
 
-	angular.module("indicators", ["ngResource", "ngAnimate", "chart.js", "shared"]);
+	angular.module("indicators", ["ngResource", "ngAnimate", "chart.js", "toaster", "shared"]);
 
 
 /***/ },
@@ -85,43 +85,64 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(4);
-	__webpack_require__(7);
+	__webpack_require__(5);
 
-	angular.module("indicators").controller('indicatorsListCtrl', function ($scope, $animate, $location, indicatorsApi, graphFactory) {
+	angular.module("indicators").controller('indicatorsListCtrl', function ($scope, $animate, $location, $anchorScroll, indicatorsApi, graphFactory, toaster) {
 
 	    function loadMeasures(indicatorId, callback) {
 	        indicatorsApi.indicatorMeasures.query({ id: indicatorId }).$promise
-	           .then(function (response) {
-	               callback(response);
-	           })
+	            .then(function(response) {
+	                callback(indicatorId, response);
+	            })
 	           .catch(function () {
 	               toaster.error({ body: "An error ocurred while trying to load the measures of the selected indicator" });
 	           });
 	    }
 
-	    function initGraph() {
-	        $scope.labels = [];
-	        $scope.series = [];
-	        $scope.data = [[], []];
-	        $scope.colours = [];
+	    function loadIndicators() {
+	        $scope.indicators = indicatorsApi.indicators.query({ filter: $scope.filter }).$promise
+	            .then(function(response) {
+	                $scope.indicators = response;
+	            })
+	            .catch(function () {
+	                toaster.error({ body: "An error ocurred while trying to load the indicators" });
+	            });
 	    }
 
-	    function bindGraph(response) {
+	    function initGraph() {
+	        $scope.graphLabels = undefined;
+	        $scope.graphSeries = undefined;
+	        $scope.graphData = undefined;
+	        $scope.graphColours = undefined;
+	    }
+
+	    function bindGraph(data) {
+	        var firstYear = _.first(data);
+	        var graphData = graphFactory.getGraphData(firstYear.Measures);
+	        $scope.graphColours = graphData.colours;
+	        $scope.graphSeries = graphData.series;
+	        $scope.graphLabels = graphData.labels;
+	        $scope.graphData = graphData.data;
+	    }
+
+	    function loadMeasuresCallback(indicatorId, response) {
 	        if (response.Data.length > 0) {
-	            var firstYear = _.first(response.Data);
-	            var graphData = graphFactory.getGraphData(firstYear.Measures);
-	            $scope.colours = graphData.colours;
-	            $scope.series = graphData.series;
-	            $scope.labels = graphData.labels;
-	            $scope.data = graphData.data;
+	            bindGraph(response.Data);
+	        } else {
+	            initGraph();
 	        }
+	        $scope.showingIndicator = indicatorId;
 	    }
 
 	    $scope.onEnter = function (event) {
 	        if (event.charCode === 13) {
-	            $scope.indicators = indicatorsApi.indicators.query({ filter: $scope.filter });
+	            loadIndicators();
 	        }
 	    };
+
+	    $scope.search = function() {
+	        loadIndicators();
+	    }
 
 	    $scope.navigateToDetails = function (indicatorId) {
 	        $location.path('/Indicators/Details/' + indicatorId);
@@ -142,23 +163,35 @@
 	        }
 	    }
 
-	    $scope.showGraph = function (indicatorId) {
+	    $scope.showMeasures = function (indicatorId, anchor) {
 	        if ($scope.showingIndicator === undefined) {
-	            $scope.showingIndicator = indicatorId;
-	            loadMeasures(indicatorId, bindGraph);
+	            loadMeasures(indicatorId, loadMeasuresCallback);
+	            var hash = "indicator" + anchor;
+	            if ($location.hash() !== hash) {
+	                // set the $location.hash to `newHash` and
+	                // $anchorScroll will automatically scroll to it
+	                $location.hash(hash);
+	            } else {
+	                $anchorScroll();
+	            }
 	        } else {
 	            if ($scope.showingIndicator === indicatorId) {
 	                $scope.showingIndicator = undefined;
 	                initGraph();
+	                $anchorScroll();
 	            }
 	        }
 	    }
 
-	    $scope.showingPanel = function (indicatorId) {
+	    $scope.showingMeasures = function (indicatorId) {
 	        return $scope.showingIndicator === indicatorId;
 	    }
 
-	    $scope.showLegend = function () {
+	    $scope.showingGraph = function() {
+	        return $scope.graphData !== undefined;
+	    }
+
+	    $scope.showingLegend = function () {
 	        return $scope.indicators !== undefined && $scope.indicators.length > 0;
 	    }
 	}); 
@@ -180,36 +213,7 @@
 	}]);
 
 /***/ },
-/* 5 */,
-/* 6 */
-/***/ function(module, exports) {
-
-	angular.module('shared').factory('utils', function () {
-	    return {
-	        formatFullDate: function (date) {
-	            var d = new Date(date),
-	                month = '' + (d.getMonth() + 1),
-	                day = '' + d.getDate(),
-	                year = d.getFullYear();
-
-	            if (month.length < 2) month = '0' + month;
-	            if (day.length < 2) day = '0' + day;
-
-	            return [year, month, day].join('/');
-	        },
-	        monthNames: function () {
-	            return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-	        },
-	        formatGraphDate: function (date) {
-	            var d = new Date(date);
-
-	            return this.monthNames()[d.getMonth()] + ' ' + d.getFullYear().toString().substr(2, 4);
-	        }
-	    };
-	});
-
-/***/ },
-/* 7 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(6);
@@ -254,6 +258,34 @@
 	            data[1].push(indicatorMeasure.TargetValue);
 	        }
 	        return data;
+	    };
+	});
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	angular.module('shared').factory('utils', function () {
+	    return {
+	        formatFullDate: function (date) {
+	            var d = new Date(date),
+	                month = '' + (d.getMonth() + 1),
+	                day = '' + d.getDate(),
+	                year = d.getFullYear();
+
+	            if (month.length < 2) month = '0' + month;
+	            if (day.length < 2) day = '0' + day;
+
+	            return [year, month, day].join('/');
+	        },
+	        monthNames: function () {
+	            return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	        },
+	        formatGraphDate: function (date) {
+	            var d = new Date(date);
+
+	            return this.monthNames()[d.getMonth()] + ' ' + d.getFullYear().toString().substr(2, 4);
+	        }
 	    };
 	});
 

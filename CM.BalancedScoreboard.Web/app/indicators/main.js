@@ -1,1 +1,1 @@
-﻿angular.module("indicators", ["ngResource", "ngAnimate", "chart.js", "shared"]);
+﻿angular.module("indicators", ["ngResource", "ngAnimate", "chart.js", "toaster", "shared"]);

@@ -1,15 +1,20 @@
 ﻿<div class="row">
     <div class="col-md-12">
-        <input type="text" name="filter" class="form-control" ng-model="filter" ng-keypress="onEnter($event)" />
+        <div class="input-group">
+            <input type="text" name="filter" placeholder="Search" class="form-control" ng-model="filter" ng-keypress="onEnter($event)" />
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button" ng-click="search()">Search</button>
+            </span>
+        </div>      
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
         <fieldset>
-            <legend ng-show="showLegend()">Results</legend>
+            <legend ng-show="showingLegend()">Results</legend>
             <div class="row" ng-repeat="indicator in indicators">
                 <div class="col-md-12">
-                    <div class="panel" ng-class="getIndicatorStateClass(indicator)">
+                    <div id="indicator{{$index}}" class="panel" ng-class="getIndicatorStateClass(indicator)">
                         <div class="panel-heading" ng-click="navigateToDetails(indicator.Id)">
                             {{indicator.Name}}
                         </div>
@@ -21,23 +26,33 @@
                                 <div class="col-md-3">
                                     {{indicator.ManagerName}}
                                 </div>
-                                <div class="col-md-2">
-                                    {{indicator.LastRealValue}}/{{indicator.LastTargetValue}}
-                                </div>
-                                <div class="col-md-1">
-                                    {{indicator.State}}
+                                <div class="col-md-3">
+                                    {{indicator.LastRealValue}} {{indicator.Unit}} / {{indicator.LastTargetValue}} {{indicator.Unit}}
                                 </div>
                             </div>
                         </div>
                         <div class="panel-footer">
-                            <div class="row" ng-show="showingPanel(indicator.Id)">
+                            <div class="row" ng-show="showingMeasures(indicator.Id)">
                                 <div class="col-md-12">
-                                    <canvas id="line" class="chart chart-line" chart-data="data"
-                                            chart-labels="labels" chart-legend="true" chart-series="series"
-                                            chart-click="onClick" chart-colours="colours"></canvas>
+                                    <div class="row" ng-show="showingGraph()">
+                                        <div class="col-md-12">
+                                            <canvas id="line" class="chart chart-line" chart-data="graphData"
+                                                    chart-labels="graphLabels" chart-legend="true" chart-series="graphSeries"
+                                                    chart-click="onClick" chart-colours="graphColours"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-show="!showingGraph()">
+                                        <div class="col-md-12">
+                                            No measures for this indicator
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-default btn-xs" ng-click="showGraph(indicator.Id)" style="width: 100%"><<>></button>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-default btn-xs" ng-click="showMeasures(indicator.Id, $index)" style="width: 100%"><<>></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
