@@ -180,6 +180,9 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="NoMeasures" xml:space="preserve">
+    <value>No measures for this indicator</value>
+  </data>
   <data name="ObjectValueType" xml:space="preserve">
     <value>Value type</value>
   </data>
@@ -189,8 +192,14 @@
   <data name="RealValue" xml:space="preserve">
     <value>Real value</value>
   </data>
+  <data name="Results" xml:space="preserve">
+    <value>Results</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
   </data>
   <data name="Show" xml:space="preserve">
     <value>Show</value>

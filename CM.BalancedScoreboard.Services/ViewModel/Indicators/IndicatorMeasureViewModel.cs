@@ -36,6 +36,5 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
     {
         public List<IndicatorMeasureListViewModel> Data {get;set; }
         public Dictionary<string, Dictionary<string, object>> Config { get; set; }
-        public Dictionary<string, string> Resources { get; set; }
     }
 }

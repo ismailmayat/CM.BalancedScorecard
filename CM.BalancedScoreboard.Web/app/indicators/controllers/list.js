@@ -17,7 +17,6 @@ angular.module("indicators").controller('indicatorsListCtrl', function ($scope, 
         $scope.indicators = indicatorsApi.indicators.query({ filter: $scope.filter }).$promise
             .then(function(response) {
                 $scope.indicators = response.Data;
-                $scope.resources = response.Resources;
             })
             .catch(function () {
                 toaster.error({ body: "An error ocurred while trying to load the indicators" });

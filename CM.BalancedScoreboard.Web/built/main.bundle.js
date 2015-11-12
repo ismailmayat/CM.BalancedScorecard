@@ -78,7 +78,16 @@
 /* 2 */
 /***/ function(module, exports) {
 
-	angular.module("indicators", ["ngResource", "ngAnimate", "chart.js", "ngTable", "toaster", "shared"]);
+	angular.module("indicators", ["ngResource", "ngAnimate", "chart.js", "ngTable", "toaster", "shared"])
+
+	angular.module("indicators").run(function ($rootScope, $http) {
+	    $http.get("/api/indicators/resources")
+	        .then(function success(response) {
+	            $rootScope.resources = response.data;
+	        }, function callback(response) {
+
+	        });
+	});
 
 /***/ },
 /* 3 */
@@ -102,7 +111,7 @@
 	    function loadIndicators() {
 	        $scope.indicators = indicatorsApi.indicators.query({ filter: $scope.filter }).$promise
 	            .then(function(response) {
-	                $scope.indicators = response;
+	                $scope.indicators = response.Data;
 	            })
 	            .catch(function () {
 	                toaster.error({ body: "An error ocurred while trying to load the indicators" });
@@ -166,19 +175,19 @@
 	    $scope.showMeasures = function (indicatorId, anchor) {
 	        if ($scope.showingIndicator === undefined) {
 	            loadMeasures(indicatorId, loadMeasuresCallback);
-	            var hash = "indicator" + anchor;
-	            if ($location.hash() !== hash) {
-	                // set the $location.hash to `newHash` and
-	                // $anchorScroll will automatically scroll to it
-	                $location.hash(hash);
-	            } else {
-	                $anchorScroll();
-	            }
+	            //var hash = "indicator" + anchor;
+	            //if ($location.hash() !== hash) {
+	            //    // set the $location.hash to `newHash` and
+	            //    // $anchorScroll will automatically scroll to it
+	            //    $location.hash(hash);
+	            //} else {
+	            //    $anchorScroll();
+	            //}
 	        } else {
 	            if ($scope.showingIndicator === indicatorId) {
 	                $scope.showingIndicator = undefined;
 	                initGraph();
-	                $anchorScroll();
+	                //$anchorScroll();
 	            }
 	        }
 	    }
@@ -200,14 +209,15 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	angular.module("indicators").factory('indicatorsApi', ['$resource', function ($resource) {
+	angular.module("indicators").factory("indicatorsApi", ["$resource", function ($resource) {
 	    return {
-	        indicators: $resource('/api/indicators/:id', null, {
-	            'update': { method: 'PUT' }
+	        indicators: $resource("/api/indicators/:id", null, {
+	            "query": { isArray: false },
+	            "update": { method: "PUT" }
 	        }),
-	        indicatorMeasures: $resource('/api/indicators/:id/measures/:measureId', null, {
-	            'query': { isArray: false },
-	            'update': { method: 'PUT' }
+	        indicatorMeasures: $resource("/api/indicators/:id/measures/:measureId", null, {
+	            "query": { isArray: false },
+	            "update": { method: "PUT" }
 	        })
 	    }
 	}]);
@@ -388,7 +398,6 @@
 	        $scope.selectedPeriodicity = $.grep($scope.periodicityTypeList, function (e) { return e.id === response.Data.PeriodicityType; })[0];
 	        $scope.selectedObjectValue = $.grep($scope.objectValueTypeList, function (e) { return e.id === response.Data.ObjectValueType; })[0];
 	        $scope.config = response.Config;
-	        $scope.resources = response.Resources;
 	    }
 
 	    function loadIndicatorMeasures(callback, tableAction) {
@@ -405,7 +414,6 @@
 	        if (response.Data.length > 0) {
 	            $scope.measures = response.Data;
 	            $scope.measuresConfig = response.Config;
-	            $scope.measuresResources = response.Resources;
 	            originalData = angular.copy(response.Data);
 	            if ($scope.selectedYear === undefined || $scope.getSelectedYearData().length == 0) {
 	                $scope.selectedYear = _.first($scope.measures).Year;
@@ -472,6 +480,10 @@
 
 	    $scope.formatDate = function (date) {
 	        return new Date(date);
+	    }
+
+	    $scope.formatMeasureValue = function (valueType, value) {
+
 	    }
 
 	    $scope.canEdit = function (row) {

@@ -40,8 +40,7 @@ namespace CM.BalancedScoreboard.Services.Implementation.Indicators
                 Config = _typeConfig.GetAttributes<IndicatorViewModel>(),
                 PeriodicityTypeList = EnumUtil<PeriodicityType>.GetOptions(_resourceManager),
                 ComparisonValueTypeList = EnumUtil<ComparisonValueType>.GetOptions(_resourceManager),
-                ObjectValueTypeList = EnumUtil<ObjectValueType>.GetOptions(_resourceManager),
-                Resources = _resourceManager.GetStrings()
+                ObjectValueTypeList = EnumUtil<ObjectValueType>.GetOptions(_resourceManager)
             };
         }
 
@@ -57,8 +56,7 @@ namespace CM.BalancedScoreboard.Services.Implementation.Indicators
             return new IndicatorMeasureDetailsViewModel()
             {
                 Data = data,
-                Config = _typeConfig.GetAttributes<IndicatorMeasureViewModel>(),
-                Resources = _resourceManager.GetStrings()
+                Config = _typeConfig.GetAttributes<IndicatorMeasureViewModel>()
             };
         }
 
@@ -74,8 +72,7 @@ namespace CM.BalancedScoreboard.Services.Implementation.Indicators
 
             return new IndicatorListViewModel()
             {
-                Data = indicatorVms,
-                Resources = _resourceManager.GetStrings()
+                Data = indicatorVms
             };
         }
 

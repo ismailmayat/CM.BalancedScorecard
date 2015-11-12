@@ -82,7 +82,5 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
         public IEnumerable<object> ObjectValueTypeList { get; set; }
 
         public Dictionary<string, Dictionary<string, object>> Config { get; set; }
-
-        public Dictionary<string, string> Resources { get; set; }
     }
 }

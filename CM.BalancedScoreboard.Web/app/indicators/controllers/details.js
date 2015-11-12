@@ -93,7 +93,6 @@ angular.module("indicators").controller('indicatorsDetailsCtrl', function ($scop
         $scope.selectedPeriodicity = $.grep($scope.periodicityTypeList, function (e) { return e.id === response.Data.PeriodicityType; })[0];
         $scope.selectedObjectValue = $.grep($scope.objectValueTypeList, function (e) { return e.id === response.Data.ObjectValueType; })[0];
         $scope.config = response.Config;
-        $scope.resources = response.Resources;
     }
 
     function loadIndicatorMeasures(callback, tableAction) {
@@ -110,7 +109,6 @@ angular.module("indicators").controller('indicatorsDetailsCtrl', function ($scop
         if (response.Data.length > 0) {
             $scope.measures = response.Data;
             $scope.measuresConfig = response.Config;
-            $scope.measuresResources = response.Resources;
             originalData = angular.copy(response.Data);
             if ($scope.selectedYear === undefined || $scope.getSelectedYearData().length == 0) {
                 $scope.selectedYear = _.first($scope.measures).Year;

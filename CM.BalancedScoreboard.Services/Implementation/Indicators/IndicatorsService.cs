@@ -1,9 +1,12 @@
 ﻿using CM.BalancedScoreboard.Data.Repository.Abstract;
 using CM.BalancedScoreboard.Domain.Abstract.Indicators;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
+using CM.BalancedScoreboard.Resources;
+using CM.BalancedScoreboard.Resources.Abstract;
 using CM.BalancedScoreboard.Services.Abstract.Indicators;
 using CM.BalancedScoreboard.Services.ViewModel.Indicators;
 using System;
+using System.Collections.Generic;
 
 namespace CM.BalancedScoreboard.Services.Implementation.Indicators
 {
@@ -12,12 +15,14 @@ namespace CM.BalancedScoreboard.Services.Implementation.Indicators
         readonly IIndicatorsRepository _repository;
         readonly IIndicatorStateCalculator _stateCalculator;
         readonly IIndicatorViewModelFactory _viewModelFactory;
+        readonly IResourceManager _resourceManager;
 
-        public IndicatorsService(IIndicatorsRepository repository, IIndicatorStateCalculator stateCalculator, IIndicatorViewModelFactory viewModelFactory)
+        public IndicatorsService(IIndicatorsRepository repository, IIndicatorStateCalculator stateCalculator, IIndicatorViewModelFactory viewModelFactory, IResourceFactory resourceFactory)
         {
             _repository = repository;
             _stateCalculator = stateCalculator;
             _viewModelFactory = viewModelFactory;
+            _resourceManager = resourceFactory.GetResourceManager(ResourceType.Indicators);
         }
 
         public IndicatorListViewModel GetIndicators(string filter)
@@ -74,6 +79,11 @@ namespace CM.BalancedScoreboard.Services.Implementation.Indicators
         public bool DeleteMeasure(Guid indicatorId, Guid indicatorMeasureId)
         {
             return _repository.DeleteMeasure(indicatorId, indicatorMeasureId);
+        }
+
+        public Dictionary<string, string> GetResources()
+        {
+            return _resourceManager.GetStrings();
         }
     }
 }

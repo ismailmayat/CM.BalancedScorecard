@@ -193,5 +193,19 @@ namespace CM.BalancedScoreboard.Web.Controllers
                 return InternalServerError();
             }
         }
+
+        [Route("api/indicators/resources")]
+        public IHttpActionResult GetResources()
+        {
+            try
+            {
+                return Ok(_service.GetResources());
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                return InternalServerError();
+            }
+        }
     }
 }

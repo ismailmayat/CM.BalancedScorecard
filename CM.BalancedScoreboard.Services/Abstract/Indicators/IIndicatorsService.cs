@@ -23,5 +23,7 @@ namespace CM.BalancedScoreboard.Services.Abstract.Indicators
         bool UpdateMeasure(IndicatorMeasureViewModel indicatorMeasureVm);
 
         bool DeleteMeasure(Guid indicatorId, Guid indicatorMeasureId);
+
+        Dictionary<string, string> GetResources();
     }
 }
