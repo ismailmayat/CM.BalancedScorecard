@@ -120,23 +120,23 @@
             <div class="row">
                 <div class="col-md-12">
                     <toaster-container toaster-options="{'time-out': 3000, 'animation-class': 'toast-top-right'}"></toaster-container>
-                    <table ng-table="tableParams" class="table table-bordered table-striped table-condensed" tracked-table="tableTracker">
+                    <table ng-table="tableParams" class="table table-bordered table-striped table-condensed">
                         <tr ng-repeat="row in $data track by row.Id" ng-form="rowForm" tracked-table-row="row">
-                            <td data-title="measuresResources.Date" sortable="'Date'" class="col-md-4" ng-form="date" ng-class="date.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
+                            <td data-title="measuresResources.Date" sortable="'Date'" class="col-md-4" ng-form="date" ng-switch="canEdit(row)">
                                 <span ng-switch-default class="editable-text">{{formatGraphDate(row.Date)}}</span>
                                 <div ng-switch-when="true" show-errors>
                                     <input type="month" name="date" ng-init="row.Date = formatDate(row.Date)" ng-model="row.Date" class="editable-input form-control" required />
                                     <p class="help-block"></p>
                                 </div>
                             </td>
-                            <td data-title="measuresResources.RealValue" class="text-right col-md-3" ng-form="realValue" ng-class="realValue.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
+                            <td data-title="measuresResources.RealValue" class="text-right col-md-3" ng-form="realValue" ng-switch="canEdit(row)">
                                 <span ng-switch-default class="editable-text">{{row.RealValue}} {{indicator.Unit}}</span>
                                 <div ng-switch-when="true" show-errors>
                                     <input type="{{row.ValueInputType}}" name="realValue" ng-model="row.RealValue" class="editable-input form-control text-right" ng-pattern="" required />
                                     <p class="help-block"></p>
                                 </div>
                             </td>
-                            <td data-title="measuresResources.TargetValue" class="text-right col-md-3" ng-form="targetValue" ng-class="targetValue.$dirty ? 'bg-warning' : ''" ng-switch="canEdit(row)" tracked-table-cell>
+                            <td data-title="measuresResources.TargetValue" class="text-right col-md-3" ng-form="targetValue" ng-switch="canEdit(row)">
                                 <span ng-switch-default class="editable-text">{{row.TargetValue}} {{indicator.Unit}}</span>
                                 <div ng-switch-when="true" show-errors>
                                     <input type="{{row.ValueInputType}}" name="targetValue" ng-model="row.TargetValue" class="editable-input form-control text-right" required />

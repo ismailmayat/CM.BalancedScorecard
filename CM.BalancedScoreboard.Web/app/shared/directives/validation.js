@@ -1,4 +1,4 @@
-﻿shared.directive('showErrors', function () {
+﻿angular.module('shared').directive('showErrors', function () {
     function getErrorMessage(input) {
         if (input.$error.required) {
             return "This field is required";

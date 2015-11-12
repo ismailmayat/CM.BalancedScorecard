@@ -1,4 +1,8 @@
-﻿indicatorsApp.controller('indicatorsDetailsCtrl', function ($scope, $routeParams, indicatorsApi, $filter, utils, graphFactory, ngTableParams, toaster, $location) {
+﻿require("../services/api");
+require("../services/graph");
+require("../../shared/directives/validation");
+
+angular.module("indicators").controller('indicatorsDetailsCtrl', function ($scope, $routeParams, $filter, $location, indicatorsApi, utils, graphFactory, ngTableParams, toaster) {
     var originalData = [];
 
     function bindModel() {
@@ -160,7 +164,7 @@
     $scope.deleteIndicator = function () {
         indicatorsApi.indicators.delete({ id: $scope.indicator.Id }).$promise
             .then(function () {
-                $location.path('/List');
+                $location.path('/Indicators/List');
             })
             .catch(function () {
                 toaster.error({ body: 'An error ocurred while trying to save the indicator...' });
