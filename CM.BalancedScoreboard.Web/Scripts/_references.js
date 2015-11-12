@@ -9,6 +9,7 @@
 /// <reference path="../app/shared/main.js" />
 /// <reference path="../app/shared/services/configuration.js" />
 /// <reference path="../app/shared/services/utils.js" />
+/// <reference path="../built/main.bundle.js" />
 /// <reference path="angular.min.js" />
 /// <reference path="angular-animate.min.js" />
 /// <reference path="angular-chart.min.js" />

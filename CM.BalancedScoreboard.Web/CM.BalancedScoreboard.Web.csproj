@@ -243,6 +243,7 @@
     <Content Include="app\shared\main.js" />
     <Content Include="app\shared\services\configuration.js" />
     <Content Include="app\shared\services\utils.js" />
+    <Content Include="built\main.bundle.js" />
     <Content Include="Content\angular-chart.css" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\animate.min.css" />
@@ -336,7 +337,6 @@
   <ItemGroup>
     <Folder Include="app\indicators\directives\" />
     <Folder Include="Areas\" />
-    <Folder Include="built\" />
     <Folder Include="Models\" />
     <Folder Include="Providers\" />
     <Folder Include="Results\" />
