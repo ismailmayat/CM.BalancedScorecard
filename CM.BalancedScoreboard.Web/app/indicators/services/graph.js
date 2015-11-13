@@ -1,6 +1,6 @@
 ﻿require("../../shared/services/utils");
 
-angular.module("indicators").factory("graphFactory", function (utils) {
+module.exports = ["utils", function (utils) {
     return {
         getGraphData: function (indicatorMeasures) {
             return {
@@ -41,4 +41,4 @@ angular.module("indicators").factory("graphFactory", function (utils) {
         }
         return data;
     };
-});
+}];

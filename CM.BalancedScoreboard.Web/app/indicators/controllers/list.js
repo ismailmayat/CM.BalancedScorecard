@@ -1,8 +1,7 @@
-﻿require("../services/api");
-require("../services/graph");
+﻿module.exports = ["$scope", "$animate", "$location", "$anchorScroll", "indicatorsApi", "indicatorsGraphFactory", "toaster",
 
-angular.module("indicators").controller('indicatorsListCtrl', function ($scope, $animate, $location, $anchorScroll, indicatorsApi, graphFactory, toaster) {
-
+function ($scope, $animate, $location, $anchorScroll, indicatorsApi, indicatorsGraphFactory, toaster)
+{
     function loadMeasures(indicatorId, callback) {
         indicatorsApi.indicatorMeasures.query({ id: indicatorId }).$promise
             .then(function(response) {
@@ -32,7 +31,7 @@ angular.module("indicators").controller('indicatorsListCtrl', function ($scope, 
 
     function bindGraph(data) {
         var firstYear = _.first(data);
-        var graphData = graphFactory.getGraphData(firstYear.Measures);
+        var graphData = indicatorsGraphFactory.getGraphData(firstYear.Measures);
         $scope.graphColours = graphData.colours;
         $scope.graphSeries = graphData.series;
         $scope.graphLabels = graphData.labels;
@@ -108,4 +107,9 @@ angular.module("indicators").controller('indicatorsListCtrl', function ($scope, 
     $scope.showingLegend = function () {
         return $scope.indicators !== undefined && $scope.indicators.length > 0;
     }
-}); 
+}];
+
+
+
+
+    

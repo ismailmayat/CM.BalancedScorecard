@@ -46,8 +46,6 @@
 
 	__webpack_require__(1);
 	__webpack_require__(2);
-	__webpack_require__(3);
-	__webpack_require__(7);
 
 	angular.module("app", ["ngRoute", "indicators"])
 	    .config([
@@ -76,28 +74,127 @@
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	angular.module("indicators", ["ngResource", "ngAnimate", "chart.js", "ngTable", "toaster", "shared"])
+	angular.module("indicators", ["ngResource", "ngAnimate", "chart.js", "ngTable", "toaster", "shared"]);
 
 	angular.module("indicators").run(function ($rootScope, $http) {
 	    $http.get("/api/indicators/resources")
 	        .then(function success(response) {
 	            $rootScope.resources = response.data;
 	        }, function callback(response) {
-
+	            console.error("Error: " + response.message);
 	        });
 	});
 
+	angular.module("indicators").factory("indicatorsApi", __webpack_require__(3));
+	angular.module("indicators").factory("indicatorsGraphFactory", __webpack_require__(4));
+	angular.module("indicators").controller("indicatorsListCtrl", __webpack_require__(6));
+	angular.module("indicators").controller("indicatorsDetailsCtrl", __webpack_require__(7));
+
 /***/ },
 /* 3 */
+/***/ function(module, exports) {
+
+	
+	module.exports = ["$resource", function ($resource) {
+	    return {
+	        indicators: $resource("/api/indicators/:id", null, {
+	            "query": { isArray: false },
+	            "update": { method: "PUT" }
+	        }),
+	        indicatorMeasures: $resource("/api/indicators/:id/measures/:measureId", null, {
+	            "query": { isArray: false },
+	            "update": { method: "PUT" }
+	        })
+	    }
+	}];
+
+/***/ },
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(4);
 	__webpack_require__(5);
 
-	angular.module("indicators").controller('indicatorsListCtrl', function ($scope, $animate, $location, $anchorScroll, indicatorsApi, graphFactory, toaster) {
+	module.exports = ["utils", function (utils) {
+	    return {
+	        getGraphData: function (indicatorMeasures) {
+	            return {
+	                series: getIndicatorGraphSeriesNames(),
+	                labels: getIndicatorGraphLabels(indicatorMeasures),
+	                data: getIndicatorGraphValues(indicatorMeasures),
+	                colours: getIndicatorGraphColours()
+	            }
+	        },
+	        getGraphOptions: function () {
+	            bezierCurve: false
+	        }
+	    };
 
+	    function getIndicatorGraphColours() {
+	        return ["#00868B", "#FF7216"];
+	    };
+
+	    function getIndicatorGraphSeriesNames() {
+	        return ["Real Value", "Target Value"];
+	    };
+
+	    function getIndicatorGraphLabels(indicatorMeasures) {
+	        var labels = [];
+	        for (index = 0; index < indicatorMeasures.length; ++index) {
+	            var indicatorMeasure = indicatorMeasures[index];
+	            labels.push(utils.formatGraphDate(indicatorMeasure.Date));
+	        }
+	        return labels;
+	    };
+
+	    function getIndicatorGraphValues(indicatorMeasures) {
+	        var data = [[], []];
+	        for (index = 0; index < indicatorMeasures.length; ++index) {
+	            var indicatorMeasure = indicatorMeasures[index];
+	            data[0].push(indicatorMeasure.RealValue);
+	            data[1].push(indicatorMeasure.TargetValue);
+	        }
+	        return data;
+	    };
+	}];
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	angular.module('shared').factory('utils', function () {
+	    return {
+	        formatFullDate: function (date) {
+	            var d = new Date(date),
+	                month = '' + (d.getMonth() + 1),
+	                day = '' + d.getDate(),
+	                year = d.getFullYear();
+
+	            if (month.length < 2) month = '0' + month;
+	            if (day.length < 2) day = '0' + day;
+
+	            return [year, month, day].join('/');
+	        },
+	        monthNames: function () {
+	            return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	        },
+	        formatGraphDate: function (date) {
+	            var d = new Date(date);
+
+	            return this.monthNames()[d.getMonth()] + ' ' + d.getFullYear().toString().substr(2, 4);
+	        }
+	    };
+	});
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	module.exports = ["$scope", "$animate", "$location", "$anchorScroll", "indicatorsApi", "indicatorsGraphFactory", "toaster",
+
+	function ($scope, $animate, $location, $anchorScroll, indicatorsApi, indicatorsGraphFactory, toaster)
+	{
 	    function loadMeasures(indicatorId, callback) {
 	        indicatorsApi.indicatorMeasures.query({ id: indicatorId }).$promise
 	            .then(function(response) {
@@ -127,7 +224,7 @@
 
 	    function bindGraph(data) {
 	        var firstYear = _.first(data);
-	        var graphData = graphFactory.getGraphData(firstYear.Measures);
+	        var graphData = indicatorsGraphFactory.getGraphData(firstYear.Measures);
 	        $scope.graphColours = graphData.colours;
 	        $scope.graphSeries = graphData.series;
 	        $scope.graphLabels = graphData.labels;
@@ -203,111 +300,22 @@
 	    $scope.showingLegend = function () {
 	        return $scope.indicators !== undefined && $scope.indicators.length > 0;
 	    }
-	}); 
+	}];
 
-/***/ },
-/* 4 */
-/***/ function(module, exports) {
 
-	angular.module("indicators").factory("indicatorsApi", ["$resource", function ($resource) {
-	    return {
-	        indicators: $resource("/api/indicators/:id", null, {
-	            "query": { isArray: false },
-	            "update": { method: "PUT" }
-	        }),
-	        indicatorMeasures: $resource("/api/indicators/:id/measures/:measureId", null, {
-	            "query": { isArray: false },
-	            "update": { method: "PUT" }
-	        })
-	    }
-	}]);
 
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(6);
-
-	angular.module("indicators").factory("graphFactory", function (utils) {
-	    return {
-	        getGraphData: function (indicatorMeasures) {
-	            return {
-	                series: getIndicatorGraphSeriesNames(),
-	                labels: getIndicatorGraphLabels(indicatorMeasures),
-	                data: getIndicatorGraphValues(indicatorMeasures),
-	                colours: getIndicatorGraphColours()
-	            }
-	        },
-	        getGraphOptions: function () {
-	            bezierCurve: false
-	        }
-	    };
-
-	    function getIndicatorGraphColours() {
-	        return ["#00868B", "#FF7216"];
-	    };
-
-	    function getIndicatorGraphSeriesNames() {
-	        return ["Real Value", "Target Value"];
-	    };
-
-	    function getIndicatorGraphLabels(indicatorMeasures) {
-	        var labels = [];
-	        for (index = 0; index < indicatorMeasures.length; ++index) {
-	            var indicatorMeasure = indicatorMeasures[index];
-	            labels.push(utils.formatGraphDate(indicatorMeasure.Date));
-	        }
-	        return labels;
-	    };
-
-	    function getIndicatorGraphValues(indicatorMeasures) {
-	        var data = [[], []];
-	        for (index = 0; index < indicatorMeasures.length; ++index) {
-	            var indicatorMeasure = indicatorMeasures[index];
-	            data[0].push(indicatorMeasure.RealValue);
-	            data[1].push(indicatorMeasure.TargetValue);
-	        }
-	        return data;
-	    };
-	});
-
-/***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-	angular.module('shared').factory('utils', function () {
-	    return {
-	        formatFullDate: function (date) {
-	            var d = new Date(date),
-	                month = '' + (d.getMonth() + 1),
-	                day = '' + d.getDate(),
-	                year = d.getFullYear();
-
-	            if (month.length < 2) month = '0' + month;
-	            if (day.length < 2) day = '0' + day;
-
-	            return [year, month, day].join('/');
-	        },
-	        monthNames: function () {
-	            return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-	        },
-	        formatGraphDate: function (date) {
-	            var d = new Date(date);
-
-	            return this.monthNames()[d.getMonth()] + ' ' + d.getFullYear().toString().substr(2, 4);
-	        }
-	    };
-	});
+	    
 
 /***/ },
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(4);
-	__webpack_require__(5);
 	__webpack_require__(8);
 
-	angular.module("indicators").controller('indicatorsDetailsCtrl', function ($scope, $routeParams, $filter, $location, indicatorsApi, utils, graphFactory, ngTableParams, toaster) {
+	module.exports = ["$scope", "$routeParams", "$filter", "$location", "indicatorsApi", "indicatorsGraphFactory", "utils", "ngTableParams", "toaster",
+
+	function ($scope, $routeParams, $filter, $location, indicatorsApi, indicatorsGraphFactory, utils, ngTableParams, toaster) {
 	    var originalData = [];
 
 	    function bindModel() {
@@ -353,7 +361,7 @@
 	    }
 
 	    function bindGraph() {
-	        var graphData = graphFactory.getGraphData($scope.getSelectedYearData());
+	        var graphData = indicatorsGraphFactory.getGraphData($scope.getSelectedYearData());
 	        $scope.series = graphData.series;
 	        $scope.labels = graphData.labels;
 	        $scope.data = graphData.data;
@@ -557,7 +565,7 @@
 	    }
 
 	    init();
-	});
+	}];
 
 /***/ },
 /* 8 */

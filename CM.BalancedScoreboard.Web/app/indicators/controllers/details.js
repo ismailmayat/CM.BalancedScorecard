@@ -1,8 +1,8 @@
-﻿require("../services/api");
-require("../services/graph");
-require("../../shared/directives/validation");
+﻿require("../../shared/directives/validation");
 
-angular.module("indicators").controller('indicatorsDetailsCtrl', function ($scope, $routeParams, $filter, $location, indicatorsApi, utils, graphFactory, ngTableParams, toaster) {
+module.exports = ["$scope", "$routeParams", "$filter", "$location", "indicatorsApi", "indicatorsGraphFactory", "utils", "ngTableParams", "toaster",
+
+function ($scope, $routeParams, $filter, $location, indicatorsApi, indicatorsGraphFactory, utils, ngTableParams, toaster) {
     var originalData = [];
 
     function bindModel() {
@@ -48,7 +48,7 @@ angular.module("indicators").controller('indicatorsDetailsCtrl', function ($scop
     }
 
     function bindGraph() {
-        var graphData = graphFactory.getGraphData($scope.getSelectedYearData());
+        var graphData = indicatorsGraphFactory.getGraphData($scope.getSelectedYearData());
         $scope.series = graphData.series;
         $scope.labels = graphData.labels;
         $scope.data = graphData.data;
@@ -252,4 +252,4 @@ angular.module("indicators").controller('indicatorsDetailsCtrl', function ($scop
     }
 
     init();
-});
+}];

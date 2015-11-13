@@ -1,7 +1,5 @@
 ﻿require("./shared/main");
 require("./indicators/main");
-require("./indicators/controllers/list");
-require("./indicators/controllers/details");
 
 angular.module("app", ["ngRoute", "indicators"])
     .config([
