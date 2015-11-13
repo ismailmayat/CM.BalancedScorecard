@@ -1,5 +1,4 @@
 ﻿using CM.BalancedScoreboard.Data.Repository.Abstract;
-using CM.BalancedScoreboard.Domain.Abstract.Indicators;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
 using CM.BalancedScoreboard.Resources;
 using CM.BalancedScoreboard.Resources.Abstract;
@@ -13,14 +12,12 @@ namespace CM.BalancedScoreboard.Services.Implementation.Indicators
     public class IndicatorsService : IIndicatorsService
     {
         readonly IIndicatorsRepository _repository;
-        readonly IIndicatorStateCalculator _stateCalculator;
         readonly IIndicatorViewModelFactory _viewModelFactory;
         readonly IResourceManager _resourceManager;
 
-        public IndicatorsService(IIndicatorsRepository repository, IIndicatorStateCalculator stateCalculator, IIndicatorViewModelFactory viewModelFactory, IResourceFactory resourceFactory)
+        public IndicatorsService(IIndicatorsRepository repository, IIndicatorViewModelFactory viewModelFactory, IResourceFactory resourceFactory)
         {
             _repository = repository;
-            _stateCalculator = stateCalculator;
             _viewModelFactory = viewModelFactory;
             _resourceManager = resourceFactory.GetResourceManager(ResourceType.Indicators);
         }

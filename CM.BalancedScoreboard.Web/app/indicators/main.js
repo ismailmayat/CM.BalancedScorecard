@@ -1,4 +1,6 @@
-﻿angular.module("indicators", ["ngResource", "ngAnimate", "chart.js", "ngTable", "toaster", "shared"]);
+﻿require("../shared/main");
+
+angular.module("indicators", ["ngResource", "ngAnimate", "chart.js", "ngTable", "toaster", "shared"]);
 
 angular.module("indicators").run(function ($rootScope, $http) {
     $http.get("/api/indicators/resources")

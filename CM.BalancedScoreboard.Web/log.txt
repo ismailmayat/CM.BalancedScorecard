@@ -64,3 +64,123 @@ Error Number:40615,State:1,Class:14
    at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorViewModelFactory.CreateIndicatorListViewModel(IQueryable`1 indicators) in C:\GitHub\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorViewModelFactory.cs:line 75
    at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorsService.GetIndicators(String filter) in C:\GitHub\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorsService.cs:line 30
    at CM.BalancedScoreboard.Web.Controllers.IndicatorsController.Get(String filter) in C:\GitHub\CM.BalancedScoreboard\CM.BalancedScoreboard.Web\Controllers\IndicatorsController.cs:line 24
+2015-11-13 17:22:44,995 [6] ERROR CM.BalancedScoreboard.Web.Controllers.IndicatorsController - System.Exception: Can't resolve this to Queryable Expression
+   at AutoMapper.MappingEngine.ResolveExpression(PropertyMap propertyMap, Type currentType, Expression instanceParameter)
+   at AutoMapper.MappingEngine.CreateMemberBindings(ExpressionRequest request, TypeMap typeMap, Expression instanceParameter, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.CreateMapExpression(ExpressionRequest request, Expression instanceParameter, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.CreateMapExpression(ExpressionRequest request, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.<CreateMapExpression>b__34_0(ExpressionRequest tp)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at AutoMapper.Internal.DictionaryFactoryOverride.ConcurrentDictionaryImpl`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at AutoMapper.MappingEngine.CreateMapExpression(Type sourceType, Type destinationType, IDictionary`2 parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](IDictionary`2 parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](Object parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](Object parameters)
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorViewModelFactory.CreateIndicatorListViewModel(IQueryable`1 indicators) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorViewModelFactory.cs:line 65
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorsService.GetIndicators(String filter) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorsService.cs:line 32
+   at CM.BalancedScoreboard.Web.Controllers.IndicatorsController.Get(String filter) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Web\Controllers\IndicatorsController.cs:line 24
+2015-11-13 17:23:11,219 [6] ERROR CM.BalancedScoreboard.Web.Controllers.IndicatorsController - System.Exception: Can't resolve this to Queryable Expression
+   at AutoMapper.MappingEngine.ResolveExpression(PropertyMap propertyMap, Type currentType, Expression instanceParameter)
+   at AutoMapper.MappingEngine.CreateMemberBindings(ExpressionRequest request, TypeMap typeMap, Expression instanceParameter, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.CreateMapExpression(ExpressionRequest request, Expression instanceParameter, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.CreateMapExpression(ExpressionRequest request, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.<CreateMapExpression>b__34_0(ExpressionRequest tp)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at AutoMapper.Internal.DictionaryFactoryOverride.ConcurrentDictionaryImpl`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at AutoMapper.MappingEngine.CreateMapExpression(Type sourceType, Type destinationType, IDictionary`2 parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](IDictionary`2 parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](Object parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](Object parameters)
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorViewModelFactory.CreateIndicatorListViewModel(IQueryable`1 indicators) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorViewModelFactory.cs:line 65
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorsService.GetIndicators(String filter) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorsService.cs:line 32
+   at CM.BalancedScoreboard.Web.Controllers.IndicatorsController.Get(String filter) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Web\Controllers\IndicatorsController.cs:line 24
+2015-11-13 17:23:46,566 [6] ERROR CM.BalancedScoreboard.Web.Controllers.IndicatorsController - System.Exception: Can't resolve this to Queryable Expression
+   at AutoMapper.MappingEngine.ResolveExpression(PropertyMap propertyMap, Type currentType, Expression instanceParameter)
+   at AutoMapper.MappingEngine.CreateMemberBindings(ExpressionRequest request, TypeMap typeMap, Expression instanceParameter, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.CreateMapExpression(ExpressionRequest request, Expression instanceParameter, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.CreateMapExpression(ExpressionRequest request, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.<CreateMapExpression>b__34_0(ExpressionRequest tp)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at AutoMapper.Internal.DictionaryFactoryOverride.ConcurrentDictionaryImpl`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at AutoMapper.MappingEngine.CreateMapExpression(Type sourceType, Type destinationType, IDictionary`2 parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](IDictionary`2 parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](Object parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](Object parameters)
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorViewModelFactory.CreateIndicatorListViewModel(IQueryable`1 indicators) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorViewModelFactory.cs:line 65
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorsService.GetIndicators(String filter) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorsService.cs:line 32
+   at CM.BalancedScoreboard.Web.Controllers.IndicatorsController.Get(String filter) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Web\Controllers\IndicatorsController.cs:line 24
+2015-11-13 17:23:49,065 [6] ERROR CM.BalancedScoreboard.Web.Controllers.IndicatorsController - System.Exception: Can't resolve this to Queryable Expression
+   at AutoMapper.MappingEngine.ResolveExpression(PropertyMap propertyMap, Type currentType, Expression instanceParameter)
+   at AutoMapper.MappingEngine.CreateMemberBindings(ExpressionRequest request, TypeMap typeMap, Expression instanceParameter, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.CreateMapExpression(ExpressionRequest request, Expression instanceParameter, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.CreateMapExpression(ExpressionRequest request, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.<CreateMapExpression>b__34_0(ExpressionRequest tp)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at AutoMapper.Internal.DictionaryFactoryOverride.ConcurrentDictionaryImpl`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at AutoMapper.MappingEngine.CreateMapExpression(Type sourceType, Type destinationType, IDictionary`2 parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](IDictionary`2 parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](Object parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](Object parameters)
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorViewModelFactory.CreateIndicatorListViewModel(IQueryable`1 indicators) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorViewModelFactory.cs:line 65
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorsService.GetIndicators(String filter) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorsService.cs:line 32
+   at CM.BalancedScoreboard.Web.Controllers.IndicatorsController.Get(String filter) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Web\Controllers\IndicatorsController.cs:line 24
+2015-11-13 17:27:45,351 [6] ERROR CM.BalancedScoreboard.Web.Controllers.IndicatorsController - System.Exception: Can't resolve this to Queryable Expression
+   at AutoMapper.MappingEngine.ResolveExpression(PropertyMap propertyMap, Type currentType, Expression instanceParameter)
+   at AutoMapper.MappingEngine.CreateMemberBindings(ExpressionRequest request, TypeMap typeMap, Expression instanceParameter, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.CreateMapExpression(ExpressionRequest request, Expression instanceParameter, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.CreateMapExpression(ExpressionRequest request, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.<CreateMapExpression>b__34_0(ExpressionRequest tp)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at AutoMapper.Internal.DictionaryFactoryOverride.ConcurrentDictionaryImpl`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at AutoMapper.MappingEngine.CreateMapExpression(Type sourceType, Type destinationType, IDictionary`2 parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](IDictionary`2 parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](Object parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](Object parameters)
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorViewModelFactory.CreateIndicatorListViewModel(IQueryable`1 indicators) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorViewModelFactory.cs:line 65
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorsService.GetIndicators(String filter) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorsService.cs:line 32
+   at CM.BalancedScoreboard.Web.Controllers.IndicatorsController.Get(String filter) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Web\Controllers\IndicatorsController.cs:line 24
+2015-11-13 17:29:47,769 [7] ERROR CM.BalancedScoreboard.Web.Controllers.IndicatorsController - System.Exception: Can't resolve this to Queryable Expression
+   at AutoMapper.MappingEngine.ResolveExpression(PropertyMap propertyMap, Type currentType, Expression instanceParameter)
+   at AutoMapper.MappingEngine.CreateMemberBindings(ExpressionRequest request, TypeMap typeMap, Expression instanceParameter, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.CreateMapExpression(ExpressionRequest request, Expression instanceParameter, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.CreateMapExpression(ExpressionRequest request, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.<CreateMapExpression>b__34_0(ExpressionRequest tp)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at AutoMapper.Internal.DictionaryFactoryOverride.ConcurrentDictionaryImpl`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at AutoMapper.MappingEngine.CreateMapExpression(Type sourceType, Type destinationType, IDictionary`2 parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](IDictionary`2 parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](Object parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](Object parameters)
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorViewModelFactory.CreateIndicatorListViewModel(IQueryable`1 indicators) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorViewModelFactory.cs:line 65
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorsService.GetIndicators(String filter) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorsService.cs:line 32
+   at CM.BalancedScoreboard.Web.Controllers.IndicatorsController.Get(String filter) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Web\Controllers\IndicatorsController.cs:line 24
+2015-11-13 17:30:25,927 [5] ERROR CM.BalancedScoreboard.Web.Controllers.IndicatorsController - System.Exception: Can't resolve this to Queryable Expression
+   at AutoMapper.MappingEngine.ResolveExpression(PropertyMap propertyMap, Type currentType, Expression instanceParameter)
+   at AutoMapper.MappingEngine.CreateMemberBindings(ExpressionRequest request, TypeMap typeMap, Expression instanceParameter, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.CreateMapExpression(ExpressionRequest request, Expression instanceParameter, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.CreateMapExpression(ExpressionRequest request, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.<CreateMapExpression>b__34_0(ExpressionRequest tp)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at AutoMapper.Internal.DictionaryFactoryOverride.ConcurrentDictionaryImpl`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at AutoMapper.MappingEngine.CreateMapExpression(Type sourceType, Type destinationType, IDictionary`2 parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](IDictionary`2 parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](Object parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](Object parameters)
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorViewModelFactory.CreateIndicatorListViewModel(IQueryable`1 indicators) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorViewModelFactory.cs:line 65
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorsService.GetIndicators(String filter) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorsService.cs:line 32
+   at CM.BalancedScoreboard.Web.Controllers.IndicatorsController.Get(String filter) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Web\Controllers\IndicatorsController.cs:line 24
+2015-11-13 17:31:16,370 [5] ERROR CM.BalancedScoreboard.Web.Controllers.IndicatorsController - System.Exception: Can't resolve this to Queryable Expression
+   at AutoMapper.MappingEngine.ResolveExpression(PropertyMap propertyMap, Type currentType, Expression instanceParameter)
+   at AutoMapper.MappingEngine.CreateMemberBindings(ExpressionRequest request, TypeMap typeMap, Expression instanceParameter, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.CreateMapExpression(ExpressionRequest request, Expression instanceParameter, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.CreateMapExpression(ExpressionRequest request, IDictionary`2 typePairCount)
+   at AutoMapper.MappingEngine.<CreateMapExpression>b__34_0(ExpressionRequest tp)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at AutoMapper.Internal.DictionaryFactoryOverride.ConcurrentDictionaryImpl`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at AutoMapper.MappingEngine.CreateMapExpression(Type sourceType, Type destinationType, IDictionary`2 parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](IDictionary`2 parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](Object parameters, String[] membersToExpand)
+   at AutoMapper.QueryableExtensions.ProjectionExpression.To[TResult](Object parameters)
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorViewModelFactory.CreateIndicatorListViewModel(IQueryable`1 indicators) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorViewModelFactory.cs:line 65
+   at CM.BalancedScoreboard.Services.Implementation.Indicators.IndicatorsService.GetIndicators(String filter) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Services\Implementation\Indicators\IndicatorsService.cs:line 32
+   at CM.BalancedScoreboard.Web.Controllers.IndicatorsController.Get(String filter) in C:\Github\CM.BalancedScoreboard\CM.BalancedScoreboard.Web\Controllers\IndicatorsController.cs:line 24

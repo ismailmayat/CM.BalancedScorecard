@@ -6,13 +6,16 @@ namespace CM.BalancedScoreboard.Domain.Implementation.Indicators
 {
     public class StateCalculator : IIndicatorStateCalculator
     {
-        public State Calculate(DateTime lastMeasureDate, string lastRealValue, string lastTargetValue, PeriodicityType periodicity,
+        public State Calculate(DateTime? lastMeasureDate, string lastRealValue, string lastTargetValue, PeriodicityType periodicity,
             ComparisonValueType comparisonValueType, ObjectValueType objectValueType, int? fullfilmentRate)
         {
+            if (!lastMeasureDate.HasValue)
+                return State.Grey;
+
             if (string.IsNullOrEmpty(lastRealValue) || string.IsNullOrEmpty(lastTargetValue))
                 return State.Grey;
 
-            if (lastMeasureDate.AddMonths(GetMonthNumberFromPeriodicity(periodicity)) < DateTime.Now)
+            if (lastMeasureDate.Value.AddMonths(GetMonthNumberFromPeriodicity(periodicity)) < DateTime.Now)
                 return State.Grey;
 
             var targetValueRate = fullfilmentRate.HasValue ? decimal.Divide(fullfilmentRate.Value, 100) : 1;

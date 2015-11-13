@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
@@ -9,15 +8,13 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
     {
         public Guid? Id { get; set; }
 
-        [DisplayName("Real value")]
-        [StringLength(6)]
-        public string RealValue { get; set; }
+        [Required]
+        public object RealValue { get; set; }
 
-        [DisplayName("Target value")]
-        [StringLength(6)]
-        public string TargetValue { get; set; }
+        [Required]
+        public object TargetValue { get; set; }
 
-        [DisplayName("Date")]
+        [Required]
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 

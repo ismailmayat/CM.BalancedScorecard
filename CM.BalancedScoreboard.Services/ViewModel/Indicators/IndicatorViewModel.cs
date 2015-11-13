@@ -54,7 +54,7 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
 
         public string LastTargetValue { get; set; }
 
-        public DateTime LastMeasureDate { get; set; }
+        public DateTime? LastMeasureDate { get; set; }
 
         public string ManagerName { get; set; }
 

@@ -75,49 +75,5 @@ namespace CM.BalancedScoreboard.Services.Implementation.Indicators
                 Data = indicatorVms
             };
         }
-
-        //private Dictionary<string, string> CreateDetailsViewResources()
-        //{
-        //    return new Dictionary<string, string>()
-        //    {
-        //        {
-        //            "Save", _resourceManager.GetString("Save")
-        //        },
-        //        {
-        //            "Delete", _resourceManager.GetString("Delete")
-        //        },
-        //        {
-        //            "Details", _resourceManager.GetString("Details")
-        //        }
-        //    };
-        //}
-
-        //private Dictionary<string, string> CreateMeasuresViewResources()
-        //{
-        //    return new Dictionary<string, string>()
-        //    {
-        //        {
-        //            _resourceManager.GetKeyValue("RealValue")
-        //        },
-        //        {
-        //            "TargetValue", _resourceManager.GetString("TargetValue")
-        //        },
-        //        {
-        //            "Measures", _resourceManager.GetString("Measures")
-        //        },
-        //        {
-        //            "Date", _resourceManager.GetString("Date")
-        //        },
-        //        {
-        //            "Actions", _resourceManager.GetString("Actions")
-        //        },
-        //        {
-        //            "AddPeriod", _resourceManager.GetString("AddPeriod")
-        //        },
-        //        {
-        //            "Show", _resourceManager.GetString("Show")
-        //        },
-        //    };
-        //}
     }
 }

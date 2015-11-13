@@ -1,5 +1,7 @@
-﻿angular.module('shared').factory('configuration', function () {
-    return {
-        
-    };
-});
+﻿module.exports = [
+    function() {
+        return {
+
+        };
+    }
+];
