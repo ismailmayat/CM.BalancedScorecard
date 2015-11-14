@@ -73,6 +73,10 @@
 
 	angular.module("indicators", ["ngResource", "ngAnimate", "chart.js", "ngTable", "toaster", "shared"]);
 
+	angular.module("indicators").config(["ChartJsProvider", function (ChartJsProvider) {
+
+	}]);
+
 	angular.module("indicators").run(function ($rootScope, $http) {
 	    $http.get("/api/indicators/resources")
 	        .then(function success(response) {
@@ -210,7 +214,8 @@
 	                    series: getIndicatorGraphSeriesNames(),
 	                    labels: getIndicatorGraphLabels(indicatorMeasures),
 	                    data: getIndicatorGraphValues(indicatorMeasures),
-	                    colours: getIndicatorGraphColours()
+	                    colours: getIndicatorGraphColours(),
+	                    options: getIndicatorGraphOptions()
 	                }
 	            },
 	            getGraphOptions: function() {
@@ -243,6 +248,14 @@
 	                data[1].push(indicatorMeasure.TargetValue);
 	            }
 	            return data;
+	        }
+	        function getIndicatorGraphOptions(){
+	            return {
+	                animation: true,
+	                showTooltips: true,
+	                datasetStrokeWidth: 0.5,
+	                scaleBeginAtZero: true
+	            };
 	        }
 	    }
 	];
@@ -414,18 +427,6 @@
 	            };
 	        }
 
-	        function updateTable() {
-	            $scope.tableParams.reload();
-	        }
-
-	        function bindGraph() {
-	            var graphData = indicatorsGraphFactory.getGraphData($scope.getSelectedYearData());
-	            $scope.series = graphData.series;
-	            $scope.labels = graphData.labels;
-	            $scope.data = graphData.data;
-	            $scope.colours = graphData.colours;
-	        }
-
 	        function initTable() {
 	            $scope.tableParams = new ngTableParams(
 	            {
@@ -438,10 +439,29 @@
 	            {
 	                total: $scope.getSelectedYearData().length,
 	                counts: [],
-	                getData: function($defer, params) {
+	                getData: function ($defer, params) {
 	                    $defer.resolve($filter('orderBy')($scope.getSelectedYearData(), params.orderBy()));
 	                }
 	            });
+	        }
+
+	        function initGraph() {
+	            var graphData = indicatorsGraphFactory.getGraphData($scope.getSelectedYearData());
+	            $scope.series = graphData.series;
+	            $scope.labels = graphData.labels;
+	            $scope.data = graphData.data;
+	            $scope.colours = graphData.colours;
+	            $scope.options = graphData.options;
+	        }
+
+	        function updateTable() {
+	            $scope.tableParams.reload();
+	        }
+
+	        function updateGraph() {
+	            var graphData = indicatorsGraphFactory.getGraphData($scope.getSelectedYearData());
+	            $scope.data = graphData.data;
+	            $scope.labels = graphData.labels;
 	        }
 
 	        function loadIndicator(callback) {
@@ -467,10 +487,10 @@
 	            $scope.config = response.Config;
 	        }
 
-	        function loadIndicatorMeasures(callback, tableAction) {
+	        function loadIndicatorMeasures(callback, tableAction, graphAction) {
 	            indicatorsApi.indicatorMeasures.query({ id: $routeParams.indicatorId }).$promise
 	                .then(function (response) {
-	                    callback(response.Data, tableAction);
+	                    callback(response.Data, tableAction, graphAction);
 	                    $scope.measuresConfig = response.Config;
 	                })
 	                .catch(function(msg) {
@@ -478,7 +498,7 @@
 	                });
 	        }
 
-	        function bindIndicatorMeasures(data, tableAction) {
+	        function bindIndicatorMeasures(data, tableAction, graphAction) {
 	            if (data.length > 0) {
 	                $scope.measures = data;
 	                originalData = angular.copy(data);
@@ -490,12 +510,12 @@
 	                $scope.selectedYear = undefined;
 	            }
 	            tableAction();
-	            bindGraph();
+	            graphAction();
 	        }
 
 	        function init() {
 	            loadIndicator(bindIndicator);
-	            loadIndicatorMeasures(bindIndicatorMeasures, initTable);
+	            loadIndicatorMeasures(bindIndicatorMeasures, initTable, initGraph);
 	        }
 
 	        $scope.getSelectedYearData = function() {
@@ -509,7 +529,7 @@
 	        $scope.switchYear = function(year) {
 	            $scope.selectedYear = year;
 	            updateTable();
-	            bindGraph();
+	            updateGraph();
 	        }
 
 	        $scope.showYear = function(year) {
@@ -549,10 +569,6 @@
 	            return new Date(date);
 	        }
 
-	        $scope.formatMeasureValue = function(valueType, value) {
-
-	        }
-
 	        $scope.canEdit = function(row) {
 	            if (!row.isEditing) {
 	                row.isEditing = isNewPeriod(row);
@@ -569,7 +585,7 @@
 	        $scope.deletePeriod = function(row) {
 	            indicatorsApi.indicatorMeasures.delete({ id: $routeParams.indicatorId, measureId: row.Id }).$promise
 	                .then(function() {
-	                    loadIndicatorMeasures(bindIndicatorMeasures, updateTable);
+	                    loadIndicatorMeasures(bindIndicatorMeasures, updateTable, updateGraph);
 	                })
 	                .catch(function() {
 	                    toaster.error({ body: 'Indicator successfully deleted!' });
@@ -589,7 +605,7 @@
 
 	            promise
 	                .then(function() {
-	                    loadIndicatorMeasures(bindIndicatorMeasures, updateTable);
+	                    loadIndicatorMeasures(bindIndicatorMeasures, updateTable, updateGraph);
 	                })
 	                .catch(function() {
 	                    toaster.error({ body: 'Indicator successfully deleted!' });
@@ -607,7 +623,7 @@
 	                $scope.selectedYear = undefined;
 	            }
 
-	            bindIndicatorMeasures($scope.measures, updateTable);
+	            bindIndicatorMeasures($scope.measures, updateTable, updateGraph);
 	        }
 
 	        $scope.addPeriod = function() {
@@ -620,7 +636,7 @@
 	                Measures: measures
 	            });
 
-	            bindIndicatorMeasures($scope.measures, updateTable);
+	            bindIndicatorMeasures($scope.measures, updateTable, updateGraph);
 	        }
 
 	        init();

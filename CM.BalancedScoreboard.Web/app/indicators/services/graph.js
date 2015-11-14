@@ -6,7 +6,8 @@
                     series: getIndicatorGraphSeriesNames(),
                     labels: getIndicatorGraphLabels(indicatorMeasures),
                     data: getIndicatorGraphValues(indicatorMeasures),
-                    colours: getIndicatorGraphColours()
+                    colours: getIndicatorGraphColours(),
+                    options: getIndicatorGraphOptions()
                 }
             },
             getGraphOptions: function() {
@@ -39,6 +40,14 @@
                 data[1].push(indicatorMeasure.TargetValue);
             }
             return data;
+        }
+        function getIndicatorGraphOptions(){
+            return {
+                animation: true,
+                showTooltips: true,
+                datasetStrokeWidth: 0.5,
+                scaleBeginAtZero: true
+            };
         }
     }
 ];

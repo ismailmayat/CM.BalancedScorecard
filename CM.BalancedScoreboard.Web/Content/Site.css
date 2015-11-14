@@ -5,8 +5,7 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    height:100%;
 }
 
 .app {
@@ -18,9 +17,54 @@
     margin-bottom: 5px;    
 }
 
-.indicatorApp .row .ng-hide{
-	-webkit-animation: fadeOut 0.5s;
-	-moz-animation: fadeOut 0.5s;
-	-o-animation: fadeOut 0.5s;
-	animation: fadeOut 0.5s;
+.stripe {
+    border: 0;
+    color:#fff;
+}
+
+.stripe-blue {
+    background-color: #2f93e0;
+    padding-bottom:5px;
+}
+
+.stripe-grey {
+    padding-top:20px;
+    padding-bottom:15px;
+    background-color: #f5f7fa;
+    color:#434a54;
+}
+
+.td-white {
+    background-color: #fff;
+}
+
+.table-curved {
+    border-collapse: separate;
+}
+.table-curved {
+    border: solid #ccc 1px;
+    border-radius: 6px;
+    border-left:0px;
+}
+.table-curved td, .table-curved th {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+.table-curved th {
+    border-top: none;
+}
+.table-curved th:first-child {
+    border-radius: 6px 0 0 0;
+}
+.table-curved th:last-child {
+    border-radius: 0 6px 0 0;
+}
+.table-curved th:only-child{
+    border-radius: 6px 6px 0 0;
+}
+.table-curved tr:last-child td:first-child {
+    border-radius: 0 0 0 6px;
+}
+.table-curved tr:last-child td:last-child {
+    border-radius: 0 0 6px 0;
 }

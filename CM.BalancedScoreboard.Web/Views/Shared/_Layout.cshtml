@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿    <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -26,9 +26,13 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        <div class="app" ng-view>
+    <div class="body-content">
+        <div class="stripe-blue">
+        </div>
+        <div class="stripe stripe-grey">
+            <div class="container" ng-view>
 
+            </div>
         </div>
         @RenderBody()
         <hr />
@@ -39,6 +43,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    <script src="Built/main.bundle.js"></script>
+    <script src="built/main.bundle.js"></script>
 </body>
 </html>
