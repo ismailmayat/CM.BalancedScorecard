@@ -1,4 +1,5 @@
-﻿<div class="row">
+﻿
+<div class="row">
     <div class="col-md-12">
         <div class="form-group">
             <button class="btn btn-default btn-primary" type="button" ng-click="saveIndicator()"><span class="glyphicon glyphicon-floppy-save"></span> {{resources.Save}}</button>
@@ -91,6 +92,7 @@
                         <div class="form-group" show-errors>
                             <label for="FulfillmentRate">{{config.FulfillmentRate.DisplayName}}</label>
                             <input type="range" form-control" id="FulfillmentRate" name="fulFillmentRate" placeholder="{{config.FulfillmentRate.DisplayName}}" min="{{config.FulfillmentRate.Range.MinValue}}" max="{{config.FulfillmentRate.Range.MaxValue}}" ng-model="indicator.FulfillmentRate" />
+                            <span>{{indicator.FulfillmentRate}}</span>
                         </div>
                     </div>
                 </div>
@@ -110,7 +112,8 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li ng-repeat="measure in measures">
-                                <a ng-if="measure.Year !== 0" ng-show="showYear(measure.Year)" ng-click="switchYear(measure.Year)">{{resources.Show}} {{measure.Year}}</a></li>
+                                <a ng-if="measure.Year !== 0" ng-show="showYear(measure.Year)" ng-click="switchYear(measure.Year)">{{resources.Show}} {{measure.Year}}</a>
+                            </li>
                             <li role="separator" ng-if="measures.length > 1" class="divider"></li>
                             <li><a ng-disabled="globalEdit" ng-click="addPeriod()">{{resources.AddPeriod}}</a></li>
                         </ul>
@@ -148,7 +151,7 @@
                                 <button class="btn btn-default btn-sm" ng-click="cancelPeriod(row, rowForm)" ng-if="canEdit(row)"><span class="glyphicon glyphicon-remove"></span></button>
                                 <button class="btn btn-default btn-sm" ng-click="editPeriod(row)" ng-if="!canEdit(row)" ng-disabled="globalEdit"><span class="glyphicon glyphicon-pencil"></span></button>
                                 <button class="btn btn-danger btn-sm" ng-click="deletePeriod(row)" ng-if="!canEdit(row)" ng-disabled="globalEdit"><span class="glyphicon glyphicon-trash"></span></button>
-                             </td>
+                            </td>
                         </tr>
                     </table>
                 </div>

@@ -59,7 +59,8 @@
                 page: 1,
                 sorting: {
                     Date: 'desc'
-                }
+                },
+                count: 100
             },
             {
                 total: $scope.getSelectedYearData().length,

@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(2);
+	__webpack_require__(1);
 
 	angular.module("app", ["ngRoute", "indicators"])
 	    .config([
@@ -69,17 +69,7 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	angular.module("shared", []);
-
-	angular.module("shared").factory("utils", __webpack_require__(5));
-	angular.module("shared").factory("configuration", __webpack_require__(9));
-	angular.module("shared").factory("directives", __webpack_require__(8));
-
-/***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(1);
+	__webpack_require__(2);
 
 	angular.module("indicators", ["ngResource", "ngAnimate", "chart.js", "ngTable", "toaster", "shared"]);
 
@@ -92,13 +82,105 @@
 	        });
 	});
 
-	angular.module("indicators").factory("indicatorsApi", __webpack_require__(3));
-	angular.module("indicators").factory("indicatorsGraphFactory", __webpack_require__(4));
-	angular.module("indicators").controller("indicatorsListCtrl", __webpack_require__(6));
-	angular.module("indicators").controller("indicatorsDetailsCtrl", __webpack_require__(7));
+	angular.module("indicators").factory("indicatorsApi", __webpack_require__(6));
+	angular.module("indicators").factory("indicatorsGraphFactory", __webpack_require__(7));
+	angular.module("indicators").controller("indicatorsListCtrl", __webpack_require__(8));
+	angular.module("indicators").controller("indicatorsDetailsCtrl", __webpack_require__(9));
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	angular.module("shared", []);
+
+	angular.module("shared").factory("utils", __webpack_require__(3));
+	angular.module("shared").factory("configuration", __webpack_require__(4));
+	angular.module("shared").directive("showErrors", __webpack_require__(5));
 
 /***/ },
 /* 3 */
+/***/ function(module, exports) {
+
+	module.exports = [
+	    function() {
+	        return {
+	            formatFullDate: function(date) {
+	                var d = new Date(date),
+	                    month = '' + (d.getMonth() + 1),
+	                    day = '' + d.getDate(),
+	                    year = d.getFullYear();
+
+	                if (month.length < 2) month = '0' + month;
+	                if (day.length < 2) day = '0' + day;
+
+	                return [year, month, day].join('/');
+	            },
+	            monthNames: function() {
+	                return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	            },
+	            formatGraphDate: function(date) {
+	                var d = new Date(date);
+
+	                return this.monthNames()[d.getMonth()] + ' ' + d.getFullYear().toString().substr(2, 4);
+	            }
+	        };
+	    }
+	];
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	module.exports = [
+	    function() {
+	        return {
+
+	        };
+	    }
+	];
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	module.exports = [
+	    function() {
+	        function getErrorMessage(input) {
+	            if (input.$error.required) {
+	                return "This field is required";
+	            }
+	            if (input.$error.pattern) {
+	                return "This field is incorrect";
+	            }
+	            return "";
+	        }
+
+	        return {
+	            restrict: "A",
+	            require: "^form",
+	            link: function(scope, el, attrs, ctrl) {
+	                var input = el.find("input");
+	                var inputName = input.attr("name");
+	                var help = el.find("p");
+
+	                input.bind("blur", function() {
+	                    el.toggleClass("has-error", ctrl[inputName].$invalid);
+	                    el.toggleClass("has-success", ctrl[inputName].$valid && ctrl[inputName].$dirty);
+	                    help.toggleClass("ng-show", ctrl[inputName].$invalid);
+	                    help.toggleClass("ng-hide", ctrl[inputName].$valid);
+	                    if (ctrl[inputName].$invalid) {
+	                        help[0].innerText = getErrorMessage(ctrl[inputName]);
+	                    }
+	                });
+	            }
+	        }
+	    }
+	];
+
+
+
+/***/ },
+/* 6 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -117,7 +199,7 @@
 	];
 
 /***/ },
-/* 4 */
+/* 7 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -166,37 +248,7 @@
 	];
 
 /***/ },
-/* 5 */
-/***/ function(module, exports) {
-
-	module.exports = [
-	    function() {
-	        return {
-	            formatFullDate: function(date) {
-	                var d = new Date(date),
-	                    month = '' + (d.getMonth() + 1),
-	                    day = '' + d.getDate(),
-	                    year = d.getFullYear();
-
-	                if (month.length < 2) month = '0' + month;
-	                if (day.length < 2) day = '0' + day;
-
-	                return [year, month, day].join('/');
-	            },
-	            monthNames: function() {
-	                return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-	            },
-	            formatGraphDate: function(date) {
-	                var d = new Date(date);
-
-	                return this.monthNames()[d.getMonth()] + ' ' + d.getFullYear().toString().substr(2, 4);
-	            }
-	        };
-	    }
-	];
-
-/***/ },
-/* 6 */
+/* 8 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -316,7 +368,7 @@
 	    
 
 /***/ },
-/* 7 */
+/* 9 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -380,7 +432,8 @@
 	                page: 1,
 	                sorting: {
 	                    Date: 'desc'
-	                }
+	                },
+	                count: 100
 	            },
 	            {
 	                total: $scope.getSelectedYearData().length,
@@ -571,58 +624,6 @@
 	        }
 
 	        init();
-	    }
-	];
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-	module.exports = [
-	    function() {
-	        function getErrorMessage(input) {
-	            if (input.$error.required) {
-	                return "This field is required";
-	            }
-	            if (input.$error.pattern) {
-	                return "This field is incorrect";
-	            }
-	            return "";
-	        }
-
-	        return {
-	            restrict: "A",
-	            require: "^form",
-	            link: function(scope, el, attrs, ctrl) {
-	                var input = el.find("input");
-	                var inputName = input.attr("name");
-	                var help = el.find("p");
-
-	                input.bind("blur", function() {
-	                    el.toggleClass("has-error", ctrl[inputName].$invalid);
-	                    el.toggleClass("has-success", ctrl[inputName].$valid && ctrl[inputName].$dirty);
-	                    help.toggleClass("ng-show", ctrl[inputName].$invalid);
-	                    help.toggleClass("ng-hide", ctrl[inputName].$valid);
-	                    if (ctrl[inputName].$invalid) {
-	                        help[0].innerText = getErrorMessage(ctrl[inputName]);
-	                    }
-	                });
-	            }
-	        }
-	    }
-	];
-
-
-
-/***/ },
-/* 9 */
-/***/ function(module, exports) {
-
-	module.exports = [
-	    function() {
-	        return {
-
-	        };
 	    }
 	];
 
