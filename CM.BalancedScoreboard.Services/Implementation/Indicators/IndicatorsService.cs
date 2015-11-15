@@ -6,6 +6,7 @@ using CM.BalancedScoreboard.Services.Abstract.Indicators;
 using CM.BalancedScoreboard.Services.ViewModel.Indicators;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CM.BalancedScoreboard.Services.Implementation.Indicators
 {
@@ -27,7 +28,7 @@ namespace CM.BalancedScoreboard.Services.Implementation.Indicators
             var indicators =
                 _repository.Get(
                     i => i.Name.Contains(filter) || i.Code.Contains(filter) || i.Description.Contains(filter) ||
-                         (i.Manager.Firstname + i.Manager.Surname).Contains(filter));
+                         (i.Manager.Firstname + i.Manager.Surname).Contains(filter)).OrderBy(i => i.Name);
 
             return _viewModelFactory.CreateIndicatorListViewModel(indicators);
         }

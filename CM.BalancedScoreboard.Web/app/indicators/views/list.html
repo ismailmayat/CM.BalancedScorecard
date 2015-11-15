@@ -1,63 +1,71 @@
 ﻿<div class="row">
     <div class="col-md-12">
-        <div class="input-group">
-            <input type="text" name="filter" placeholder="{{resources.Search}}" class="form-control" ng-model="filter" ng-keypress="onEnter($event)" />
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="button" ng-click="search()">{{resources.Search}}</button>
-            </span>
-        </div>      
+        <form name="searchForm">
+            <fieldset>
+                <legend>{{resources.Search}}</legend>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" name="filter" placeholder="{{resources.Keywords}}" class="form-control" ng-model="filter" ng-keypress="onEnter($event)" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" ng-click="search()">{{resources.Search}}</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
-        <fieldset>
-            <legend ng-show="showingLegend()">{{resources.Results}}</legend>
-            <div class="row" ng-repeat="indicator in indicators">
-                <div class="col-md-12">
-                    <div id="indicator{{$index}}" class="panel" ng-class="getIndicatorStateClass(indicator)">
-                        <div class="panel-heading" ng-click="navigateToDetails(indicator.Id)">
-                            {{indicator.Name}}
-                        </div>
-                        <div class="panel-body" ng-click="navigateToDetails(indicator.Id)">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    {{indicator.Description}}
-                                </div>
-                                <div class="col-md-3">
-                                    {{indicator.ManagerName}}
-                                </div>
-                                <div class="col-md-3">
-                                    {{indicator.LastRealValue}} {{indicator.Unit}} / {{indicator.LastTargetValue}} {{indicator.Unit}}
-                                </div>
+        <div class="row" ng-repeat="indicator in indicators">
+            <div class="col-md-12">
+                <div id="indicator{{$index}}" class="panel" ng-class="getIndicatorStateClass(indicator)">
+                    <div class="panel-heading" ng-click="navigateToDetails(indicator.Id)">
+                        {{indicator.Name}}
+                    </div>
+                    <div class="panel-body" ng-click="navigateToDetails(indicator.Id)">
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{indicator.Description}}
+                            </div>
+                            <div class="col-md-3">
+                                {{indicator.ManagerName}}
+                            </div>
+                            <div class="col-md-3">
+                                {{indicator.LastRealValue}} {{indicator.Unit}} / {{indicator.LastTargetValue}} {{indicator.Unit}}
                             </div>
                         </div>
-                        <div class="panel-footer">
-                            <div class="row" ng-show="showingMeasures(indicator.Id)">
-                                <div class="col-md-12">
-                                    <div class="row" ng-show="showingGraph()">
-                                        <div class="col-md-12">
-                                            <canvas id="line" class="chart chart-line" chart-data="graphData"
-                                                    chart-labels="graphLabels" chart-legend="true" chart-series="graphSeries"
-                                                    chart-click="onClick" chart-colours="graphColours"></canvas>
-                                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row" ng-show="showingMeasures(indicator.Id)">
+                            <div class="col-md-12">
+                                <div class="row" ng-show="showingGraph()">
+                                    <div class="col-md-12">
+                                        <canvas id="line" class="chart chart-line" chart-data="graphData"
+                                                chart-labels="graphLabels" chart-legend="true" chart-series="graphSeries"
+                                                chart-click="onClick" chart-colours="graphColours"></canvas>
                                     </div>
-                                    <div class="row" ng-show="!showingGraph()">
-                                        <div class="col-md-12">
-                                            {{resources.NoMeasures}}
-                                        </div>
+                                </div>
+                                <div class="row" ng-show="!showingGraph()">
+                                    <div class="col-md-12">
+                                        {{resources.NoMeasures}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button type="button" class="btn btn-default btn-xs" ng-click="showMeasures(indicator.Id, $index)" style="width: 100%"><<>></button>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-default btn-xs" ng-click="showMeasures(indicator.Id, $index)" style="width: 100%"><<>></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </fieldset>
+        </div>
     </div>
 </div>
 

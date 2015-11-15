@@ -9,6 +9,10 @@ angular.module("app", ["ngRoute", "indicators"])
                     templateUrl: "app/indicators/views/list.html",
                     controller: "indicatorsListCtrl"
                 }).
+                when("/Indicators/Details/", {
+                    templateUrl: "app/indicators/views/details.html",
+                    controller: "indicatorsDetailsCtrl"
+                }).
                 when("/Indicators/Details/:indicatorId", {
                     templateUrl: "app/indicators/views/details.html",
                     controller: "indicatorsDetailsCtrl"

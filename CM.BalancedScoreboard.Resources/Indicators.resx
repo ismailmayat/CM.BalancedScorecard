@@ -168,6 +168,9 @@
   <data name="Integer" xml:space="preserve">
     <value>Interger</value>
   </data>
+  <data name="Keywords" xml:space="preserve">
+    <value>Keywords</value>
+  </data>
   <data name="Manager" xml:space="preserve">
     <value>Manager</value>
   </data>
