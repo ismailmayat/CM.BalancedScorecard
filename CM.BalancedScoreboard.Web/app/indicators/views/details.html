@@ -1,170 +1,178 @@
-﻿
-<div class="row">
-    <div class="col-md-12">
-        <div class="form-group">
-            <button class="btn btn-default btn-primary" type="button" ng-click="saveIndicator()"><span class="glyphicon glyphicon-floppy-save"></span> {{resources.Save}}</button>
-            <button class="btn btn-default btn-danger" type="button" ng-click="deleteIndicator()"><span class="glyphicon glyphicon-remove"></span> {{resources.Delete}}</button>
+﻿<div class="stripe-blue">
+    <div class="container">
+        <h1>{{resources.IndicatorDetails}}</h1>
+    </div>
+</div>
+<div class="stripe stripe-grey">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <button class="btn btn-default btn-primary" type="button" ng-click="saveIndicator()"><span class="glyphicon glyphicon-floppy-save"></span> {{resources.Save}}</button>
+                    <button class="btn btn-default btn-danger" type="button" ng-click="deleteIndicator()"><span class="glyphicon glyphicon-remove"></span> {{resources.Delete}}</button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <form name="indicatorForm" novalidate>
-            <fieldset>
-                <legend>{{resources.Details}}</legend>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group" show-errors>
-                            <label for="Name">{{config.Name.DisplayName}}</label>
-                            <input type="text" class="form-control" id="Name" name="name" placeholder="{{config.Name.DisplayName}}" ng-model="indicator.Name" maxlength="{{config.Name.MaxLength}}" required />
-                            <p class="help-block"></p>
+        <div class="row">
+            <div class="col-md-12">
+                <form name="indicatorForm" novalidate>
+                    <fieldset>
+                        <legend>{{resources.Details}}</legend>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group" show-errors>
+                                    <label for="Name">{{config.Name.DisplayName}}</label>
+                                    <input type="text" class="form-control" id="Name" name="name" placeholder="{{config.Name.DisplayName}}" ng-model="indicator.Name" maxlength="{{config.Name.MaxLength}}" required />
+                                    <p class="help-block"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group" show-errors>
+                                    <label for="Code">{{config.Code.DisplayName}}</label>
+                                    <input type="text" class="form-control" id="Code" name="code" placeholder="{{config.Code.DisplayName}}" ng-model="indicator.Code" maxlength="{{config.Code.MaxLength}}" required />
+                                    <p class="help-block"></p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group" show-errors>
-                            <label for="Code">{{config.Code.DisplayName}}</label>
-                            <input type="text" class="form-control" id="Code" name="code" placeholder="{{config.Code.DisplayName}}" ng-model="indicator.Code" maxlength="{{config.Code.MaxLength}}" required />
-                            <p class="help-block"></p>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" show-errors>
+                                    <label for="Description">{{config.Description.DisplayName}}</label>
+                                    <input type="text" class="form-control" id="Description" name="description" placeholder="{{config.Description.DisplayName}}" ng-model="indicator.Description" maxlength="{{config.Description.MaxLength}}" required />
+                                    <p class="help-block"></p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group" show-errors>
-                            <label for="Description">{{config.Description.DisplayName}}</label>
-                            <input type="text" class="form-control" id="Description" name="description" placeholder="{{config.Description.DisplayName}}" ng-model="indicator.Description" maxlength="{{config.Description.MaxLength}}" required />
-                            <p class="help-block"></p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group" show-errors>
+                                    <label for="Unit">{{config.Unit.DisplayName}}</label>
+                                    <input type="text" class="form-control" id="Unit" name="unit" placeholder="{{config.Unit.DisplayName}}" ng-model="indicator.Unit" maxlength="{{config.Unit.MaxLength}}" required />
+                                    <p class="help-block"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="Unit">{{config.Active.DisplayName}}</label>
+                                    <input type="checkbox" id="Active" name="active" ng-model="indicator.Active">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group" show-errors>
-                            <label for="Unit">{{config.Unit.DisplayName}}</label>
-                            <input type="text" class="form-control" id="Unit" name="unit" placeholder="{{config.Unit.DisplayName}}" ng-model="indicator.Unit" maxlength="{{config.Unit.MaxLength}}" required />
-                            <p class="help-block"></p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group" show-errors>
+                                    <label for="StartDate">{{config.StartDate.DisplayName}}</label>
+                                    <input type="date" class="form-control" id="StartDate" name="startDate" placeholder="{{config.StartDate.DisplayName}}" ng-model="startDate" required />
+                                    <p class="help-block"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="ComparisonValueType">{{config.ComparisonValueType.DisplayName}}</label>
+                                    <select class="form-control" id="ComparisonValueType" name="comparisonValueType" ng-model="selectedComparisonValue" ng-options="c.name for c in comparisonValueTypeList track by c.id"></select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="Unit">{{config.Active.DisplayName}}</label>
-                            <input type="checkbox" id="Active" name="active" ng-model="indicator.Active">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="PeriodicityType">{{config.PeriodicityType.DisplayName}}</label>
+                                    <select class="form-control" id="PeriodicityType" name="periodicityType" ng-model="selectedPeriodicity" ng-options="p.name for p in periodicityTypeList track by p.id"></select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="ObjectValueType">{{config.ObjectValueType.DisplayName}}</label>
+                                    <select class="form-control" id="ObjectValueType" name="objectValueType" ng-model="selectedObjectValue" ng-options="o.name for o in objectValueTypeList track by o.id"></select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group" show-errors>
-                            <label for="StartDate">{{config.StartDate.DisplayName}}</label>
-                            <input type="date" class="form-control" id="StartDate" name="startDate" placeholder="{{config.StartDate.DisplayName}}" ng-model="startDate" required />
-                            <p class="help-block"></p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="Manager">{{config.ManagerId.DisplayName}}</label>
+                                    <select class="form-control" id="Manager" name="manager"></select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group" show-errors>
+                                    <label for="FulfillmentRate">{{config.FulfillmentRate.DisplayName}}</label>
+                                    <input type="range" form-control" id="FulfillmentRate" name="fulFillmentRate" placeholder="{{config.FulfillmentRate.DisplayName}}" min="{{config.FulfillmentRate.Range.MinValue}}" max="{{config.FulfillmentRate.Range.MaxValue}}" ng-model="indicator.FulfillmentRate" />
+                                    <span>{{indicator.FulfillmentRate}}</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="ComparisonValueType">{{config.ComparisonValueType.DisplayName}}</label>
-                            <select class="form-control" id="ComparisonValueType" name="comparisonValueType" ng-model="selectedComparisonValue" ng-options="c.name for c in comparisonValueTypeList track by c.id"></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="PeriodicityType">{{config.PeriodicityType.DisplayName}}</label>
-                            <select class="form-control" id="PeriodicityType" name="periodicityType" ng-model="selectedPeriodicity" ng-options="p.name for p in periodicityTypeList track by p.id"></select>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="ObjectValueType">{{config.ObjectValueType.DisplayName}}</label>
-                            <select class="form-control" id="ObjectValueType" name="objectValueType" ng-model="selectedObjectValue" ng-options="o.name for o in objectValueTypeList track by o.id"></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="Manager">{{config.ManagerId.DisplayName}}</label>
-                            <select class="form-control" id="Manager" name="manager"></select>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group" show-errors>
-                            <label for="FulfillmentRate">{{config.FulfillmentRate.DisplayName}}</label>
-                            <input type="range" form-control" id="FulfillmentRate" name="fulFillmentRate" placeholder="{{config.FulfillmentRate.DisplayName}}" min="{{config.FulfillmentRate.Range.MinValue}}" max="{{config.FulfillmentRate.Range.MaxValue}}" ng-model="indicator.FulfillmentRate" />
-                            <span>{{indicator.FulfillmentRate}}</span>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <fieldset>
-            <legend>{{resources.Measures}}</legend>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <div class="btn-group text-right">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{resources.Actions}} <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li ng-repeat="measure in measures">
-                                    <a ng-if="measure.Year !== 0" ng-show="showYear(measure.Year)" ng-click="switchYear(measure.Year)">{{resources.Show}} {{measure.Year}}</a>
-                                </li>
-                                <li role="separator" ng-if="measures.length > 1" class="divider"></li>
-                                <li><a ng-disabled="globalEdit" ng-click="addPeriod()">{{resources.AddPeriod}}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                    </fieldset>
+                </form>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <toaster-container toaster-options="{'time-out': 3000, 'animation-class': 'toast-top-right'}"></toaster-container>
-                    <table ng-table="tableParams" class="table table-curved table-bordered table-condensed">
-                        <tr ng-repeat="row in $data track by row.Id" ng-form="rowForm" tracked-table-row="row">
-                            <td data-title="resources.Date" sortable="'Date'" class="col-md-4 td-white" ng-form="date" ng-switch="canEdit(row)">
-                                <span ng-switch-default class="editable-text">{{formatGraphDate(row.Date)}}</span>
-                                <div ng-switch-when="true" show-errors>
-                                    <input type="month" name="date" ng-init="row.Date = formatDate(row.Date)" ng-model="row.Date" class="editable-input form-control" required />
-                                    <p class="help-block"></p>
+        </div>
+        <div class="row" ng-if="!isNew()">
+            <div class="col-md-12">
+                <fieldset>
+                    <legend>{{resources.Measures}}</legend>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="btn-group text-right">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{resources.Actions}} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li ng-repeat="measure in measures">
+                                            <a ng-if="measure.Year !== 0" ng-show="showYear(measure.Year)" ng-click="switchYear(measure.Year)">{{resources.Show}} {{measure.Year}}</a>
+                                        </li>
+                                        <li role="separator" ng-if="measures.length > 1" class="divider"></li>
+                                        <li><a ng-disabled="globalEdit" ng-click="addPeriod()">{{resources.AddPeriod}}</a></li>
+                                    </ul>
                                 </div>
-                            </td>
-                            <td data-title="resources.RealValue" class="text-right col-md-3 td-white" ng-form="realValue" ng-switch="canEdit(row)">
-                                <span ng-switch-default class="editable-text">{{row.RealValue}} {{indicator.Unit}}</span>
-                                <div ng-switch-when="true" show-errors>
-                                    <input type="{{row.ValueInputType}}" name="realValue" ng-model="row.RealValue" class="editable-input form-control text-right" ng-pattern="" required />
-                                    <p class="help-block"></p>
-                                </div>
-                            </td>
-                            <td data-title="resources.TargetValue" class="text-right col-md-3 td-white" ng-form="targetValue" ng-switch="canEdit(row)">
-                                <span ng-switch-default class="editable-text">{{row.TargetValue}} {{indicator.Unit}}</span>
-                                <div ng-switch-when="true" show-errors>
-                                    <input type="{{row.ValueInputType}}" name="targetValue" ng-model="row.TargetValue" class="editable-input form-control text-right" required />
-                                    <p class="help-block"></p>
-                                </div>
-                            </td>
-                            <td class="text-right td-white col-md-2">
-                                <button class="btn btn-primary btn-sm" ng-click="savePeriod(row, rowForm)" ng-if="canEdit(row)" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
-                                <button class="btn btn-default btn-sm" ng-click="cancelPeriod(row, rowForm)" ng-if="canEdit(row)"><span class="glyphicon glyphicon-remove"></span></button>
-                                <button class="btn btn-default btn-sm" ng-click="editPeriod(row)" ng-if="!canEdit(row)" ng-disabled="globalEdit"><span class="glyphicon glyphicon-pencil"></span></button>
-                                <button class="btn btn-danger btn-sm" ng-click="deletePeriod(row)" ng-if="!canEdit(row)" ng-disabled="globalEdit"><span class="glyphicon glyphicon-trash"></span></button>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <toaster-container toaster-options="{'time-out': 3000, 'animation-class': 'toast-top-right'}"></toaster-container>
+                            <table ng-table="tableParams" class="table table-curved table-bordered table-condensed">
+                                <tr ng-repeat="row in $data track by row.Id" ng-form="rowForm" tracked-table-row="row">
+                                    <td data-title="resources.Date" sortable="'Date'" class="col-md-4 td-white" ng-form="date" ng-switch="canEdit(row)">
+                                        <span ng-switch-default class="editable-text">{{formatGraphDate(row.Date)}}</span>
+                                        <div ng-switch-when="true" show-errors>
+                                            <input type="month" name="date" ng-init="row.Date = formatDate(row.Date)" ng-model="row.Date" class="editable-input form-control" required />
+                                            <p class="help-block"></p>
+                                        </div>
+                                    </td>
+                                    <td data-title="resources.RealValue" class="text-right col-md-3 td-white" ng-form="realValue" ng-switch="canEdit(row)">
+                                        <span ng-switch-default class="editable-text">{{row.RealValue}} {{indicator.Unit}}</span>
+                                        <div ng-switch-when="true" show-errors>
+                                            <input type="{{row.ValueInputType}}" name="realValue" ng-model="row.RealValue" class="editable-input form-control text-right" ng-pattern="" required />
+                                            <p class="help-block"></p>
+                                        </div>
+                                    </td>
+                                    <td data-title="resources.TargetValue" class="text-right col-md-3 td-white" ng-form="targetValue" ng-switch="canEdit(row)">
+                                        <span ng-switch-default class="editable-text">{{row.TargetValue}} {{indicator.Unit}}</span>
+                                        <div ng-switch-when="true" show-errors>
+                                            <input type="{{row.ValueInputType}}" name="targetValue" ng-model="row.TargetValue" class="editable-input form-control text-right" required />
+                                            <p class="help-block"></p>
+                                        </div>
+                                    </td>
+                                    <td class="text-right td-white col-md-2">
+                                        <button class="btn btn-primary btn-sm" ng-click="savePeriod(row, rowForm)" ng-if="canEdit(row)" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
+                                        <button class="btn btn-default btn-sm" ng-click="cancelPeriod(row, rowForm)" ng-if="canEdit(row)"><span class="glyphicon glyphicon-remove"></span></button>
+                                        <button class="btn btn-default btn-sm" ng-click="editPeriod(row)" ng-if="!canEdit(row)" ng-disabled="globalEdit"><span class="glyphicon glyphicon-pencil"></span></button>
+                                        <button class="btn btn-danger btn-sm" ng-click="deletePeriod(row)" ng-if="!canEdit(row)" ng-disabled="globalEdit"><span class="glyphicon glyphicon-trash"></span></button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
             </div>
-        </fieldset>
-    </div>
-</div>
-<div class="row" ng-if="selectedYear !== 0 && getSelectedYearData().length > 0">
-    <div class="col-md-12">
-        <canvas id="graph" class="chart chart-line" chart-data="data"
-                chart-labels="labels" chart-legend="true" chart-series="series"
-                chart-options="options" chart-colours="colours"></canvas>
+        </div>
+        <div class="row" ng-if="selectedYear !== 0 && getSelectedYearData().length > 0">
+            <div class="col-md-12">
+                <canvas id="graph" class="chart chart-line" chart-data="data"
+                        chart-labels="labels" chart-legend="true" chart-series="series"
+                        chart-options="options" chart-colours="colours"></canvas>
+            </div>
+        </div>
     </div>
 </div>

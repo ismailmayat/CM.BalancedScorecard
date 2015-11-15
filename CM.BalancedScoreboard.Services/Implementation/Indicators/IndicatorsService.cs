@@ -33,16 +33,19 @@ namespace CM.BalancedScoreboard.Services.Implementation.Indicators
             return _viewModelFactory.CreateIndicatorListViewModel(indicators);
         }
 
-        public IndicatorDetailsViewModel GetIndicator(Guid id)
+        public IndicatorDetailsViewModel GetIndicator(Guid? id)
         {
-            var indicator = _repository.Single(i => i.Id == id, i => i.Measures);
+            var indicator = id.HasValue ? _repository.Single(i => i.Id == id, i => i.Measures) : new Indicator();
+
             return _viewModelFactory.CreateIndicatorDetailsViewModel(indicator);
         }
 
-        public void Add(IndicatorViewModel indicatorVm)
+        public Guid Add(IndicatorViewModel indicatorVm)
         {
             var indicator = AutoMapper.Mapper.Map<Indicator>(indicatorVm);
             _repository.Add(indicator);
+
+            return indicator.Id;
         }
 
         public void Update(IndicatorViewModel indicatorVm)

@@ -47,14 +47,31 @@ namespace CM.BalancedScoreboard.Web.Controllers
             }
         }
 
+        public IHttpActionResult Get()
+        {
+            try
+            {
+                var indicatorVm = _service.GetIndicator(null);
+                if (indicatorVm != null)
+                    return Ok(indicatorVm);
+                else
+                    return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                return InternalServerError();
+            }
+        }
+
         public IHttpActionResult Post([FromBody]IndicatorViewModel indicatorVm)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _service.Add(indicatorVm);
-                    return Ok();
+                    var id = _service.Add(indicatorVm);
+                    return Ok(id);
                 }
                 else
                 {

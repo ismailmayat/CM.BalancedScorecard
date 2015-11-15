@@ -79,7 +79,11 @@
         }
 
         function loadIndicator(callback) {
-            indicatorsApi.indicators.get({ id: $routeParams.indicatorId }).$promise
+            var data = {};
+            if (!$scope.isNew()) {
+                data = { id: $routeParams.indicatorId };
+            }
+            indicatorsApi.indicators.get(data).$promise
                 .then(function(data) {
                     callback(data);
                 })
@@ -129,7 +133,9 @@
 
         function init() {
             loadIndicator(bindIndicator);
-            loadIndicatorMeasures(bindIndicatorMeasures, initTable, initGraph);
+            if (!$scope.isNew()) {
+                loadIndicatorMeasures(bindIndicatorMeasures, initTable, initGraph);
+            }
         }
 
         $scope.getSelectedYearData = function() {
@@ -150,13 +156,21 @@
             return $scope.selectedYear !== year;
         }
 
-        $scope.saveIndicator = function() {
-            if ($scope.indicatorForm.$invalid || $scope.globalEdit) {
+        $scope.saveIndicator = function () {
+            $scope.$broadcast('show-errors-check-validity');
+            if ($scope.indicatorForm.$invalid) {
                 return;
             }
 
             bindModel();
-            indicatorsApi.indicators.update({ id: $scope.indicator.Id }, $scope.indicator).$promise
+
+            var promise;
+            if (!$scope.isNew()) {
+                promise = indicatorsApi.indicators.update({ id: $scope.indicator.Id }, $scope.indicator).$promise;
+            } else {
+                promise = indicatorsApi.indicators.save($scope.indicator).$promise;
+            }
+            promise
                 .then(function() {
                     toaster.success({ body: 'Indicator successfully saved!' });
                 })
@@ -251,6 +265,10 @@
             });
 
             bindIndicatorMeasures($scope.measures, updateTable, updateGraph);
+        }
+
+        $scope.isNew = function () {
+            return $routeParams.indicatorId == undefined;
         }
 
         init();

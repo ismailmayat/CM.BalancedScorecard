@@ -1,11 +1,11 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿html, body {    
+   
 }
 
-/* Set padding to keep content from hitting the edges */
 .body-content {
-    height:100%;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    
 }
 
 .app {
@@ -25,6 +25,8 @@
 .stripe-blue {
     background-color: #2f93e0;
     padding-bottom:5px;
+    color:#fff;
+    font-weight:lighter;
 }
 
 .stripe-grey {

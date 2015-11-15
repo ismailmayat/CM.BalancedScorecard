@@ -27,6 +27,14 @@
                         help[0].innerText = getErrorMessage(ctrl[inputName]);
                     }
                 });
+
+                scope.$on('show-errors-check-validity', function () {
+                    el.toggleClass('has-error', ctrl[inputName].$invalid);
+                    help.toggleClass("ng-show", ctrl[inputName].$invalid);
+                    if (ctrl[inputName].$invalid) {
+                        help[0].innerText = getErrorMessage(ctrl[inputName]);
+                    }
+                });
             }
         }
     }

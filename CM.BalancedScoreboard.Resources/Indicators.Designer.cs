@@ -205,6 +205,24 @@ namespace CM.BalancedScoreboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Indicator Details.
+        /// </summary>
+        public static string IndicatorDetails {
+            get {
+                return ResourceManager.GetString("IndicatorDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indicator List.
+        /// </summary>
+        public static string IndicatorList {
+            get {
+                return ResourceManager.GetString("IndicatorList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Interger.
         /// </summary>
         public static string Integer {
