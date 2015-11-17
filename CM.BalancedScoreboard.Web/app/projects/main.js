@@ -1,3 +1,5 @@
 ﻿require("../shared/main");
 
-angular.module("indicators").controller("projectsListCtrl", require("./controllers/list"));
+angular.module("projects", []);
+
+angular.module("projects").controller("projectsListCtrl", require("./controllers/list"));

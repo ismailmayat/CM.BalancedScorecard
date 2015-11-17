@@ -239,6 +239,7 @@
     <Content Include="app\indicators\views\details.html" />
     <Content Include="app\indicators\views\list.html" />
     <Content Include="app\main.js" />
+    <Content Include="app\projects\controllers\list.js" />
     <Content Include="app\projects\main.js" />
     <Content Include="app\projects\views\list.html" />
     <Content Include="app\shared\directives\validation.js" />
@@ -366,7 +367,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57741</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:57741/</IISUrl>
+          <IISUrl>http://localhost:17012/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

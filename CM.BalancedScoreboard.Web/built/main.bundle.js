@@ -45,8 +45,9 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
+	__webpack_require__(10);
 
-	angular.module("app", ["ngRoute", "indicators"])
+	angular.module("app", ["ngRoute", "indicators", "projects"])
 	    .config([
 	        "$routeProvider",
 	        function ($routeProvider) {
@@ -62,6 +63,10 @@
 	                when("/Indicators/Details/:indicatorId", {
 	                    templateUrl: "app/indicators/views/details.html",
 	                    controller: "indicatorsDetailsCtrl"
+	                }).
+	                when("/Projects/List", {
+	                    templateUrl: "app/projects/views/list.html",
+	                    controller: "projectsListCtrl"
 	                }).
 	                otherwise({
 	                    redirectTo: "/Indicators/List"
@@ -672,6 +677,24 @@
 	        init();
 	    }
 	];
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(2);
+
+	angular.module("projects", []);
+
+	angular.module("projects").controller("projectsListCtrl", __webpack_require__(11));
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	module.exports = function () {
+
+	}
 
 /***/ }
 /******/ ]);

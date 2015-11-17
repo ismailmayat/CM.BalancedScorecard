@@ -1,7 +1,7 @@
 ﻿require("./indicators/main");
 require("./projects/main");
 
-angular.module("app", ["ngRoute", "indicators"])
+angular.module("app", ["ngRoute", "indicators", "projects"])
     .config([
         "$routeProvider",
         function ($routeProvider) {

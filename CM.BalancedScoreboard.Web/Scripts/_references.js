@@ -5,6 +5,7 @@
 /// <reference path="../app/indicators/services/api.js" />
 /// <reference path="../app/indicators/services/graph.js" />
 /// <reference path="../app/main.js" />
+/// <reference path="../app/projects/controllers/list.js" />
 /// <reference path="../app/projects/main.js" />
 /// <reference path="../app/shared/directives/validation.js" />
 /// <reference path="../app/shared/main.js" />
