@@ -239,6 +239,8 @@
     <Content Include="app\indicators\views\details.html" />
     <Content Include="app\indicators\views\list.html" />
     <Content Include="app\main.js" />
+    <Content Include="app\projects\main.js" />
+    <Content Include="app\projects\views\list.html" />
     <Content Include="app\shared\directives\validation.js" />
     <Content Include="app\shared\main.js" />
     <Content Include="app\shared\services\configuration.js" />

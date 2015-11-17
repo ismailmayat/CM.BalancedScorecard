@@ -1,4 +1,5 @@
 ﻿require("./indicators/main");
+require("./projects/main");
 
 angular.module("app", ["ngRoute", "indicators"])
     .config([
@@ -16,6 +17,10 @@ angular.module("app", ["ngRoute", "indicators"])
                 when("/Indicators/Details/:indicatorId", {
                     templateUrl: "app/indicators/views/details.html",
                     controller: "indicatorsDetailsCtrl"
+                }).
+                when("/Projects/List", {
+                    templateUrl: "app/projects/views/list.html",
+                    controller: "projectsListCtrl"
                 }).
                 otherwise({
                     redirectTo: "/Indicators/List"
