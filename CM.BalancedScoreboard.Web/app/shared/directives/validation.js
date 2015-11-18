@@ -12,7 +12,6 @@
 
         return {
             restrict: "A",
-            require: "^form",
             link: function(scope, el, attrs, ctrl) {
                 var input = el.find("input");
                 var inputName = input.attr("name");

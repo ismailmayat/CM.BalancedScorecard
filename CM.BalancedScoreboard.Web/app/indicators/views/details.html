@@ -35,12 +35,15 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group" show-errors>
                                     <label for="Description">{{config.Description.DisplayName}}</label>
                                     <input type="text" class="form-control" id="Description" name="description" placeholder="{{config.Description.DisplayName}}" ng-model="indicator.Description" maxlength="{{config.Description.MaxLength}}" required />
                                     <p class="help-block"></p>
                                 </div>
+                            </div>
+                            <div class="col-md-6">
+                                <form-input ng-model="indicator.Name" config="config.Name"></form-input>
                             </div>
                         </div>
                         <div class="row">

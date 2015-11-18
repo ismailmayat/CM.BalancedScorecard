@@ -108,7 +108,8 @@
 
 	angular.module("shared").factory("utils", __webpack_require__(3));
 	angular.module("shared").factory("configuration", __webpack_require__(4));
-	angular.module("shared").directive("showErrors", __webpack_require__(5));
+	//angular.module("shared").directive("showErrors", require("./directives/validation"));
+	angular.module("shared").directive("formInput", __webpack_require__(5));
 
 /***/ },
 /* 3 */
@@ -157,7 +158,7 @@
 /***/ function(module, exports) {
 
 	module.exports = [
-	    function() {
+	    function () {
 	        function getErrorMessage(input) {
 	            if (input.$error.required) {
 	                return "This field is required";
@@ -169,36 +170,65 @@
 	        }
 
 	        return {
-	            restrict: "A",
-	            require: "^form",
-	            link: function(scope, el, attrs, ctrl) {
+	            restrict: "E",
+	            templateUrl: "/app/shared/directives/formInput/formInput.html",
+	            scope:{
+	                config: "="
+	            },
+	            require: "ngModel",
+	            link: function (scope, el, attrs, ngModelController) {
+	                var div = el.find("div");
 	                var input = el.find("input");
-	                var inputName = input.attr("name");
-	                var help = el.find("p");
+	                var p = el.find("p");;
 
-	                input.bind("blur", function() {
-	                    el.toggleClass("has-error", ctrl[inputName].$invalid);
-	                    el.toggleClass("has-success", ctrl[inputName].$valid && ctrl[inputName].$dirty);
-	                    help.toggleClass("ng-show", ctrl[inputName].$invalid);
-	                    help.toggleClass("ng-hide", ctrl[inputName].$valid);
-	                    if (ctrl[inputName].$invalid) {
-	                        help[0].innerText = getErrorMessage(ctrl[inputName]);
+	                
+	                ngModelController.$render = function () {
+	                    input.val(ngModelController.$viewValue);
+	                };
+
+	                input.bind("keyup", function () {
+	                    ngModelController.$setViewValue(input.val());
+	                    ngModelController.$render();
+	                    if (input.attr("required") && input.val().length === 0) {
+	                        ngModelController.$setValidity('required', false);
+	                    }
+	                    else {
+	                        ngModelController.$setValidity('required', true);
 	                    }
 	                });
 
-	                scope.$on('show-errors-check-validity', function () {
-	                    el.toggleClass('has-error', ctrl[inputName].$invalid);
-	                    help.toggleClass("ng-show", ctrl[inputName].$invalid);
-	                    if (ctrl[inputName].$invalid) {
-	                        help[0].innerText = getErrorMessage(ctrl[inputName]);
+	                input.bind("blur", function () {
+	                    div.toggleClass("has-error", ngModelController.$invalid);
+	                    div.toggleClass("has-success", ngModelController.$valid && ngModelController.$dirty);
+	                    p.toggleClass("ng-show", ngModelController.$invalid);
+	                    p.toggleClass("ng-hide", ngModelController.$valid);
+	                    if (ngModelController.$invalid) {
+	                        p.text(getErrorMessage(ngModelController));
+	                    }
+	                });
+
+	                scope.$watch('config', function (config) {
+	                    if (config !== undefined) {
+	                        assignAttributes(input, config);
 	                    }
 	                });
 	            }
 	        }
+
+	        function assignAttributes(input, config) {
+	            if (config.Required != undefined) {
+	                input.attr("required", "true");
+	            }
+	            if (config.MaxLength) {
+	                input.attr("maxlength", config.MaxLength);
+	            }
+	            if (config.Range) {
+	                input.attr("min", config.Range.MinValue);
+	                input.attr("max", config.Range.MaxValue);
+	            }
+	        }
 	    }
 	];
-
-
 
 /***/ },
 /* 6 */

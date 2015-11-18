@@ -33,21 +33,35 @@ namespace CM.BalancedScoreboard.Services.Implementation
 
         private Dictionary<string, object> GetPropertyAttributes(MemberInfo property)
         {
-            Dictionary<string, object> propertyAttributeValues = null;
+            Dictionary<string, object> propertyAttributeValues = new Dictionary<string, object>()
+            {
+                { "Name", property.Name}
+            };
+
             foreach (var attribute in property.GetCustomAttributes())
             {
                 if (propertyAttributeValues == null)
                     propertyAttributeValues = new Dictionary<string, object>();
 
+                var requiredAttribute = attribute as RequiredAttribute;
+                if (requiredAttribute != null)
+                {
+                    propertyAttributeValues.Add("Required", true);
+                    continue;
+                }
+
                 var displayAttribute = attribute as DisplayAttribute;
                 if (displayAttribute != null)
                 {
                     propertyAttributeValues.Add("DisplayName", _resourceManager.GetString(displayAttribute.Name));
+                    continue;
                 }
+
                 var lengthAttribute = attribute as StringLengthAttribute;
                 if (lengthAttribute != null)
                 {
                     propertyAttributeValues.Add("MaxLength", lengthAttribute.MaximumLength);
+                    continue;
                 }
                 var rangeAttribute = attribute as RangeAttribute;
                 if (rangeAttribute != null)
@@ -56,6 +70,7 @@ namespace CM.BalancedScoreboard.Services.Implementation
                         MinValue = rangeAttribute.Minimum,
                         MaxValue = rangeAttribute.Maximum
                     } );
+                    continue;
                 }
             }
             return propertyAttributeValues;
