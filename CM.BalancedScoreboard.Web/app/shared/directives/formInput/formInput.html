@@ -1,5 +1,5 @@
 ﻿<div class="form-group">
-    <label for="{{config.Name}}">{{config.DisplayName}}</label>
+    <label ng-hide="hideLabel" for="{{config.Name}}">{{config.DisplayName}}</label>
     <input type="{{config.InputType}}" ng-class="formControlClass()" id="{{config.Name}}" name="{{config.Name}}" placeholder="{{config.DisplayName}}" />
     <p class="help-block"></p>
 </div>

@@ -115,6 +115,8 @@ namespace CM.BalancedScoreboard.Services.Implementation
                     return "range";
                 case CDataType.YesNo:
                     return "checkbox";
+                case CDataType.Number:
+                    return "number";
                 default:
                     return "text";
             }

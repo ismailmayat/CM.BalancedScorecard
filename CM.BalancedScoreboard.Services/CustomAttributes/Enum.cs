@@ -4,6 +4,7 @@
     {
         Month,
         YesNo,
+        Number,
         Range
     }
 }

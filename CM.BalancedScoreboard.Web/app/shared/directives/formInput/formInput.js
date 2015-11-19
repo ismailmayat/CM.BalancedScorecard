@@ -36,7 +36,8 @@
             restrict: "E",
             templateUrl: "/app/shared/directives/formInput/formInput.html",
             scope:{
-                config: "="
+                config: "=",
+                hideLabel: "="
             },
             require: "ngModel",
             controller: ['$scope', function($scope) {
@@ -48,8 +49,12 @@
                         if ($scope.config.InputType === "checkbox")
                             return "";
 
-                        return "form-control";
+                        var cssClass = "form-control";
+                        cssClass += $scope.config.InputType === "number" ? " text-right" : "";
+
+                        return cssClass;
                     }
+                    return "";
                 };
             }],
             link: function (scope, el, attrs, ngModelController) {

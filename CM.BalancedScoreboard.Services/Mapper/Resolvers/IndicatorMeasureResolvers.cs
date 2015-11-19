@@ -35,19 +35,4 @@ namespace CM.BalancedScoreboard.Services.Mapper.Resolvers
             }
         }
     }
-
-    public class ResolveIndicatorMeasureInputTypeResolver : ValueResolver<IndicatorMeasure, string>
-    {
-        protected override string ResolveCore(IndicatorMeasure source)
-        {
-            switch (source.Indicator.ObjectValueType)
-            {
-                case ObjectValueType.Decimal:
-                case ObjectValueType.Integer:
-                    return "number";
-                default:
-                    return "text";
-            }
-        }
-    }
 }

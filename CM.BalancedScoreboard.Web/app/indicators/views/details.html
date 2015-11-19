@@ -41,7 +41,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                               <form-input ng-model="indicator.StartDate" config="config.StartDate"></form-input>
+                               <form-input ng-model="startDate" config="config.StartDate"></form-input>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -108,24 +108,15 @@
                                 <tr ng-repeat="row in $data track by row.Id" ng-form="rowForm" tracked-table-row="row">
                                     <td data-title="resources.Date" sortable="'Date'" class="col-md-4 td-white" ng-form="date" ng-switch="canEdit(row)">
                                         <span ng-switch-default class="editable-text">{{formatGraphDate(row.Date)}}</span>
-                                        <div ng-switch-when="true" show-errors>
-                                            <input type="month" name="date" ng-init="row.Date = formatDate(row.Date)" ng-model="row.Date" class="editable-input form-control" required />
-                                            <p class="help-block"></p>
-                                        </div>
+                                        <form-input ng-switch-when="true" ng-init="row.Date = formatDate(row.Date)" ng-model="row.Date" hide-label="true" config="measuresConfig.Date"></form-input>
                                     </td>
-                                    <td data-title="resources.RealValue" class="text-right col-md-3 td-white" ng-form="realValue" ng-switch="canEdit(row)">
+                                    <td data-title="measuresConfig.RealValue.DisplayName" class="text-right col-md-3 td-white" ng-form="realValue" ng-switch="canEdit(row)">
                                         <span ng-switch-default class="editable-text">{{row.RealValue}} {{indicator.Unit}}</span>
-                                        <div ng-switch-when="true" show-errors>
-                                            <input type="{{row.ValueInputType}}" name="realValue" ng-model="row.RealValue" class="editable-input form-control text-right" ng-pattern="" required />
-                                            <p class="help-block"></p>
-                                        </div>
+                                        <form-input ng-switch-when="true" ng-model="row.RealValue" hide-label="true" config="measuresConfig.RealValue"></form-input>
                                     </td>
-                                    <td data-title="resources.TargetValue" class="text-right col-md-3 td-white" ng-form="targetValue" ng-switch="canEdit(row)">
+                                    <td data-title="measuresConfig.TargetValue.DisplayName" class="text-right col-md-3 td-white" ng-form="targetValue" ng-switch="canEdit(row)">
                                         <span ng-switch-default class="editable-text">{{row.TargetValue}} {{indicator.Unit}}</span>
-                                        <div ng-switch-when="true" show-errors>
-                                            <input type="{{row.ValueInputType}}" name="targetValue" ng-model="row.TargetValue" class="editable-input form-control text-right" required />
-                                            <p class="help-block"></p>
-                                        </div>
+                                        <form-input ng-switch-when="true" ng-model="row.TargetValue" hide-label="true" config="measuresConfig.TargetValue"></form-input>
                                     </td>
                                     <td class="text-right td-white col-md-2">
                                         <button class="btn btn-primary btn-sm" ng-click="savePeriod(row, rowForm)" ng-if="canEdit(row)" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>

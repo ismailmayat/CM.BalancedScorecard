@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CM.BalancedScoreboard.Services.CustomAttributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -8,19 +9,22 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
     {
         public Guid? Id { get; set; }
 
-        [Required]
+        [Display(Name = "RealValue")]
+        [CustomDataType(CDataType.Number)]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public object RealValue { get; set; }
-
-        [Required]
+        
+        [Display(Name = "TargetValue")]
+        [CustomDataType(CDataType.Number)]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public object TargetValue { get; set; }
 
-        [Required]
-        [DataType(DataType.Date)]
+        [Display(Name = "Date")]
+        [CustomDataType(CDataType.Month)]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public DateTime Date { get; set; }
 
         public Guid? IndicatorId { get; set; }
-
-        public string ValueInputType { get; set; }
     }
 
     public class IndicatorMeasureListViewModel

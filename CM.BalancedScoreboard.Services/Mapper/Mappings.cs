@@ -25,7 +25,6 @@ namespace CM.BalancedScoreboard.Services.Mapper
             AutoMapper.Mapper.CreateMap<IndicatorMeasure, IndicatorMeasureViewModel>()
                .ForMember(dest => dest.RealValue, opt => opt.ResolveUsing<IndicatorMeasureRealValueResolver>())
                .ForMember(dest => dest.TargetValue, opt => opt.ResolveUsing<IndicatorMeasureTargetValueResolver>())
-               .ForMember(dest => dest.ValueInputType, opt => opt.ResolveUsing<ResolveIndicatorMeasureInputTypeResolver>())
                .ReverseMap();
         }
     }
