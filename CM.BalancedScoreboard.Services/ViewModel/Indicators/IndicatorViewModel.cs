@@ -1,4 +1,5 @@
 ﻿using CM.BalancedScoreboard.Domain.Model.Enums;
+using CM.BalancedScoreboard.Services.CustomAttributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,26 +11,31 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
         public Guid? Id { get; set; }
 
         [Display(Name = "Name")]
+        [DataType(DataType.Text)]
         [StringLength(30)]
         [Required(ErrorMessageResourceName = "RequiredField")]
         public string Name { get; set; }
 
         [Display(Name = "Description")]
+        [DataType(DataType.Text)]
         [StringLength(100)]
         [Required(ErrorMessageResourceName = "RequiredField")]
         public string Description { get; set; }
 
         [Display(Name = "Code")]
+        [DataType(DataType.Text)]
         [StringLength(6)]
         [Required(ErrorMessageResourceName = "RequiredField")]
         public string Code { get; set; }
 
         [Display(Name = "Unit")]
+        [DataType(DataType.Text)]
         [StringLength(15)]
         [Required(ErrorMessageResourceName = "RequiredField")]
         public string Unit { get; set; }
 
         [Display(Name = "Active")]
+        [CustomDataType(CDataType.YesNo)]
         [Required(ErrorMessageResourceName = "RequiredField")]
         public bool Active { get; set; }
 
@@ -50,6 +56,15 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
         [Required(ErrorMessageResourceName = "RequiredField")]
         public ObjectValueType ObjectValueType { get; set; }
 
+        [Display(Name = "Manager")]
+        [Required(ErrorMessageResourceName = "RequiredField")]
+        public Guid ManagerId { get; set; }
+
+        [Display(Name = "FulfillmentRate")]
+        [CustomDataType(CDataType.Range)]
+        [Range(50, 100)]
+        public int? FulfillmentRate { get; set; }
+
         public string LastRealValue { get; set; }
 
         public string LastTargetValue { get; set; }
@@ -59,14 +74,6 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
         public string ManagerName { get; set; }
 
         public Guid IndicatorTypeId { get; set; }
-
-        [Display(Name = "Manager")]
-        [Required(ErrorMessageResourceName = "RequiredField")]
-        public Guid ManagerId { get; set; }
-
-        [Display(Name = "FulfillmentRate")]
-        [Range(50, 100)]
-        public int? FulfillmentRate { get; set; }
 
         public State State { get; set; }
     }

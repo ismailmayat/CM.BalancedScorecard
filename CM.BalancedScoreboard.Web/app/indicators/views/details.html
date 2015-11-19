@@ -20,54 +20,28 @@
                         <legend>{{resources.Details}}</legend>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group" show-errors>
-                                    <label for="Name">{{config.Name.DisplayName}}</label>
-                                    <input type="text" class="form-control" id="Name" name="name" placeholder="{{config.Name.DisplayName}}" ng-model="indicator.Name" maxlength="{{config.Name.MaxLength}}" required />
-                                    <p class="help-block"></p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group" show-errors>
-                                    <label for="Code">{{config.Code.DisplayName}}</label>
-                                    <input type="text" class="form-control" id="Code" name="code" placeholder="{{config.Code.DisplayName}}" ng-model="indicator.Code" maxlength="{{config.Code.MaxLength}}" required />
-                                    <p class="help-block"></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group" show-errors>
-                                    <label for="Description">{{config.Description.DisplayName}}</label>
-                                    <input type="text" class="form-control" id="Description" name="description" placeholder="{{config.Description.DisplayName}}" ng-model="indicator.Description" maxlength="{{config.Description.MaxLength}}" required />
-                                    <p class="help-block"></p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
                                 <form-input ng-model="indicator.Name" config="config.Name"></form-input>
                             </div>
+                            <div class="col-md-6">
+                                <form-input ng-model="indicator.Code" config="config.Code"></form-input>
+                            </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group" show-errors>
-                                    <label for="Unit">{{config.Unit.DisplayName}}</label>
-                                    <input type="text" class="form-control" id="Unit" name="unit" placeholder="{{config.Unit.DisplayName}}" ng-model="indicator.Unit" maxlength="{{config.Unit.MaxLength}}" required />
-                                    <p class="help-block"></p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="Unit">{{config.Active.DisplayName}}</label>
-                                    <input type="checkbox" id="Active" name="active" ng-model="indicator.Active">
-                                </div>
+                            <div class="col-md-12">
+                                <form-input ng-model="indicator.Description" config="config.Description"></form-input>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group" show-errors>
-                                    <label for="StartDate">{{config.StartDate.DisplayName}}</label>
-                                    <input type="date" class="form-control" id="StartDate" name="startDate" placeholder="{{config.StartDate.DisplayName}}" ng-model="startDate" required />
-                                    <p class="help-block"></p>
-                                </div>
+                                <form-input ng-model="indicator.Unit" config="config.Unit"></form-input>
+                            </div>
+                            <div class="col-md-6">
+                                <form-input ng-model="indicator.Active" config="config.Active"></form-input>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                               <form-input ng-model="indicator.StartDate" config="config.StartDate"></form-input>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -98,11 +72,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group" show-errors>
-                                    <label for="FulfillmentRate">{{config.FulfillmentRate.DisplayName}}</label>
-                                    <input type="range" form-control" id="FulfillmentRate" name="fulFillmentRate" placeholder="{{config.FulfillmentRate.DisplayName}}" min="{{config.FulfillmentRate.Range.MinValue}}" max="{{config.FulfillmentRate.Range.MaxValue}}" ng-model="indicator.FulfillmentRate" />
-                                    <span>{{indicator.FulfillmentRate}}</span>
-                                </div>
+                                <form-input ng-model="indicator.FulfillmentRate" config="config.FulfillmentRate"></form-input>
                             </div>
                         </div>
                     </fieldset>

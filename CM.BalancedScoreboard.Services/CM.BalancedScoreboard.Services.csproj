@@ -43,6 +43,8 @@
     <Compile Include="Abstract\Indicators\IIndicatorViewModelFactory.cs" />
     <Compile Include="Abstract\IProjectsService.cs" />
     <Compile Include="Abstract\ITypeConfig.cs" />
+    <Compile Include="CustomAttributes\CustomDataTypeAttribute.cs" />
+    <Compile Include="CustomAttributes\Enum.cs" />
     <Compile Include="Implementation\ProjectService.cs" />
     <Compile Include="Implementation\DataAnnotationsConfig.cs" />
     <Compile Include="Mapper\Resolvers\IndicatorMeasureResolvers.cs" />

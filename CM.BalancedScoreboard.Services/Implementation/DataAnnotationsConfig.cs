@@ -1,6 +1,8 @@
 ﻿using CM.BalancedScoreboard.Resources;
 using CM.BalancedScoreboard.Resources.Abstract;
 using CM.BalancedScoreboard.Services.Abstract;
+using CM.BalancedScoreboard.Services.CustomAttributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
@@ -18,7 +20,8 @@ namespace CM.BalancedScoreboard.Services.Implementation
             Required,
             MaxLength,
             Range,
-            ErrorMessages
+            ErrorMessage,
+            InputType
         }
 
         public DataAnnotationsConfig(IResourceFactory resourceFactory)
@@ -49,11 +52,25 @@ namespace CM.BalancedScoreboard.Services.Implementation
             };
 
             foreach (var attribute in property.GetCustomAttributes())
-            {
+            { 
                 var displayAttribute = attribute as DisplayAttribute;
                 if (displayAttribute != null)
                 {
                     propertyAttribute.Add(AttributeName.DisplayName.ToString(), _resourceManager.GetString(displayAttribute.Name));
+                    continue;
+                }
+
+                var customDataTypeAttribute = attribute as CustomDataTypeAttribute;
+                if (customDataTypeAttribute != null)
+                {
+                    propertyAttribute.Add(AttributeName.InputType.ToString(), GenerateInputType(customDataTypeAttribute));
+                    continue;
+                }
+
+                var dataTypeAttribute = attribute as DataTypeAttribute;
+                if (dataTypeAttribute != null)
+                {
+                    propertyAttribute.Add(AttributeName.InputType.ToString(), dataTypeAttribute.DataType.ToString().ToLower());
                     continue;
                 }
 
@@ -62,8 +79,9 @@ namespace CM.BalancedScoreboard.Services.Implementation
                 {
                     propertyAttribute.Add(AttributeName.Required.ToString(), true);
                     if (!string.IsNullOrEmpty(requiredAttribute.ErrorMessageResourceName))
-                        CreateErrorMessages(requiredAttribute, AttributeName.Required, propertyAttribute);
-
+                    {
+                        GenerateErrorMessage(requiredAttribute, AttributeName.Required, propertyAttribute);
+                    }
                     continue;
                 }
 
@@ -73,6 +91,7 @@ namespace CM.BalancedScoreboard.Services.Implementation
                     propertyAttribute.Add(AttributeName.MaxLength.ToString(), lengthAttribute.MaximumLength);
                     continue;
                 }
+
                 var rangeAttribute = attribute as RangeAttribute;
                 if (rangeAttribute != null)
                 {
@@ -85,12 +104,28 @@ namespace CM.BalancedScoreboard.Services.Implementation
             return propertyAttribute;
         }
 
-        private void CreateErrorMessages(ValidationAttribute attribute, AttributeName attributeName, Dictionary<string, object> propertyAttributes)
+        public string GenerateInputType(CustomDataTypeAttribute attribute)
         {
-            if (!propertyAttributes.ContainsKey(AttributeName.ErrorMessages.ToString()))
-                propertyAttributes.Add(AttributeName.ErrorMessages.ToString(), new Dictionary<string, string>());
+            var cDataType = (CDataType)Enum.Parse(typeof(CDataType), attribute.CustomDataType);
+            switch (cDataType)
+            {
+                case CDataType.Month:
+                    return "month";
+                case CDataType.Range:
+                    return "range";
+                case CDataType.YesNo:
+                    return "checkbox";
+                default:
+                    return "text";
+            }
+        }
 
-            var errorMessages = (Dictionary<string,string>)propertyAttributes[AttributeName.ErrorMessages.ToString()];
+        private void GenerateErrorMessage(ValidationAttribute attribute, AttributeName attributeName, Dictionary<string, object> propertyAttributes)
+        {
+            if (!propertyAttributes.ContainsKey(AttributeName.ErrorMessage.ToString()))
+                propertyAttributes.Add(AttributeName.ErrorMessage.ToString(), new Dictionary<string, string>());
+
+            var errorMessages = (Dictionary<string,string>)propertyAttributes[AttributeName.ErrorMessage.ToString()];
             errorMessages.Add(attributeName.ToString(), _resourceManager.GetString(attribute.ErrorMessageResourceName));
         }
     }
