@@ -159,14 +159,25 @@
 
 	module.exports = [
 	    function () {
-	        function getErrorMessage(input) {
-	            if (input.$error.required) {
-	                return "This field is required";
+	        function getErrorMessage(directive, config) {
+	            if (directive.$error.required) {
+	                return config.ErrorMessages.Required;
 	            }
-	            if (input.$error.pattern) {
-	                return "This field is incorrect";
-	            }
+	            
 	            return "";
+	        }
+
+	        function assignAttributes(input, config) {
+	            if (config.Required != undefined) {
+	                input.attr("required", "true");
+	            }
+	            if (config.MaxLength) {
+	                input.attr("maxlength", config.MaxLength);
+	            }
+	            if (config.Range) {
+	                input.attr("min", config.Range.MinValue);
+	                input.attr("max", config.Range.MaxValue);
+	            }
 	        }
 
 	        return {
@@ -203,7 +214,7 @@
 	                    p.toggleClass("ng-show", ngModelController.$invalid);
 	                    p.toggleClass("ng-hide", ngModelController.$valid);
 	                    if (ngModelController.$invalid) {
-	                        p.text(getErrorMessage(ngModelController));
+	                        p.text(getErrorMessage(ngModelController, scope.config));
 	                    }
 	                });
 
@@ -212,19 +223,6 @@
 	                        assignAttributes(input, config);
 	                    }
 	                });
-	            }
-	        }
-
-	        function assignAttributes(input, config) {
-	            if (config.Required != undefined) {
-	                input.attr("required", "true");
-	            }
-	            if (config.MaxLength) {
-	                input.attr("maxlength", config.MaxLength);
-	            }
-	            if (config.Range) {
-	                input.attr("min", config.Range.MinValue);
-	                input.attr("max", config.Range.MaxValue);
 	            }
 	        }
 	    }

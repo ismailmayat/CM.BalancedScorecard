@@ -11,43 +11,43 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
 
         [Display(Name = "Name")]
         [StringLength(30)]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public string Name { get; set; }
 
         [Display(Name = "Description")]
         [StringLength(100)]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public string Description { get; set; }
 
         [Display(Name = "Code")]
         [StringLength(6)]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public string Code { get; set; }
 
         [Display(Name = "Unit")]
         [StringLength(15)]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public string Unit { get; set; }
 
         [Display(Name = "Active")]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public bool Active { get; set; }
 
         [Display(Name = "StartDate")]
         [DataType(DataType.Date)]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public DateTime StartDate { get; set; }
 
         [Display(Name = "ComparisonValueType")]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public ComparisonValueType ComparisonValueType { get; set; }
 
         [Display(Name = "PeriodicityType")]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public PeriodicityType PeriodicityType { get; set; }
 
         [Display(Name = "ObjectValueType")]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public ObjectValueType ObjectValueType { get; set; }
 
         public string LastRealValue { get; set; }
@@ -61,7 +61,7 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
         public Guid IndicatorTypeId { get; set; }
 
         [Display(Name = "Manager")]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public Guid ManagerId { get; set; }
 
         [Display(Name = "FulfillmentRate")]

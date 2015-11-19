@@ -11,6 +11,16 @@ namespace CM.BalancedScoreboard.Services.Implementation
     {
         readonly IResourceManager _resourceManager;
 
+        enum AttributeName
+        {
+            Name,
+            DisplayName,
+            Required,
+            MaxLength,
+            Range,
+            ErrorMessages
+        }
+
         public DataAnnotationsConfig(IResourceFactory resourceFactory)
         {
             _resourceManager = resourceFactory.GetResourceManager(ResourceType.Indicators);
@@ -33,47 +43,55 @@ namespace CM.BalancedScoreboard.Services.Implementation
 
         private Dictionary<string, object> GetPropertyAttributes(MemberInfo property)
         {
-            Dictionary<string, object> propertyAttributeValues = new Dictionary<string, object>()
+            var propertyAttribute = new Dictionary<string, object>()
             {
-                { "Name", property.Name}
+                { AttributeName.Name.ToString(), property.Name}
             };
 
             foreach (var attribute in property.GetCustomAttributes())
             {
-                if (propertyAttributeValues == null)
-                    propertyAttributeValues = new Dictionary<string, object>();
+                var displayAttribute = attribute as DisplayAttribute;
+                if (displayAttribute != null)
+                {
+                    propertyAttribute.Add(AttributeName.DisplayName.ToString(), _resourceManager.GetString(displayAttribute.Name));
+                    continue;
+                }
 
                 var requiredAttribute = attribute as RequiredAttribute;
                 if (requiredAttribute != null)
                 {
-                    propertyAttributeValues.Add("Required", true);
-                    continue;
-                }
+                    propertyAttribute.Add(AttributeName.Required.ToString(), true);
+                    if (!string.IsNullOrEmpty(requiredAttribute.ErrorMessageResourceName))
+                        CreateErrorMessages(requiredAttribute, AttributeName.Required, propertyAttribute);
 
-                var displayAttribute = attribute as DisplayAttribute;
-                if (displayAttribute != null)
-                {
-                    propertyAttributeValues.Add("DisplayName", _resourceManager.GetString(displayAttribute.Name));
                     continue;
                 }
 
                 var lengthAttribute = attribute as StringLengthAttribute;
                 if (lengthAttribute != null)
                 {
-                    propertyAttributeValues.Add("MaxLength", lengthAttribute.MaximumLength);
+                    propertyAttribute.Add(AttributeName.MaxLength.ToString(), lengthAttribute.MaximumLength);
                     continue;
                 }
                 var rangeAttribute = attribute as RangeAttribute;
                 if (rangeAttribute != null)
                 {
-                    propertyAttributeValues.Add("Range", new {
+                    propertyAttribute.Add(AttributeName.Range.ToString(), new {
                         MinValue = rangeAttribute.Minimum,
                         MaxValue = rangeAttribute.Maximum
                     } );
-                    continue;
                 }
             }
-            return propertyAttributeValues;
+            return propertyAttribute;
+        }
+
+        private void CreateErrorMessages(ValidationAttribute attribute, AttributeName attributeName, Dictionary<string, object> propertyAttributes)
+        {
+            if (!propertyAttributes.ContainsKey(AttributeName.ErrorMessages.ToString()))
+                propertyAttributes.Add(AttributeName.ErrorMessages.ToString(), new Dictionary<string, string>());
+
+            var errorMessages = (Dictionary<string,string>)propertyAttributes[AttributeName.ErrorMessages.ToString()];
+            errorMessages.Add(attributeName.ToString(), _resourceManager.GetString(attribute.ErrorMessageResourceName));
         }
     }
 }
