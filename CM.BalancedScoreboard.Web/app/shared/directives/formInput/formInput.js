@@ -63,7 +63,7 @@
                 var p = el.find("p");;
            
                 ngModelController.$render = function () {
-                    input.val(ngModelController.$viewValue);
+                    input.val(new Date(ngModelController.$viewValue));
                 };
 
                 input.bind("keyup", function () {
