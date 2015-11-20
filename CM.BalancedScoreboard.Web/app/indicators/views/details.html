@@ -53,8 +53,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+<<<<<<< Updated upstream
                                     <label for="Unit">{{config.Active.DisplayName}}</label>
                                     <input type="checkbox" id="Active" name="active" ng-model="indicator.Active">
+=======
+                                    <label for="IndicatorTypeId">{{config.IndicatorTypeId.DisplayName}}</label>
+                                    <select class="form-control" id="IndicatorTypeId" name="indicatorTypeId" ng-model="selectedIndicatorType" ng-options="c.Name for c in indicatorTypeList track by c.Id" required></select>
+>>>>>>> Stashed changes
                                 </div>
                             </div>
                         </div>
@@ -69,7 +74,11 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="ComparisonValueType">{{config.ComparisonValueType.DisplayName}}</label>
+<<<<<<< Updated upstream
                                     <select class="form-control" id="ComparisonValueType" name="comparisonValueType" ng-model="selectedComparisonValue" ng-options="c.name for c in comparisonValueTypeList track by c.id"></select>
+=======
+                                    <select class="form-control" id="ComparisonValueType" name="comparisonValueType" ng-model="selectedComparisonValue" ng-options="c.name for c in config.ComparisonValueType.Options track by c.id" required></select>
+>>>>>>> Stashed changes
                                 </div>
                             </div>
                         </div>
@@ -77,13 +86,21 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="PeriodicityType">{{config.PeriodicityType.DisplayName}}</label>
+<<<<<<< Updated upstream
                                     <select class="form-control" id="PeriodicityType" name="periodicityType" ng-model="selectedPeriodicity" ng-options="p.name for p in periodicityTypeList track by p.id"></select>
+=======
+                                    <select class="form-control" id="PeriodicityType" name="periodicityType" ng-model="selectedPeriodicity" ng-options="p.name for p in config.PeriodicityType.Options track by p.id" required></select>
+>>>>>>> Stashed changes
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="ObjectValueType">{{config.ObjectValueType.DisplayName}}</label>
+<<<<<<< Updated upstream
                                     <select class="form-control" id="ObjectValueType" name="objectValueType" ng-model="selectedObjectValue" ng-options="o.name for o in objectValueTypeList track by o.id"></select>
+=======
+                                    <select class="form-control" id="ObjectValueType" name="objectValueType" ng-model="selectedObjectValue" ng-options="o.name for o in config.ObjectValueType.Options track by o.id" required></select>
+>>>>>>> Stashed changes
                                 </div>
                             </div>
                         </div>
@@ -91,7 +108,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="Manager">{{config.ManagerId.DisplayName}}</label>
-                                    <select class="form-control" id="Manager" name="manager"></select>
+                                    <select class="form-control" id="Manager" name="manager" ng-model="selectedUser" ng-options="u.Name for u in userList track by u.Id" required></select>
                                 </div>
                             </div>
                             <div class="col-md-6">

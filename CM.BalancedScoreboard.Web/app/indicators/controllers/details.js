@@ -4,7 +4,6 @@
         var originalData = [];
 
         function bindModel() {
-            $scope.indicator.StartDate = $scope.startDate;
             $scope.indicator.ComparisonValueType = $scope.selectedComparisonValue.id;
             $scope.indicator.PeriodicityType = $scope.selectedPeriodicity.id;
             $scope.indicator.ObjectValueType = $scope.selectedObjectValue.id;
@@ -94,6 +93,7 @@
 
         function bindIndicator(response) {
             $scope.indicator = response.Data;
+<<<<<<< Updated upstream
             $scope.comparisonValueTypeList = response.ComparisonValueTypeList;
             $scope.periodicityTypeList = response.PeriodicityTypeList;
             $scope.objectValueTypeList = response.ObjectValueTypeList;
@@ -102,7 +102,16 @@
             $scope.selectedComparisonValue = $.grep($scope.comparisonValueTypeList, function(e) { return e.id === response.Data.ComparisonValueType; })[0];
             $scope.selectedPeriodicity = $.grep($scope.periodicityTypeList, function(e) { return e.id === response.Data.PeriodicityType; })[0];
             $scope.selectedObjectValue = $.grep($scope.objectValueTypeList, function(e) { return e.id === response.Data.ObjectValueType; })[0];
+=======
+            $scope.selectedComparisonValue = $.grep(response.Config.ComparisonValueType.Options, function (e) { return e.id === response.Data.ComparisonValueType; })[0];
+            $scope.selectedPeriodicity = $.grep(response.Config.PeriodicityType.Options, function (e) { return e.id === response.Data.PeriodicityType; })[0];
+            $scope.selectedObjectValue = $.grep(response.Config.ObjectValueType.Options, function (e) { return e.Id === response.Data.ObjectValueType; })[0];
+>>>>>>> Stashed changes
             $scope.config = response.Config;
+            $scope.indicatorTypeList = response.IndicatorTypes;
+            $scope.selectedIndicatorType = $.grep(response.IndicatorTypes, function (e) { return e.Id === response.Data.IndicatorTypeId; })[0];
+            $scope.userList = response.Users;
+            $scope.selectedUser = $.grep(response.Users, function (e) { return e.Id === response.Data.ManagerId; })[0];
         }
 
         function loadIndicatorMeasures(callback, tableAction, graphAction) {

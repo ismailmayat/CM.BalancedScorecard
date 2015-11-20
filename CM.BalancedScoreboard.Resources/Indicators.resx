@@ -171,6 +171,9 @@
   <data name="IndicatorList" xml:space="preserve">
     <value>Indicator List</value>
   </data>
+  <data name="IndicatorType" xml:space="preserve">
+    <value>Indicator Type</value>
+  </data>
   <data name="Integer" xml:space="preserve">
     <value>Interger</value>
   </data>

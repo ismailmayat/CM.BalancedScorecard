@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using CM.BalancedScoreboard.Services.Utils;
 
 namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
 {
     public class IndicatorViewModel : IViewModel
     {
-        public Guid? Id { get; set; }
+        public Guid Id { get; set; }
 
         [Display(Name = "Name")]
         [StringLength(30)]
@@ -50,6 +51,22 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
         [Required]
         public ObjectValueType ObjectValueType { get; set; }
 
+<<<<<<< Updated upstream
+=======
+        [Display(Name = "Manager")]
+        [Required(ErrorMessageResourceName = "RequiredField")]
+        public Guid IndicatorTypeId { get; set; }
+
+        [Display(Name = "Manager")]
+        [Required(ErrorMessageResourceName = "RequiredField")]
+        public Guid ManagerId { get; set; }
+
+        [Display(Name = "FulfillmentRate")]
+        [CustomDataType(CDataType.Range)]
+        [Range(50, 100)]
+        public int? FulfillmentRate { get; set; }
+
+>>>>>>> Stashed changes
         public string LastRealValue { get; set; }
 
         public string LastTargetValue { get; set; }
@@ -58,6 +75,7 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
 
         public string ManagerName { get; set; }
 
+<<<<<<< Updated upstream
         public Guid IndicatorTypeId { get; set; }
 
         [Display(Name = "Manager")]
@@ -68,6 +86,8 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
         [Range(50, 100)]
         public int? FulfillmentRate { get; set; }
 
+=======
+>>>>>>> Stashed changes
         public State State { get; set; }
     }
 
@@ -75,7 +95,16 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
     {
         public IndicatorViewModel Data { get; set; }
 
+<<<<<<< Updated upstream
         public IEnumerable<object> PeriodicityTypeList { get; set; }
+=======
+        public Dictionary<string, Dictionary<string, object>> Config { get; set; }
+
+        public List<Option> IndicatorTypes { get; set; }
+
+        public List<Option> Users { get; set; }
+    }
+>>>>>>> Stashed changes
 
         public IEnumerable<object> ComparisonValueTypeList { get; set; }
 

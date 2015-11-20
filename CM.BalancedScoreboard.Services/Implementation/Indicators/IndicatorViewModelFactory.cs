@@ -10,6 +10,8 @@ using CM.BalancedScoreboard.Services.Utils;
 using CM.BalancedScoreboard.Services.ViewModel.Indicators;
 using System.Collections.Generic;
 using System.Linq;
+using CM.BalancedScoreboard.Domain.Model.Users;
+using System;
 
 namespace CM.BalancedScoreboard.Services.Implementation.Indicators
 {
@@ -26,7 +28,7 @@ namespace CM.BalancedScoreboard.Services.Implementation.Indicators
             _stateCalculator = stateCalculator;
         }
 
-        public IndicatorDetailsViewModel CreateIndicatorDetailsViewModel(Indicator indicator)
+        public IndicatorDetailsViewModel CreateIndicatorDetailsViewModel(Indicator indicator, IQueryable<IndicatorType> indicatorTypes, IQueryable<User> users)
         {
             var indicatorVm = AutoMapper.Mapper.Map<IndicatorViewModel>(indicator);
 
@@ -38,9 +40,14 @@ namespace CM.BalancedScoreboard.Services.Implementation.Indicators
             {
                 Data = indicatorVm,
                 Config = _typeConfig.GetAttributes<IndicatorViewModel>(),
+<<<<<<< Updated upstream
                 PeriodicityTypeList = EnumUtil<PeriodicityType>.GetOptions(_resourceManager),
                 ComparisonValueTypeList = EnumUtil<ComparisonValueType>.GetOptions(_resourceManager),
                 ObjectValueTypeList = EnumUtil<ObjectValueType>.GetOptions(_resourceManager)
+=======
+                IndicatorTypes = indicatorTypes.OrderBy(it => it.Name).Select(it => new Option() { Id = it.Id.ToString(), Name = it.Name }).ToList(),
+                Users = users.OrderBy(u => u.Surname).Select(u => new Option() { Id = u.Id.ToString(), Name = u.Firstname + " " + u.Surname }).ToList()
+>>>>>>> Stashed changes
             };
         }
 

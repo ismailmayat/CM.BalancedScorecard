@@ -6,7 +6,7 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
 {
     public class IndicatorMeasureViewModel : IViewModel
     {
-        public Guid? Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public object RealValue { get; set; }

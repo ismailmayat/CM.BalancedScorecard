@@ -1,7 +1,7 @@
 ﻿using CM.BalancedScoreboard.Domain.Model.Indicators;
 using System;
 
-namespace CM.BalancedScoreboard.Data.Repository.Abstract
+namespace CM.BalancedScoreboard.Data.Repository.Abstract.Indicators
 {
     public interface IIndicatorsRepository : IBaseRepository<Indicator>
     {

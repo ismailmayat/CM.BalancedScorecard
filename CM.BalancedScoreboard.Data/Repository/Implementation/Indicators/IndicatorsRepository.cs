@@ -3,8 +3,9 @@ using CM.BalancedScoreboard.Domain.Model.Indicators;
 using System;
 using System.Data.Entity;
 using System.Linq;
+using CM.BalancedScoreboard.Data.Repository.Abstract.Indicators;
 
-namespace CM.BalancedScoreboard.Data.Repository.Implementation
+namespace CM.BalancedScoreboard.Data.Repository.Implementation.Indicators
 {
     public class IndicatorsRepository : BaseRepository<Indicator>, IIndicatorsRepository
     {
