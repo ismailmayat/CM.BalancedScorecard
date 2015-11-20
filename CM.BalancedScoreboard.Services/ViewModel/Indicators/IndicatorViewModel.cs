@@ -1,4 +1,5 @@
 ﻿using CM.BalancedScoreboard.Domain.Model.Enums;
+using CM.BalancedScoreboard.Services.CustomAttributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,51 +12,53 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
         public Guid Id { get; set; }
 
         [Display(Name = "Name")]
+        [DataType(DataType.Text)]
         [StringLength(30)]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public string Name { get; set; }
 
         [Display(Name = "Description")]
+        [DataType(DataType.Text)]
         [StringLength(100)]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public string Description { get; set; }
 
         [Display(Name = "Code")]
+        [DataType(DataType.Text)]
         [StringLength(6)]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public string Code { get; set; }
 
         [Display(Name = "Unit")]
+        [DataType(DataType.Text)]
         [StringLength(15)]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public string Unit { get; set; }
 
         [Display(Name = "Active")]
-        [Required]
+        [CustomDataType(CDataType.YesNo)]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public bool Active { get; set; }
 
         [Display(Name = "StartDate")]
         [DataType(DataType.Date)]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public DateTime StartDate { get; set; }
 
         [Display(Name = "ComparisonValueType")]
-        [Required]
+        [EnumDataType(typeof(ComparisonValueType))]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public ComparisonValueType ComparisonValueType { get; set; }
 
         [Display(Name = "PeriodicityType")]
-        [Required]
+        [EnumDataType(typeof(PeriodicityType))]
+        [Required(ErrorMessageResourceName = "RequiredField")]
         public PeriodicityType PeriodicityType { get; set; }
 
         [Display(Name = "ObjectValueType")]
-        [Required]
-        public ObjectValueType ObjectValueType { get; set; }
-
-<<<<<<< Updated upstream
-=======
-        [Display(Name = "Manager")]
+        [EnumDataType(typeof(ObjectValueType))]
         [Required(ErrorMessageResourceName = "RequiredField")]
-        public Guid IndicatorTypeId { get; set; }
+        public ObjectValueType ObjectValueType { get; set; }
 
         [Display(Name = "Manager")]
         [Required(ErrorMessageResourceName = "RequiredField")]
@@ -66,7 +69,6 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
         [Range(50, 100)]
         public int? FulfillmentRate { get; set; }
 
->>>>>>> Stashed changes
         public string LastRealValue { get; set; }
 
         public string LastTargetValue { get; set; }
@@ -75,19 +77,6 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
 
         public string ManagerName { get; set; }
 
-<<<<<<< Updated upstream
-        public Guid IndicatorTypeId { get; set; }
-
-        [Display(Name = "Manager")]
-        [Required]
-        public Guid ManagerId { get; set; }
-
-        [Display(Name = "FulfillmentRate")]
-        [Range(50, 100)]
-        public int? FulfillmentRate { get; set; }
-
-=======
->>>>>>> Stashed changes
         public State State { get; set; }
     }
 
@@ -95,21 +84,15 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
     {
         public IndicatorViewModel Data { get; set; }
 
-<<<<<<< Updated upstream
-        public IEnumerable<object> PeriodicityTypeList { get; set; }
-=======
         public Dictionary<string, Dictionary<string, object>> Config { get; set; }
 
         public List<Option> IndicatorTypes { get; set; }
 
         public List<Option> Users { get; set; }
     }
->>>>>>> Stashed changes
 
-        public IEnumerable<object> ComparisonValueTypeList { get; set; }
-
-        public IEnumerable<object> ObjectValueTypeList { get; set; }
-
-        public Dictionary<string, Dictionary<string, object>> Config { get; set; }
+    public class IndicatorListViewModel
+    {
+        public List<IndicatorViewModel> Data { get; set; }
     }
 }

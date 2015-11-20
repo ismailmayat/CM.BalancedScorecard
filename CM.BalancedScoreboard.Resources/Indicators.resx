@@ -204,6 +204,9 @@
   <data name="RealValue" xml:space="preserve">
     <value>Real value</value>
   </data>
+  <data name="RequiredField" xml:space="preserve">
+    <value>This field is required</value>
+  </data>
   <data name="Results" xml:space="preserve">
     <value>Results</value>
   </data>

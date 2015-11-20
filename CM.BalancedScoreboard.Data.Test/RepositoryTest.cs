@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using CM.BalancedScoreboard.Data.Repository.Abstract;
-using CM.BalancedScoreboard.Data.Repository.Implementation;
+using CM.BalancedScoreboard.Data.Repository.Implementation.Indicators;
 using CM.BalancedScoreboard.Domain.Model.Indicators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;

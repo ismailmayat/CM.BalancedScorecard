@@ -98,7 +98,7 @@
 	angular.module("indicators").factory("indicatorsApi", __webpack_require__(7));
 	angular.module("indicators").factory("indicatorsGraphFactory", __webpack_require__(8));
 	angular.module("indicators").controller("indicatorsListCtrl", __webpack_require__(9));
-	angular.module("indicators").controller("indicatorsDetailsCtrl", __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./controllers/details\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())));
+	angular.module("indicators").controller("indicatorsDetailsCtrl", __webpack_require__(10));
 
 /***/ },
 /* 2 */
@@ -108,7 +108,8 @@
 
 	angular.module("shared").factory("utils", __webpack_require__(3));
 	angular.module("shared").factory("configuration", __webpack_require__(4));
-	angular.module("shared").directive("showErrors", __webpack_require__(13));
+	//angular.module("shared").directive("showErrors", require("./directives/validation"));
+	angular.module("shared").directive("formInput", __webpack_require__(5));
 
 /***/ },
 /* 3 */
@@ -117,16 +118,25 @@
 	module.exports = [
 	    function() {
 	        return {
-	            formatFullDate: function(date) {
+	            formatDateInput: function(date) {
 	                var d = new Date(date),
 	                    month = '' + (d.getMonth() + 1),
 	                    day = '' + d.getDate(),
 	                    year = d.getFullYear();
 
-	                if (month.length < 2) month = '0' + month;
-	                if (day.length < 2) day = '0' + day;
+	                if (month.length < 2) month = "0" + month;
+	                if (day.length < 2) day = "0" + day;
 
-	                return [year, month, day].join('/');
+	                return [year, month, day].join("-");
+	            },
+	            formatMonthInput: function (date) {
+	                var d = new Date(date),
+	                    month = '' + (d.getMonth() + 1),
+	                    year = d.getFullYear();
+
+	                if (month.length < 2) month = "0" + month;
+
+	                return [year, month].join("-");
 	            },
 	            monthNames: function() {
 	                return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -153,8 +163,137 @@
 	];
 
 /***/ },
-/* 5 */,
-/* 6 */,
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = ["utils",
+	    function (utils) {
+	        function getErrorMessage(directive, config) {
+	            if (directive.$error.required) {
+	                return config.ErrorMessage.Required;
+	            }      
+	            return "";
+	        }
+
+	        function setAttributes(input, config) {
+	            if (config.Required != undefined) {
+	                input.attr("required", "true");
+	            }
+	            if (config.MaxLength) {
+	                input.attr("maxlength", config.MaxLength);
+	            }
+	            if (config.Range) {
+	                input.attr("min", config.Range.MinValue);
+	                input.attr("max", config.Range.MaxValue);
+	            }
+	        }
+
+	        function setValidationState(input, controller) {
+	            if (input.attr("required")) {
+	                if (input.val().length === 0) {
+	                    controller.$setValidity("required", false);
+	                }
+	                else {
+	                    controller.$setValidity("required", true);
+	                }
+	            }
+	        }
+
+	        function setValidationAttributes(div, p, controller) {
+	            div.toggleClass("has-error", controller.$invalid);
+	            div.toggleClass("has-success", controller.$valid && controller.$dirty);
+	            p.toggleClass("ng-show", controller.$invalid);
+	            p.toggleClass("ng-hide", controller.$valid);
+	        }
+
+	        function setValidationMessages(p, scope, controller) {
+	            p.text(getErrorMessage(controller, scope.config));
+	        }
+
+	        function setInputValue(input, scope, controller) {
+	            if (scope.config !== undefined) {
+	                if (scope.config.InputType === "date") {
+	                    input.val(utils.formatDateInput(new Date(controller.$viewValue)));
+	                } else if (scope.config.InputType === "month") {
+	                    input.val(utils.formatMonthInput(new Date(controller.$viewValue)));
+	                } else {
+	                    input.val(controller.$viewValue);
+	                }
+	            } else {
+	                input.val(controller.$viewValue);
+	            }
+	        }
+
+	        return {
+	            restrict: "E",
+	            templateUrl: "/app/shared/directives/formInput/views/view.html",
+	            scope:{
+	                config: "=",
+	                hideLabel: "="
+	            },
+	            require: "ngModel",
+	            controller: __webpack_require__(6),
+	            link: function (scope, el, attrs, modelController) {
+	                var div = el.find("div");
+	                var input = el.find("input");
+	                var p = el.find("p");;
+	           
+	                modelController.$render = function () {
+	                    setInputValue(input, scope, modelController);
+	                };
+
+	                input.bind("keypress", function () {
+	                    modelController.$setViewValue(input.val());
+	                    modelController.$render();
+	                    setValidationState(input, modelController);
+	                });
+
+	                input.bind("blur", function () {
+	                    modelController.$setViewValue(input.val());
+	                    modelController.$render();
+	                    setValidationState(input, modelController);
+
+	                    setValidationAttributes(div, p, modelController);
+	                    if (modelController.$invalid) {
+	                        setValidationMessages(p, scope, modelController);
+	                    }
+	                });
+
+	                scope.$watch("config", function (config) {
+	                    if (config !== undefined) {
+	                        setAttributes(input, config);
+	                    }
+	                });
+	            }
+	        }
+	    }
+	];
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	module.exports = [
+	    "$scope", function($scope) {
+	        $scope.formControlClass = function() {
+	            if ($scope.config !== undefined) {
+	                if ($scope.config.InputType === "range")
+	                    return "";
+
+	                if ($scope.config.InputType === "checkbox")
+	                    return "";
+
+	                var cssClass = "form-control";
+	                cssClass += $scope.config.InputType === "number" ? " text-right" : "";
+
+	                return cssClass;
+	            }
+	            return "";
+	        };
+	    }
+	];
+
+/***/ },
 /* 7 */
 /***/ function(module, exports) {
 
@@ -352,7 +491,278 @@
 	    
 
 /***/ },
-/* 10 */,
+/* 10 */
+/***/ function(module, exports) {
+
+	module.exports = [
+	    "$scope", "$routeParams", "$filter", "$location", "indicatorsApi", "indicatorsGraphFactory", "utils", "ngTableParams", "toaster",
+	    function($scope, $routeParams, $filter, $location, indicatorsApi, indicatorsGraphFactory, utils, ngTableParams, toaster) {
+	        var originalData = [];
+
+	        function bindModel() {
+	            $scope.indicator.StartDate = $scope.startDate;
+	            $scope.indicator.ComparisonValueType = $scope.selectedComparisonValue.id;
+	            $scope.indicator.PeriodicityType = $scope.selectedPeriodicity.id;
+	            $scope.indicator.ObjectValueType = $scope.selectedObjectValue.id;
+	        }
+
+	        function isNewPeriod(item) {
+	            return item.Id === '';
+	        };
+
+	        function resetPeriod(row, rowForm) {
+	            row.isEditing = false;
+	            rowForm.$setPristine();
+
+	            var originalYearData = _.find(originalData, function(r) {
+	                return r.Year === $scope.selectedYear;
+	            });
+
+	            var originalRow = _.find(originalYearData.Measures, function(r) {
+	                return r.Id === row.Id;
+	            });
+
+	            if (originalRow != undefined) {
+	                angular.extend(row, originalRow);
+	            }
+	        }
+
+	        function createMeasure() {
+	            return {
+	                Date: new Date().toDateString(),
+	                Id: '',
+	                IndicatorId: '',
+	                RealValue: '',
+	                TargetValue: ''
+	            };
+	        }
+
+	        function initTable() {
+	            $scope.tableParams = new ngTableParams(
+	            {
+	                page: 1,
+	                sorting: {
+	                    Date: 'desc'
+	                },
+	                count: 100
+	            },
+	            {
+	                total: $scope.getSelectedYearData().length,
+	                counts: [],
+	                getData: function ($defer, params) {
+	                    $defer.resolve($filter('orderBy')($scope.getSelectedYearData(), params.orderBy()));
+	                }
+	            });
+	        }
+
+	        function initGraph() {
+	            var graphData = indicatorsGraphFactory.getGraphData($scope.getSelectedYearData());
+	            $scope.series = graphData.series;
+	            $scope.labels = graphData.labels;
+	            $scope.data = graphData.data;
+	            $scope.colours = graphData.colours;
+	            $scope.options = graphData.options;
+	        }
+
+	        function updateTable() {
+	            $scope.tableParams.reload();
+	        }
+
+	        function updateGraph() {
+	            var graphData = indicatorsGraphFactory.getGraphData($scope.getSelectedYearData());
+	            $scope.data = graphData.data;
+	            $scope.labels = graphData.labels;
+	        }
+
+	        function loadIndicator(callback) {
+	            var data = {};
+	            if (!$scope.isNew()) {
+	                data = { id: $routeParams.indicatorId };
+	            }
+	            indicatorsApi.indicators.get(data).$promise
+	                .then(function(data) {
+	                    callback(data);
+	                })
+	                .catch(function(msg) {
+	                    toaster.error({ body: msg });
+	                });
+	        }
+
+	        function bindIndicator(response) {
+	            $scope.indicator = response.Data;
+	            $scope.selectedComparisonValue = $.grep(response.Config.ComparisonValueType.Options, function (e) { return e.id === response.Data.ComparisonValueType; })[0];
+	            $scope.selectedPeriodicity = $.grep(response.Config.PeriodicityType.Options, function (e) { return e.id === response.Data.PeriodicityType; })[0];
+	            $scope.selectedObjectValue = $.grep(response.Config.ObjectValueType.Options, function (e) { return e.id === response.Data.ObjectValueType; })[0];
+	            $scope.config = response.Config;
+	        }
+
+	        function loadIndicatorMeasures(callback, tableAction, graphAction) {
+	            indicatorsApi.indicatorMeasures.query({ id: $routeParams.indicatorId }).$promise
+	                .then(function (response) {
+	                    callback(response.Data, tableAction, graphAction);
+	                    $scope.measuresConfig = response.Config;
+	                })
+	                .catch(function(msg) {
+	                    toaster.error({ body: msg });
+	                });
+	        }
+
+	        function bindIndicatorMeasures(data, tableAction, graphAction) {
+	            if (data.length > 0) {
+	                $scope.measures = data;
+	                originalData = angular.copy(data);
+	                if ($scope.selectedYear === undefined || $scope.getSelectedYearData().length === 0) {
+	                    $scope.selectedYear = _.first($scope.measures).Year;
+	                }
+	            } else {
+	                $scope.measures = [];
+	                $scope.selectedYear = undefined;
+	            }
+	            tableAction();
+	            graphAction();
+	        }
+
+	        function init() {
+	            loadIndicator(bindIndicator);
+	            if (!$scope.isNew()) {
+	                loadIndicatorMeasures(bindIndicatorMeasures, initTable, initGraph);
+	            }
+	        }
+
+	        $scope.getSelectedYearData = function() {
+	            var element = _.find($scope.measures, function(r) {
+	                return r.Year === $scope.selectedYear;
+	            });
+
+	            return element !== undefined ? element.Measures : [];
+	        }
+
+	        $scope.switchYear = function(year) {
+	            $scope.selectedYear = year;
+	            updateTable();
+	            updateGraph();
+	        }
+
+	        $scope.showYear = function(year) {
+	            return $scope.selectedYear !== year;
+	        }
+
+	        $scope.saveIndicator = function () {
+	            $scope.$broadcast('show-errors-check-validity');
+	            if ($scope.indicatorForm.$invalid) {
+	                return;
+	            }
+
+	            bindModel();
+
+	            var promise;
+	            if (!$scope.isNew()) {
+	                promise = indicatorsApi.indicators.update({ id: $scope.indicator.Id }, $scope.indicator).$promise;
+	            } else {
+	                promise = indicatorsApi.indicators.save($scope.indicator).$promise;
+	            }
+	            promise
+	                .then(function() {
+	                    toaster.success({ body: 'Indicator successfully saved!' });
+	                })
+	                .catch(function() {
+	                    toaster.error({ body: 'An error ocurred while trying to save the indicator...' });
+	                });
+	        }
+
+	        $scope.deleteIndicator = function() {
+	            indicatorsApi.indicators.delete({ id: $scope.indicator.Id }).$promise
+	                .then(function() {
+	                    $location.path('/Indicators/List');
+	                })
+	                .catch(function() {
+	                    toaster.error({ body: 'An error ocurred while trying to save the indicator...' });
+	                });
+	        }
+
+	        $scope.formatGraphDate = function(date) {
+	            return utils.formatGraphDate(date);
+	        }
+
+	        $scope.canEdit = function(row) {
+	            if (!row.isEditing) {
+	                row.isEditing = isNewPeriod(row);
+	            }
+
+	            return row.isEditing;
+	        }
+
+	        $scope.editPeriod = function(row) {
+	            $scope.globalEdit = true;
+	            row.isEditing = true;
+	        }
+
+	        $scope.deletePeriod = function(row) {
+	            indicatorsApi.indicatorMeasures.delete({ id: $routeParams.indicatorId, measureId: row.Id }).$promise
+	                .then(function() {
+	                    loadIndicatorMeasures(bindIndicatorMeasures, updateTable, updateGraph);
+	                })
+	                .catch(function() {
+	                    toaster.error({ body: 'Indicator successfully deleted!' });
+	                });
+	        }
+
+	        $scope.savePeriod = function(row) {
+	            $scope.selectedYear = row.Date.getFullYear();
+	            $scope.globalEdit = false;
+	            row.isEditing = false;
+	            var promise = null;
+	            if (isNewPeriod(row)) {
+	                promise = indicatorsApi.indicatorMeasures.save({ id: $routeParams.indicatorId }, row).$promise;
+	            } else {
+	                promise = indicatorsApi.indicatorMeasures.update({ id: $routeParams.indicatorId, measureId: row.Id }, row).$promise;
+	            }
+
+	            promise
+	                .then(function() {
+	                    loadIndicatorMeasures(bindIndicatorMeasures, updateTable, updateGraph);
+	                })
+	                .catch(function() {
+	                    toaster.error({ body: 'Indicator successfully deleted!' });
+	                });
+	        }
+
+	        $scope.cancelPeriod = function(row, rowForm) {
+	            $scope.globalEdit = false;
+	            if (!isNewPeriod(row)) {
+	                resetPeriod(row, rowForm);
+	            } else {
+	                _.remove($scope.measures, function(item) {
+	                    return item.Year == $scope.selectedYear;
+	                });
+	                $scope.selectedYear = undefined;
+	            }
+
+	            bindIndicatorMeasures($scope.measures, updateTable, updateGraph);
+	        }
+
+	        $scope.addPeriod = function() {
+	            $scope.globalEdit = true;
+	            $scope.selectedYear = 0;
+	            var measures = [];
+	            measures.push(createMeasure());
+	            $scope.measures.push({
+	                Year: $scope.selectedYear,
+	                Measures: measures
+	            });
+
+	            bindIndicatorMeasures($scope.measures, updateTable, updateGraph);
+	        }
+
+	        $scope.isNew = function () {
+	            return $routeParams.indicatorId == undefined;
+	        }
+
+	        init();
+	    }
+	];
+
+/***/ },
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -369,54 +779,6 @@
 	module.exports = function () {
 
 	}
-
-/***/ },
-/* 13 */
-/***/ function(module, exports) {
-
-	module.exports = [
-	    function() {
-	        function getErrorMessage(input) {
-	            if (input.$error.required) {
-	                return "This field is required";
-	            }
-	            if (input.$error.pattern) {
-	                return "This field is incorrect";
-	            }
-	            return "";
-	        }
-
-	        return {
-	            restrict: "A",
-	            require: "^form",
-	            link: function(scope, el, attrs, ctrl) {
-	                var input = el.find("input");
-	                var inputName = input.attr("name");
-	                var help = el.find("p");
-
-	                input.bind("blur", function() {
-	                    el.toggleClass("has-error", ctrl[inputName].$invalid);
-	                    el.toggleClass("has-success", ctrl[inputName].$valid && ctrl[inputName].$dirty);
-	                    help.toggleClass("ng-show", ctrl[inputName].$invalid);
-	                    help.toggleClass("ng-hide", ctrl[inputName].$valid);
-	                    if (ctrl[inputName].$invalid) {
-	                        help[0].innerText = getErrorMessage(ctrl[inputName]);
-	                    }
-	                });
-
-	                scope.$on('show-errors-check-validity', function () {
-	                    el.toggleClass('has-error', ctrl[inputName].$invalid);
-	                    help.toggleClass("ng-show", ctrl[inputName].$invalid);
-	                    if (ctrl[inputName].$invalid) {
-	                        help[0].innerText = getErrorMessage(ctrl[inputName]);
-	                    }
-	                });
-	            }
-	        }
-	    }
-	];
-
-
 
 /***/ }
 /******/ ]);

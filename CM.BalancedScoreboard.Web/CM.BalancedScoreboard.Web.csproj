@@ -242,6 +242,9 @@
     <Content Include="app\projects\controllers\list.js" />
     <Content Include="app\projects\main.js" />
     <Content Include="app\projects\views\list.html" />
+    <Content Include="app\shared\directives\formInput\controllers\controller.js" />
+    <Content Include="app\shared\directives\formInput\formInput.js" />
+    <Content Include="app\shared\directives\formInput\views\view.html" />
     <Content Include="app\shared\directives\validation.js" />
     <Content Include="app\shared\main.js" />
     <Content Include="app\shared\services\configuration.js" />
