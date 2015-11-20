@@ -45,7 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	__webpack_require__(10);
+	__webpack_require__(11);
 
 	angular.module("app", ["ngRoute", "indicators", "projects"])
 	    .config([
@@ -95,10 +95,10 @@
 	        });
 	});
 
-	angular.module("indicators").factory("indicatorsApi", __webpack_require__(6));
-	angular.module("indicators").factory("indicatorsGraphFactory", __webpack_require__(7));
-	angular.module("indicators").controller("indicatorsListCtrl", __webpack_require__(8));
-	angular.module("indicators").controller("indicatorsDetailsCtrl", __webpack_require__(9));
+	angular.module("indicators").factory("indicatorsApi", __webpack_require__(7));
+	angular.module("indicators").factory("indicatorsGraphFactory", __webpack_require__(8));
+	angular.module("indicators").controller("indicatorsListCtrl", __webpack_require__(9));
+	angular.module("indicators").controller("indicatorsDetailsCtrl", __webpack_require__(10));
 
 /***/ },
 /* 2 */
@@ -118,16 +118,25 @@
 	module.exports = [
 	    function() {
 	        return {
-	            formatFullDate: function(date) {
+	            formatDateInput: function(date) {
 	                var d = new Date(date),
 	                    month = '' + (d.getMonth() + 1),
 	                    day = '' + d.getDate(),
 	                    year = d.getFullYear();
 
-	                if (month.length < 2) month = '0' + month;
-	                if (day.length < 2) day = '0' + day;
+	                if (month.length < 2) month = "0" + month;
+	                if (day.length < 2) day = "0" + day;
 
-	                return [year, month, day].join('/');
+	                return [year, month, day].join("-");
+	            },
+	            formatMonthInput: function (date) {
+	                var d = new Date(date),
+	                    month = '' + (d.getMonth() + 1),
+	                    year = d.getFullYear();
+
+	                if (month.length < 2) month = "0" + month;
+
+	                return [year, month].join("-");
 	            },
 	            monthNames: function() {
 	                return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -155,19 +164,18 @@
 
 /***/ },
 /* 5 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = [
-	    function () {
+	module.exports = ["utils",
+	    function (utils) {
 	        function getErrorMessage(directive, config) {
 	            if (directive.$error.required) {
 	                return config.ErrorMessage.Required;
-	            }
-	            
+	            }      
 	            return "";
 	        }
 
-	        function assignAttributes(input, config) {
+	        function setAttributes(input, config) {
 	            if (config.Required != undefined) {
 	                input.attr("required", "true");
 	            }
@@ -180,70 +188,80 @@
 	            }
 	        }
 
-	        function setValidation(input, controller) {
+	        function setValidationState(input, controller) {
 	            if (input.attr("required")) {
 	                if (input.val().length === 0) {
-	                    controller.$setValidity('required', false);
+	                    controller.$setValidity("required", false);
 	                }
 	                else {
-	                    controller.$setValidity('required', true);
+	                    controller.$setValidity("required", true);
 	                }
+	            }
+	        }
+
+	        function setValidationAttributes(div, p, controller) {
+	            div.toggleClass("has-error", controller.$invalid);
+	            div.toggleClass("has-success", controller.$valid && controller.$dirty);
+	            p.toggleClass("ng-show", controller.$invalid);
+	            p.toggleClass("ng-hide", controller.$valid);
+	        }
+
+	        function setValidationMessages(p, scope, controller) {
+	            p.text(getErrorMessage(controller, scope.config));
+	        }
+
+	        function setInputValue(input, scope, controller) {
+	            if (scope.config !== undefined) {
+	                if (scope.config.InputType === "date") {
+	                    input.val(utils.formatDateInput(new Date(controller.$viewValue)));
+	                } else if (scope.config.InputType === "month") {
+	                    input.val(utils.formatMonthInput(new Date(controller.$viewValue)));
+	                } else {
+	                    input.val(controller.$viewValue);
+	                }
+	            } else {
+	                input.val(controller.$viewValue);
 	            }
 	        }
 
 	        return {
 	            restrict: "E",
-	            templateUrl: "/app/shared/directives/formInput/formInput.html",
+	            templateUrl: "/app/shared/directives/formInput/views/view.html",
 	            scope:{
 	                config: "=",
 	                hideLabel: "="
 	            },
 	            require: "ngModel",
-	            controller: ['$scope', function($scope) {
-	                $scope.formControlClass = function () {
-	                    if ($scope.config !== undefined) {
-	                        if ($scope.config.InputType === "range")
-	                            return "";
-
-	                        if ($scope.config.InputType === "checkbox")
-	                            return "";
-
-	                        var cssClass = "form-control";
-	                        cssClass += $scope.config.InputType === "number" ? " text-right" : "";
-
-	                        return cssClass;
-	                    }
-	                    return "";
-	                };
-	            }],
-	            link: function (scope, el, attrs, ngModelController) {
+	            controller: __webpack_require__(6),
+	            link: function (scope, el, attrs, modelController) {
 	                var div = el.find("div");
 	                var input = el.find("input");
 	                var p = el.find("p");;
 	           
-	                ngModelController.$render = function () {
-	                    input.val(new Date(ngModelController.$viewValue));
+	                modelController.$render = function () {
+	                    setInputValue(input, scope, modelController);
 	                };
 
-	                input.bind("keyup", function () {
-	                    ngModelController.$setViewValue(input.val());
-	                    ngModelController.$render();
-	                    setValidation(input, ngModelController);
+	                input.bind("keypress", function () {
+	                    modelController.$setViewValue(input.val());
+	                    modelController.$render();
+	                    setValidationState(input, modelController);
 	                });
 
 	                input.bind("blur", function () {
-	                    div.toggleClass("has-error", ngModelController.$invalid);
-	                    div.toggleClass("has-success", ngModelController.$valid && ngModelController.$dirty);
-	                    p.toggleClass("ng-show", ngModelController.$invalid);
-	                    p.toggleClass("ng-hide", ngModelController.$valid);
-	                    if (ngModelController.$invalid) {
-	                        p.text(getErrorMessage(ngModelController, scope.config));
+	                    modelController.$setViewValue(input.val());
+	                    modelController.$render();
+	                    setValidationState(input, modelController);
+
+	                    setValidationAttributes(div, p, modelController);
+	                    if (modelController.$invalid) {
+	                        setValidationMessages(p, scope, modelController);
 	                    }
 	                });
 
 	                scope.$watch("config", function (config) {
 	                    if (config !== undefined) {
-	                        assignAttributes(input, config);
+	                        setAttributes(input, config);
 	                    }
 	                });
 	            }
@@ -253,6 +271,30 @@
 
 /***/ },
 /* 6 */
+/***/ function(module, exports) {
+
+	module.exports = [
+	    "$scope", function($scope) {
+	        $scope.formControlClass = function() {
+	            if ($scope.config !== undefined) {
+	                if ($scope.config.InputType === "range")
+	                    return "";
+
+	                if ($scope.config.InputType === "checkbox")
+	                    return "";
+
+	                var cssClass = "form-control";
+	                cssClass += $scope.config.InputType === "number" ? " text-right" : "";
+
+	                return cssClass;
+	            }
+	            return "";
+	        };
+	    }
+	];
+
+/***/ },
+/* 7 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -271,7 +313,7 @@
 	];
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -329,7 +371,7 @@
 	];
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -449,7 +491,7 @@
 	    
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -552,7 +594,6 @@
 	            $scope.periodicityTypeList = response.PeriodicityTypeList;
 	            $scope.objectValueTypeList = response.ObjectValueTypeList;
 	            $scope.splitTypeList = response.SplitTypeList;
-	            $scope.startDate = new Date(response.Data.StartDate);
 	            $scope.selectedComparisonValue = $.grep($scope.comparisonValueTypeList, function(e) { return e.id === response.Data.ComparisonValueType; })[0];
 	            $scope.selectedPeriodicity = $.grep($scope.periodicityTypeList, function(e) { return e.id === response.Data.PeriodicityType; })[0];
 	            $scope.selectedObjectValue = $.grep($scope.objectValueTypeList, function(e) { return e.id === response.Data.ObjectValueType; })[0];
@@ -647,10 +688,6 @@
 	            return utils.formatGraphDate(date);
 	        }
 
-	        $scope.formatDate = function(date) {
-	            return new Date(date);
-	        }
-
 	        $scope.canEdit = function(row) {
 	            if (!row.isEditing) {
 	                row.isEditing = isNewPeriod(row);
@@ -730,17 +767,17 @@
 	];
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(2);
 
 	angular.module("projects", []);
 
-	angular.module("projects").controller("projectsListCtrl", __webpack_require__(11));
+	angular.module("projects").controller("projectsListCtrl", __webpack_require__(12));
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
 	module.exports = function () {

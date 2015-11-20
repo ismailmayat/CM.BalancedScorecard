@@ -41,7 +41,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                               <form-input ng-model="startDate" config="config.StartDate"></form-input>
+                                <form-input ng-model="indicator.StartDate" config="config.StartDate"></form-input>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -108,7 +108,7 @@
                                 <tr ng-repeat="row in $data track by row.Id" ng-form="rowForm" tracked-table-row="row">
                                     <td data-title="resources.Date" sortable="'Date'" class="col-md-4 td-white" ng-form="date" ng-switch="canEdit(row)">
                                         <span ng-switch-default class="editable-text">{{formatGraphDate(row.Date)}}</span>
-                                        <form-input ng-switch-when="true" ng-init="row.Date = formatDate(row.Date)" ng-model="row.Date" hide-label="true" config="measuresConfig.Date"></form-input>
+                                        <form-input ng-switch-when="true" ng-model="row.Date" hide-label="true" config="measuresConfig.Date"></form-input>
                                     </td>
                                     <td data-title="measuresConfig.RealValue.DisplayName" class="text-right col-md-3 td-white" ng-form="realValue" ng-switch="canEdit(row)">
                                         <span ng-switch-default class="editable-text">{{row.RealValue}} {{indicator.Unit}}</span>

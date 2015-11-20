@@ -98,7 +98,6 @@
             $scope.periodicityTypeList = response.PeriodicityTypeList;
             $scope.objectValueTypeList = response.ObjectValueTypeList;
             $scope.splitTypeList = response.SplitTypeList;
-            $scope.startDate = new Date(response.Data.StartDate);
             $scope.selectedComparisonValue = $.grep($scope.comparisonValueTypeList, function(e) { return e.id === response.Data.ComparisonValueType; })[0];
             $scope.selectedPeriodicity = $.grep($scope.periodicityTypeList, function(e) { return e.id === response.Data.PeriodicityType; })[0];
             $scope.selectedObjectValue = $.grep($scope.objectValueTypeList, function(e) { return e.id === response.Data.ObjectValueType; })[0];
@@ -191,10 +190,6 @@
 
         $scope.formatGraphDate = function(date) {
             return utils.formatGraphDate(date);
-        }
-
-        $scope.formatDate = function(date) {
-            return new Date(date);
         }
 
         $scope.canEdit = function(row) {
