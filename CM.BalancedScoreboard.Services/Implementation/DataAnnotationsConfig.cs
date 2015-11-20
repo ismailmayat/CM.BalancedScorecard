@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using CM.BalancedScoreboard.Services.Utils;
 
 namespace CM.BalancedScoreboard.Services.Implementation
 {
@@ -21,7 +22,8 @@ namespace CM.BalancedScoreboard.Services.Implementation
             MaxLength,
             Range,
             ErrorMessage,
-            InputType
+            InputType,
+            Options
         }
 
         public DataAnnotationsConfig(IResourceFactory resourceFactory)
@@ -65,6 +67,13 @@ namespace CM.BalancedScoreboard.Services.Implementation
                 {
                     propertyAttribute.Add(AttributeName.InputType.ToString(), GenerateInputType(customDataTypeAttribute));
                     continue;
+                }
+
+                var enumDataTypeAttribute = attribute as EnumDataTypeAttribute;
+                if (enumDataTypeAttribute != null)
+                {
+                    var options = typeof(EnumUtil<>).MakeGenericType(enumDataTypeAttribute.EnumType).GetMethod("GetOptions").Invoke(this, new object[] { _resourceManager });
+                    propertyAttribute.Add(AttributeName.Options.ToString(), options);
                 }
 
                 var dataTypeAttribute = attribute as DataTypeAttribute;

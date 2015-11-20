@@ -45,14 +45,17 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
         public DateTime StartDate { get; set; }
 
         [Display(Name = "ComparisonValueType")]
+        [EnumDataType(typeof(ComparisonValueType))]
         [Required(ErrorMessageResourceName = "RequiredField")]
         public ComparisonValueType ComparisonValueType { get; set; }
 
         [Display(Name = "PeriodicityType")]
+        [EnumDataType(typeof(PeriodicityType))]
         [Required(ErrorMessageResourceName = "RequiredField")]
         public PeriodicityType PeriodicityType { get; set; }
 
         [Display(Name = "ObjectValueType")]
+        [EnumDataType(typeof(ObjectValueType))]
         [Required(ErrorMessageResourceName = "RequiredField")]
         public ObjectValueType ObjectValueType { get; set; }
 
@@ -82,12 +85,11 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
     {
         public IndicatorViewModel Data { get; set; }
 
-        public IEnumerable<object> PeriodicityTypeList { get; set; }
-
-        public IEnumerable<object> ComparisonValueTypeList { get; set; }
-
-        public IEnumerable<object> ObjectValueTypeList { get; set; }
-
         public Dictionary<string, Dictionary<string, object>> Config { get; set; }
+    }
+
+    public class IndicatorListViewModel
+    {
+        public List<IndicatorViewModel> Data { get; set; }
     }
 }

@@ -37,10 +37,7 @@ namespace CM.BalancedScoreboard.Services.Implementation.Indicators
             return new IndicatorDetailsViewModel()
             {
                 Data = indicatorVm,
-                Config = _typeConfig.GetAttributes<IndicatorViewModel>(),
-                PeriodicityTypeList = EnumUtil<PeriodicityType>.GetOptions(_resourceManager),
-                ComparisonValueTypeList = EnumUtil<ComparisonValueType>.GetOptions(_resourceManager),
-                ObjectValueTypeList = EnumUtil<ObjectValueType>.GetOptions(_resourceManager)
+                Config = _typeConfig.GetAttributes<IndicatorViewModel>()
             };
         }
 

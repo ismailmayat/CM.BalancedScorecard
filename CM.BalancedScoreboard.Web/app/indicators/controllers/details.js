@@ -94,13 +94,9 @@
 
         function bindIndicator(response) {
             $scope.indicator = response.Data;
-            $scope.comparisonValueTypeList = response.ComparisonValueTypeList;
-            $scope.periodicityTypeList = response.PeriodicityTypeList;
-            $scope.objectValueTypeList = response.ObjectValueTypeList;
-            $scope.splitTypeList = response.SplitTypeList;
-            $scope.selectedComparisonValue = $.grep($scope.comparisonValueTypeList, function(e) { return e.id === response.Data.ComparisonValueType; })[0];
-            $scope.selectedPeriodicity = $.grep($scope.periodicityTypeList, function(e) { return e.id === response.Data.PeriodicityType; })[0];
-            $scope.selectedObjectValue = $.grep($scope.objectValueTypeList, function(e) { return e.id === response.Data.ObjectValueType; })[0];
+            $scope.selectedComparisonValue = $.grep(response.Config.ComparisonValueType.Options, function (e) { return e.id === response.Data.ComparisonValueType; })[0];
+            $scope.selectedPeriodicity = $.grep(response.Config.PeriodicityType.Options, function (e) { return e.id === response.Data.PeriodicityType; })[0];
+            $scope.selectedObjectValue = $.grep(response.Config.ObjectValueType.Options, function (e) { return e.id === response.Data.ObjectValueType; })[0];
             $scope.config = response.Config;
         }
 

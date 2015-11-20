@@ -46,7 +46,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="ComparisonValueType">{{config.ComparisonValueType.DisplayName}}</label>
-                                    <select class="form-control" id="ComparisonValueType" name="comparisonValueType" ng-model="selectedComparisonValue" ng-options="c.name for c in comparisonValueTypeList track by c.id"></select>
+                                    <select class="form-control" id="ComparisonValueType" name="comparisonValueType" ng-model="selectedComparisonValue" ng-options="c.name for c in config.ComparisonValueType.Options track by c.id"></select>
                                 </div>
                             </div>
                         </div>
@@ -54,13 +54,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="PeriodicityType">{{config.PeriodicityType.DisplayName}}</label>
-                                    <select class="form-control" id="PeriodicityType" name="periodicityType" ng-model="selectedPeriodicity" ng-options="p.name for p in periodicityTypeList track by p.id"></select>
+                                    <select class="form-control" id="PeriodicityType" name="periodicityType" ng-model="selectedPeriodicity" ng-options="p.name for p in config.PeriodicityType.Options track by p.id"></select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="ObjectValueType">{{config.ObjectValueType.DisplayName}}</label>
-                                    <select class="form-control" id="ObjectValueType" name="objectValueType" ng-model="selectedObjectValue" ng-options="o.name for o in objectValueTypeList track by o.id"></select>
+                                    <select class="form-control" id="ObjectValueType" name="objectValueType" ng-model="selectedObjectValue" ng-options="o.name for o in config.ObjectValueType.Options track by o.id"></select>
                                 </div>
                             </div>
                         </div>
