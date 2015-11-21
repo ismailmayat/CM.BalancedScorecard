@@ -1,4 +1,5 @@
-﻿using CM.BalancedScoreboard.Services.Abstract.Indicators;
+﻿using CM.BalancedScoreboard.Domain.Model.Indicators;
+using CM.BalancedScoreboard.Services.Abstract.Indicators;
 using CM.BalancedScoreboard.Services.ViewModel.Indicators;
 using log4net;
 using System;
@@ -71,7 +72,7 @@ namespace CM.BalancedScoreboard.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     var id = _service.Add(indicatorVm);
-                    return Ok(id);
+                    return Created("/Indicators/Details/" + id.ToString(), new IndicatorViewModel());
                 }
                 else
                 {

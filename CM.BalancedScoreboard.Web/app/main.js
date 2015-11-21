@@ -3,8 +3,8 @@ require("./projects/main");
 
 angular.module("app", ["ngRoute", "indicators", "projects"])
     .config([
-        "$routeProvider",
-        function ($routeProvider) {
+        "$routeProvider", "$locationProvider",
+        function ($routeProvider, $locationProvider) {
             $routeProvider.
                 when("/Indicators/List", {
                     templateUrl: "app/indicators/views/list.html",
@@ -25,5 +25,6 @@ angular.module("app", ["ngRoute", "indicators", "projects"])
                 otherwise({
                     redirectTo: "/Indicators/List"
                 });
+            //$locationProvider.html5Mode(true)
         }
     ]);

@@ -6,7 +6,7 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Projects
 {
     public class ProjectViewModel : IViewModel
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Code { get; set; }

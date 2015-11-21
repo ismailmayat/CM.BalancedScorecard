@@ -9,7 +9,7 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
 {
     public class IndicatorViewModel : IViewModel
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
         [Display(Name = "Name")]
         [DataType(DataType.Text)]
@@ -59,6 +59,10 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
         [EnumDataType(typeof(ObjectValueType))]
         [Required(ErrorMessageResourceName = "RequiredField")]
         public ObjectValueType ObjectValueType { get; set; }
+
+        [Display(Name = "IndicatorType")]
+        [Required(ErrorMessageResourceName = "RequiredField")]
+        public Guid IndicatorTypeId { get; set; }
 
         [Display(Name = "Manager")]
         [Required(ErrorMessageResourceName = "RequiredField")]

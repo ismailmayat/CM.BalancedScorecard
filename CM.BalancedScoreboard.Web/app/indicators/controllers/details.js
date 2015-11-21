@@ -7,6 +7,8 @@
             $scope.indicator.ComparisonValueType = $scope.selectedComparisonValue.id;
             $scope.indicator.PeriodicityType = $scope.selectedPeriodicity.id;
             $scope.indicator.ObjectValueType = $scope.selectedObjectValue.id;
+            $scope.indicator.IndicatorTypeId = $scope.selectedIndicatorType.Id;
+            $scope.indicator.ManagerId = $scope.selectedManager.Id;
         }
 
         function isNewPeriod(item) {
@@ -93,14 +95,14 @@
 
         function bindIndicator(response) {
             $scope.indicator = response.Data;
+            $scope.indicatorTypeList = response.IndicatorTypes;
+            $scope.userList = response.Users;
             $scope.selectedComparisonValue = $.grep(response.Config.ComparisonValueType.Options, function (e) { return e.id === response.Data.ComparisonValueType; })[0];
             $scope.selectedPeriodicity = $.grep(response.Config.PeriodicityType.Options, function (e) { return e.id === response.Data.PeriodicityType; })[0];
-            $scope.selectedObjectValue = $.grep(response.Config.ObjectValueType.Options, function (e) { return e.Id === response.Data.ObjectValueType; })[0];
-            $scope.config = response.Config;
-            $scope.indicatorTypeList = response.IndicatorTypes;
+            $scope.selectedObjectValue = $.grep(response.Config.ObjectValueType.Options, function (e) { return e.id === response.Data.ObjectValueType; })[0];
             $scope.selectedIndicatorType = $.grep(response.IndicatorTypes, function (e) { return e.Id === response.Data.IndicatorTypeId; })[0];
-            $scope.userList = response.Users;
-            $scope.selectedUser = $.grep(response.Users, function (e) { return e.Id === response.Data.ManagerId; })[0];
+            $scope.selectedManager = $.grep(response.Users, function (e) { return e.Id === response.Data.ManagerId; })[0];
+            $scope.config = response.Config;
         }
 
         function loadIndicatorMeasures(callback, tableAction, graphAction) {
@@ -169,8 +171,9 @@
                 promise = indicatorsApi.indicators.save($scope.indicator).$promise;
             }
             promise
-                .then(function() {
-                    toaster.success({ body: 'Indicator successfully saved!' });
+                .then(function(response) {
+                    toaster.success({ body: 'Indicator successfully created!' });
+                    $location.path(response.headers.location);
                 })
                 .catch(function() {
                     toaster.error({ body: 'An error ocurred while trying to save the indicator...' });
@@ -215,7 +218,7 @@
         }
 
         $scope.savePeriod = function(row) {
-            $scope.selectedYear = row.Date.getFullYear();
+            $scope.selectedYear = new Date(row.Date);
             $scope.globalEdit = false;
             row.isEditing = false;
             var promise = null;

@@ -7,7 +7,7 @@ namespace CM.BalancedScoreboard.Services.ViewModel.Indicators
 {
     public class IndicatorMeasureViewModel : IViewModel
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
         [Display(Name = "RealValue")]
         [CustomDataType(CDataType.Number)]

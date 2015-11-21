@@ -51,6 +51,7 @@ namespace CM.BalancedScoreboard.Services.Implementation.Indicators
         public Guid Add(IndicatorViewModel indicatorVm)
         {
             var indicator = AutoMapper.Mapper.Map<Indicator>(indicatorVm);
+            indicator.Id = Guid.NewGuid();
             _indicatorsRepository.Add(indicator);
 
             return indicator.Id;

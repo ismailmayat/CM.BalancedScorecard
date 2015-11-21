@@ -49,8 +49,8 @@
 
 	angular.module("app", ["ngRoute", "indicators", "projects"])
 	    .config([
-	        "$routeProvider",
-	        function ($routeProvider) {
+	        "$routeProvider", "$locationProvider",
+	        function ($routeProvider, $locationProvider) {
 	            $routeProvider.
 	                when("/Indicators/List", {
 	                    templateUrl: "app/indicators/views/list.html",
@@ -71,6 +71,7 @@
 	                otherwise({
 	                    redirectTo: "/Indicators/List"
 	                });
+	            //$locationProvider.html5Mode(true)
 	        }
 	    ]);
 
@@ -252,7 +253,6 @@
 	                    modelController.$setViewValue(input.val());
 	                    modelController.$render();
 	                    setValidationState(input, modelController);
-
 	                    setValidationAttributes(div, p, modelController);
 	                    if (modelController.$invalid) {
 	                        setValidationMessages(p, scope, modelController);
@@ -262,6 +262,14 @@
 	                scope.$watch("config", function (config) {
 	                    if (config !== undefined) {
 	                        setAttributes(input, config);
+	                    }
+	                });
+
+	                scope.$on('show-errors-check-validity', function () {
+	                    setValidationState(input, modelController);
+	                    setValidationAttributes(div, p, modelController);
+	                    if (modelController.$invalid) {
+	                        setValidationMessages(p, scope, modelController);
 	                    }
 	                });
 	            }
@@ -298,10 +306,18 @@
 /***/ function(module, exports) {
 
 	module.exports = [
-	    "$resource", function($resource) {
+	    "$resource", function ($resource) {
 	        return {
 	            indicators: $resource("/api/indicators/:id", null, {
 	                "query": { isArray: false },
+	                "save": {
+	                    method: "POST", transformResponse: function (data, headers) {
+	                        response = {}
+	                        response.data = data;
+	                        response.headers = headers();
+	                        return response;
+	                    }
+	                },
 	                "update": { method: "PUT" }
 	            }),
 	            indicatorMeasures: $resource("/api/indicators/:id/measures/:measureId", null, {
@@ -500,10 +516,11 @@
 	        var originalData = [];
 
 	        function bindModel() {
-	            $scope.indicator.StartDate = $scope.startDate;
 	            $scope.indicator.ComparisonValueType = $scope.selectedComparisonValue.id;
 	            $scope.indicator.PeriodicityType = $scope.selectedPeriodicity.id;
 	            $scope.indicator.ObjectValueType = $scope.selectedObjectValue.id;
+	            $scope.indicator.IndicatorTypeId = $scope.selectedIndicatorType.Id;
+	            $scope.indicator.ManagerId = $scope.selectedManager.Id;
 	        }
 
 	        function isNewPeriod(item) {
@@ -590,9 +607,13 @@
 
 	        function bindIndicator(response) {
 	            $scope.indicator = response.Data;
+	            $scope.indicatorTypeList = response.IndicatorTypes;
+	            $scope.userList = response.Users;
 	            $scope.selectedComparisonValue = $.grep(response.Config.ComparisonValueType.Options, function (e) { return e.id === response.Data.ComparisonValueType; })[0];
 	            $scope.selectedPeriodicity = $.grep(response.Config.PeriodicityType.Options, function (e) { return e.id === response.Data.PeriodicityType; })[0];
 	            $scope.selectedObjectValue = $.grep(response.Config.ObjectValueType.Options, function (e) { return e.id === response.Data.ObjectValueType; })[0];
+	            $scope.selectedIndicatorType = $.grep(response.IndicatorTypes, function (e) { return e.Id === response.Data.IndicatorTypeId; })[0];
+	            $scope.selectedManager = $.grep(response.Users, function (e) { return e.Id === response.Data.ManagerId; })[0];
 	            $scope.config = response.Config;
 	        }
 
@@ -662,8 +683,9 @@
 	                promise = indicatorsApi.indicators.save($scope.indicator).$promise;
 	            }
 	            promise
-	                .then(function() {
-	                    toaster.success({ body: 'Indicator successfully saved!' });
+	                .then(function(response) {
+	                    toaster.success({ body: 'Indicator successfully created!' });
+	                    $location.path(response.headers.location);
 	                })
 	                .catch(function() {
 	                    toaster.error({ body: 'An error ocurred while trying to save the indicator...' });
@@ -708,7 +730,7 @@
 	        }
 
 	        $scope.savePeriod = function(row) {
-	            $scope.selectedYear = row.Date.getFullYear();
+	            $scope.selectedYear = new Date(row.Date);
 	            $scope.globalEdit = false;
 	            row.isEditing = false;
 	            var promise = null;
