@@ -72,7 +72,8 @@ namespace CM.BalancedScoreboard.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     var id = _service.Add(indicatorVm);
-                    return Created("/Indicators/Details/" + id.ToString(), new IndicatorViewModel());
+                    indicatorVm.Id = id;
+                    return Created("/Indicators/Details/" + id.ToString(), indicatorVm);
                 }
                 else
                 {
