@@ -683,9 +683,13 @@
 	                promise = indicatorsApi.indicators.save($scope.indicator).$promise;
 	            }
 	            promise
-	                .then(function(response) {
-	                    toaster.success({ body: 'Indicator successfully created!' });
-	                    $location.path(response.headers.location);
+	                .then(function (response) {
+	                    if (!$scope.isNew()) {
+	                        toaster.success({ body: 'Indicator successfully saved!' });
+	                    } else {
+	                        $location.path(response.headers.location);
+	                        toaster.success({ body: 'Indicator successfully created!' });
+	                    }
 	                })
 	                .catch(function() {
 	                    toaster.error({ body: 'An error ocurred while trying to save the indicator...' });
@@ -729,7 +733,12 @@
 	                });
 	        }
 
-	        $scope.savePeriod = function(row) {
+	        $scope.savePeriod = function (row, rowForm) {
+	            $scope.$broadcast('show-errors-check-validity');
+	            if (rowForm.$invalid) {
+	                return;
+	            }
+
 	            $scope.selectedYear = new Date(row.Date);
 	            $scope.globalEdit = false;
 	            row.isEditing = false;

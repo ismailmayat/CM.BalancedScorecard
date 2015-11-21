@@ -122,7 +122,7 @@
                                         <form-input ng-switch-when="true" ng-model="row.TargetValue" hide-label="true" config="measuresConfig.TargetValue"></form-input>
                                     </td>
                                     <td class="text-right td-white col-md-2">
-                                        <button class="btn btn-primary btn-sm" ng-click="savePeriod(row, rowForm)" ng-if="canEdit(row)" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
+                                        <button class="btn btn-primary btn-sm" ng-click="savePeriod(row, rowForm)" ng-if="canEdit(row)"><span class="glyphicon glyphicon-ok"></span></button>
                                         <button class="btn btn-default btn-sm" ng-click="cancelPeriod(row, rowForm)" ng-if="canEdit(row)"><span class="glyphicon glyphicon-remove"></span></button>
                                         <button class="btn btn-default btn-sm" ng-click="editPeriod(row)" ng-if="!canEdit(row)" ng-disabled="globalEdit"><span class="glyphicon glyphicon-pencil"></span></button>
                                         <button class="btn btn-danger btn-sm" ng-click="deletePeriod(row)" ng-if="!canEdit(row)" ng-disabled="globalEdit"><span class="glyphicon glyphicon-trash"></span></button>
