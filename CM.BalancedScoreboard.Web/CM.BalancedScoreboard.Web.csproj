@@ -250,18 +250,18 @@
     <Content Include="app\shared\services\configuration.js" />
     <Content Include="app\shared\services\utils.js" />
     <Content Include="built\main.bundle.js" />
-    <Content Include="Content\angular-chart.css" />
-    <Content Include="Content\animate.css" />
-    <Content Include="Content\animate.min.css" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\ng-table.css" />
-    <Content Include="Content\ng-table.min.css" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Content\toaster.css" />
-    <Content Include="Content\toaster.min.css" />
+    <Content Include="content\angular-chart.css" />
+    <Content Include="content\animate.css" />
+    <Content Include="content\animate.min.css" />
+    <Content Include="content\bootstrap-theme.css" />
+    <Content Include="content\bootstrap-theme.min.css" />
+    <Content Include="content\bootstrap.css" />
+    <Content Include="content\bootstrap.min.css" />
+    <Content Include="content\ng-table.css" />
+    <Content Include="content\ng-table.min.css" />
+    <Content Include="content\Site.css" />
+    <Content Include="content\toaster.css" />
+    <Content Include="content\toaster.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -269,43 +269,43 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="content\bootstrap.css.map" />
+    <Content Include="content\bootstrap-theme.css.map" />
     <Content Include="index.html" />
-    <Content Include="Scripts\angular-animate.js" />
-    <Content Include="Scripts\angular-animate.min.js" />
-    <Content Include="Scripts\angular-chart.js" />
-    <Content Include="Content\angular-chart.min.css" />
-    <Content Include="Scripts\angular-chart.min.js" />
-    <Content Include="Scripts\angular-mocks.js" />
-    <Content Include="Scripts\angular-resource.js" />
-    <Content Include="Scripts\angular-resource.min.js" />
-    <Content Include="Scripts\angular-route.js" />
-    <Content Include="Scripts\angular-route.min.js" />
-    <Content Include="Scripts\angular.js" />
-    <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\angular.min.js.map" />
-    <Content Include="Scripts\angular-route.min.js.map" />
-    <Content Include="Scripts\angular-resource.min.js.map" />
-    <Content Include="Content\angular-chart.min.css.map" />
-    <Content Include="Scripts\angular-chart.min.js.map" />
-    <Content Include="Scripts\angular-animate.min.js.map" />
-    <Content Include="Content\ng-table.less" />
-    <Content Include="Content\toaster.scss" />
+    <Content Include="scripts\angular-animate.js" />
+    <Content Include="scripts\angular-animate.min.js" />
+    <Content Include="scripts\angular-chart.js" />
+    <Content Include="content\angular-chart.min.css" />
+    <Content Include="scripts\angular-chart.min.js" />
+    <Content Include="scripts\angular-mocks.js" />
+    <Content Include="scripts\angular-resource.js" />
+    <Content Include="scripts\angular-resource.min.js" />
+    <Content Include="scripts\angular-route.js" />
+    <Content Include="scripts\angular-route.min.js" />
+    <Content Include="scripts\angular.js" />
+    <Content Include="scripts\angular.min.js" />
+    <Content Include="scripts\bootstrap.js" />
+    <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\angular.min.js.map" />
+    <Content Include="scripts\angular-route.min.js.map" />
+    <Content Include="scripts\angular-resource.min.js.map" />
+    <Content Include="content\angular-chart.min.css.map" />
+    <Content Include="scripts\angular-chart.min.js.map" />
+    <Content Include="scripts\angular-animate.min.js.map" />
+    <Content Include="content\ng-table.less" />
+    <Content Include="content\toaster.scss" />
     <Content Include="webpack.config.js" />
-    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
-    <Content Include="Scripts\Chart.js" />
-    <Content Include="Scripts\Chart.min.js" />
-    <Content Include="Scripts\jquery-2.1.4.js" />
-    <Content Include="Scripts\jquery-2.1.4.min.js" />
-    <Content Include="Scripts\lodash.js" />
-    <Content Include="Scripts\lodash.min.js" />
-    <Content Include="Scripts\ng-table.js" />
-    <Content Include="Scripts\ng-table.min.js" />
-    <Content Include="Scripts\toaster.js" />
-    <Content Include="Scripts\toaster.min.js" />
+    <None Include="scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="scripts\chart.js" />
+    <Content Include="scripts\chart.min.js" />
+    <Content Include="scripts\jquery-2.1.4.js" />
+    <Content Include="scripts\jquery-2.1.4.min.js" />
+    <Content Include="scripts\lodash.js" />
+    <Content Include="scripts\lodash.min.js" />
+    <Content Include="scripts\ng-table.js" />
+    <Content Include="scripts\ng-table.min.js" />
+    <Content Include="scripts\toaster.js" />
+    <Content Include="scripts\toaster.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -313,15 +313,8 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Scripts\_references.js" />
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Scripts\ng-table.min.js.map" />
-    <Content Include="Views\Home\Projects.cshtml" />
-    <Content Include="Views\Home\Objectives.cshtml" />
+    <Content Include="scripts\_references.js" />
+    <Content Include="scripts\ng-table.min.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\indicators\directives\" />
@@ -332,7 +325,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="scripts\jquery-2.1.4.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CM.BalancedScoreboard.Data\CM.BalancedScoreboard.Data.csproj">

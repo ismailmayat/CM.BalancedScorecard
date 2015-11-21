@@ -3,9 +3,26 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="content/site.css" />
+    <link rel="stylesheet" type="text/css" href="content/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="content/angular-chart.css" />
+    <link rel="stylesheet" type="text/css" href="content/ng-table.css" />
+    <link rel="stylesheet" type="text/css" href="content/toaster.css" />
+    <script type="text/javascript" src="scripts/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="scripts/angular.js"></script>
+    <script type="text/javascript" src="scripts/angular-resource.js"></script>
+    <script type="text/javascript" src="scripts/angular-route.js"></script>
+    <script type="text/javascript" src="scripts/angular-animate.js"></script>
+    <script type="text/javascript" src="scripts/chart.js"></script>
+    <script type="text/javascript" src="scripts/angular-chart.js"></script>
+    <script type="text/javascript" src="scripts/ng-table.js"></script>
+    <script type="text/javascript" src="scripts/lodash.js"></script>
+    <script type="text/javascript" src="scripts/toaster.js"></script>
     <title></title>
+    <base href="http://localhost:17012/index.html" />
 </head>
-<body>
+<body ng-app="app">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -14,20 +31,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a ng-href="/Indicators/List">Indicators</a></li>
+                    <li><a ng-href="Projects/List">Projects</a></li>
+                    <li><a ng-href="Indicators/List">Indicators</a></li>
+                    <li><a ng-href="Indicators/Details">New Indicator</a></li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="container body-content" ng-app="app">
-
-
-        <hr/>
-        <footer></footer>
+    <div class="body-content" ng-view>
+        
     </div>
     <script src="Built/main.bundle.js"></script>
 </body>
