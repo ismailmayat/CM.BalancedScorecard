@@ -36,9 +36,10 @@
                                 <form-input ng-model="indicator.Unit" config="config.Unit"></form-input>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group" show-errors>
                                     <label for="IndicatorTypeId">{{config.IndicatorTypeId.DisplayName}}</label>
                                     <select class="form-control" id="IndicatorTypeId" name="indicatorTypeId" ng-model="selectedIndicatorType" ng-options="c.Name for c in indicatorTypeList track by c.Id" required></select>
+                                    <p class="help-block"></p>
                                 </div>
                             </div>
                         </div>
@@ -47,31 +48,35 @@
                                 <form-input ng-model="indicator.StartDate" config="config.StartDate"></form-input>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group" show-errors>
                                     <label for="ComparisonValueType">{{config.ComparisonValueType.DisplayName}}</label>
                                     <select class="form-control" id="ComparisonValueType" name="comparisonValueType" ng-model="selectedComparisonValue" ng-options="c.name for c in config.ComparisonValueType.Options track by c.id" required></select>
+                                    <p class="help-block"></p>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group" show-errors>
                                     <label for="PeriodicityType">{{config.PeriodicityType.DisplayName}}</label>
                                     <select class="form-control" id="PeriodicityType" name="periodicityType" ng-model="selectedPeriodicity" ng-options="p.name for p in config.PeriodicityType.Options track by p.id" required></select>
+                                    <p class="help-block"></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group" show-errors>
                                     <label for="ObjectValueType">{{config.ObjectValueType.DisplayName}}</label>
                                     <select class="form-control" id="ObjectValueType" name="objectValueType" ng-model="selectedObjectValue" ng-options="o.name for o in config.ObjectValueType.Options track by o.id" required></select>
+                                    <p class="help-block"></p>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group" show-errors>
                                     <label for="Manager">{{config.ManagerId.DisplayName}}</label>
                                     <select class="form-control" id="Manager" name="manager" ng-model="selectedManager" ng-options="u.Name for u in userList track by u.Id" required></select>
+                                    <p class="help-block"></p>
                                 </div>
                             </div>
                             <div class="col-md-6">

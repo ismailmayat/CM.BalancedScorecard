@@ -45,7 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	__webpack_require__(11);
+	__webpack_require__(12);
 
 	angular.module("app", ["ngRoute", "indicators", "projects"])
 	    .config([
@@ -96,10 +96,10 @@
 	        });
 	});
 
-	angular.module("indicators").factory("indicatorsApi", __webpack_require__(7));
-	angular.module("indicators").factory("indicatorsGraphFactory", __webpack_require__(8));
-	angular.module("indicators").controller("indicatorsListCtrl", __webpack_require__(9));
-	angular.module("indicators").controller("indicatorsDetailsCtrl", __webpack_require__(10));
+	angular.module("indicators").factory("indicatorsApi", __webpack_require__(8));
+	angular.module("indicators").factory("indicatorsGraphFactory", __webpack_require__(9));
+	angular.module("indicators").controller("indicatorsListCtrl", __webpack_require__(10));
+	angular.module("indicators").controller("indicatorsDetailsCtrl", __webpack_require__(11));
 
 /***/ },
 /* 2 */
@@ -109,8 +109,8 @@
 
 	angular.module("shared").factory("utils", __webpack_require__(3));
 	angular.module("shared").factory("configuration", __webpack_require__(4));
-	//angular.module("shared").directive("showErrors", require("./directives/validation"));
-	angular.module("shared").directive("formInput", __webpack_require__(5));
+	angular.module("shared").directive("showErrors", __webpack_require__(5));
+	angular.module("shared").directive("formInput", __webpack_require__(6));
 
 /***/ },
 /* 3 */
@@ -165,6 +165,51 @@
 
 /***/ },
 /* 5 */
+/***/ function(module, exports) {
+
+	module.exports = [
+	    function() {
+	        function getErrorMessage(input) {
+	            if (input.$error.required) {
+	                return "This field is required";
+	            }
+	            return "";
+	        }
+
+	        return {
+	            restrict: "A",
+	            require: "^form",
+	            link: function (scope, el, attrs, ctrl) {
+	                var select = el.find("select");
+	                var inputName = select.attr("name");
+	                var help = el.find("p");
+
+	                select.bind("blur", function () {
+	                    el.toggleClass("has-error", ctrl[inputName].$invalid);
+	                    el.toggleClass("has-success", ctrl[inputName].$valid && ctrl[inputName].$dirty);
+	                    help.toggleClass("ng-show", ctrl[inputName].$invalid);
+	                    help.toggleClass("ng-hide", ctrl[inputName].$valid);
+	                    if (ctrl[inputName].$invalid) {
+	                        help[0].innerText = getErrorMessage(ctrl[inputName]);
+	                    }
+	                });
+
+	                scope.$on('show-errors-check-validity', function () {
+	                    el.toggleClass('has-error', ctrl[inputName].$invalid);
+	                    help.toggleClass("ng-show", ctrl[inputName].$invalid);
+	                    if (ctrl[inputName].$invalid) {
+	                        help[0].innerText = getErrorMessage(ctrl[inputName]);
+	                    }
+	                });
+	            }
+	        }
+	    }
+	];
+
+
+
+/***/ },
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = ["utils",
@@ -233,7 +278,7 @@
 	                hideLabel: "="
 	            },
 	            require: "ngModel",
-	            controller: __webpack_require__(6),
+	            controller: __webpack_require__(7),
 	            link: function (scope, el, attrs, modelController) {
 	                var div = el.find("div");
 	                var input = el.find("input");
@@ -278,7 +323,7 @@
 	];
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -302,7 +347,7 @@
 	];
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -329,7 +374,7 @@
 	];
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -387,7 +432,7 @@
 	];
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -507,7 +552,7 @@
 	    
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -794,17 +839,17 @@
 	];
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(2);
 
 	angular.module("projects", []);
 
-	angular.module("projects").controller("projectsListCtrl", __webpack_require__(12));
+	angular.module("projects").controller("projectsListCtrl", __webpack_require__(13));
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports) {
 
 	module.exports = function () {
