@@ -1,4 +1,4 @@
-﻿using System.Web;
+﻿using CM.BalancedScoreboard.Web.Filters.Exception;
 using System.Web.Mvc;
 
 namespace CM.BalancedScoreboard.Web

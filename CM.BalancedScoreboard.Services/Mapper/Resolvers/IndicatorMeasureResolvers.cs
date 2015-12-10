@@ -15,7 +15,7 @@ namespace CM.BalancedScoreboard.Services.Mapper.Resolvers
                 case ObjectValueType.Integer:
                     return int.Parse(source.RealValue);
                 default:
-                    return source;
+                    return source.TargetValue;
             }
         }
     }
@@ -31,7 +31,7 @@ namespace CM.BalancedScoreboard.Services.Mapper.Resolvers
                 case ObjectValueType.Integer:
                     return int.Parse(source.TargetValue);
                 default:
-                    return source;
+                    return source.TargetValue;
             }
         }
     }

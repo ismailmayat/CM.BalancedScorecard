@@ -1,5 +1,6 @@
 ﻿using CM.BalancedScoreboard.Services.Mapper;
 using Microsoft.Owin;
+using Newtonsoft.Json;
 using Owin;
 
 [assembly: OwinStartup(typeof(CM.BalancedScoreboard.Web.Startup))]
