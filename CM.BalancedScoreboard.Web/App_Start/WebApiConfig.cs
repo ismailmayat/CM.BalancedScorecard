@@ -1,5 +1,5 @@
-﻿using System.Web.Http;
-using System.Web.Http.Dispatcher;
+﻿using CM.BalancedScoreboard.Web.Filters.Exception;
+using System.Web.Http;
 
 namespace CM.BalancedScoreboard.Web
 {
@@ -11,6 +11,8 @@ namespace CM.BalancedScoreboard.Web
             // Configure Web API to use only bearer token authentication.
             //config.SuppressDefaultHostAuthentication();
             //config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            config.Filters.Add(new LogExceptionFilter());
+            //config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 
             // Web API routes
             config.MapHttpAttributeRoutes();

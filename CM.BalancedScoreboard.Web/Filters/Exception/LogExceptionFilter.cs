@@ -5,9 +5,9 @@ using System.Web.Http.Filters;
 
 namespace CM.BalancedScoreboard.Web.Filters.Exception
 {
-    public class CustomExceptionFilter : ExceptionFilterAttribute
+    public class LogExceptionFilter : ExceptionFilterAttribute
     {
-        private ILog _logger = LogManager.GetLogger(typeof(CustomExceptionFilter));
+        private ILog _logger = LogManager.GetLogger(typeof(LogExceptionFilter));
 
         public override void OnException(HttpActionExecutedContext actionExecutedContext)
         {
