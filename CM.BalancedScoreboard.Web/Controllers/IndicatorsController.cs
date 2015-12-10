@@ -10,161 +10,94 @@ namespace CM.BalancedScoreboard.Web.Controllers
     public class IndicatorsController : ApiController
     {
         readonly IIndicatorsService _service;
-        readonly ILog _logger;
-
+        
         public IndicatorsController(IIndicatorsService service)
         {
             _service = service;
-            _logger = LogManager.GetLogger(typeof(IndicatorsController));
         }
 
         public IHttpActionResult Get(string filter)
         {
-            try
-            {
-                return Ok(_service.GetIndicators(filter));
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex);
-                return InternalServerError();
-            }
+            return Ok(_service.GetIndicators(filter));
         }
 
         public IHttpActionResult Get(Guid id)
         {
-            try
-            {
-                var indicatorVm = _service.GetIndicator(id);
-                if (indicatorVm != null)
-                    return Ok(indicatorVm);
-                else
-                    return BadRequest();
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex);
-                return InternalServerError();
-            }
+            var indicatorVm = _service.GetIndicator(id);
+            if (indicatorVm != null)
+                return Ok(indicatorVm);
+            else
+                return BadRequest();
         }
 
         public IHttpActionResult Get()
         {
-            try
-            {
-                var indicatorVm = _service.GetIndicator(null);
-                if (indicatorVm != null)
-                    return Ok(indicatorVm);
-                else
-                    return BadRequest();
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex);
-                return InternalServerError();
-            }
+            var indicatorVm = _service.GetIndicator(null);
+            if (indicatorVm != null)
+                return Ok(indicatorVm);
+            else
+                return BadRequest();
         }
 
         public IHttpActionResult Post([FromBody]IndicatorViewModel indicatorVm)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    var id = _service.Add(indicatorVm);
-                    indicatorVm.Id = id;
-                    return Created("/Indicators/Details/" + id.ToString(), indicatorVm);
-                }
-                else
-                {
-                    return BadRequest(ModelState);
-                }
+                var id = _service.Add(indicatorVm);
+                indicatorVm.Id = id;
+                return Created("/Indicators/Details/" + id.ToString(), indicatorVm);
             }
-            catch (Exception ex)
+            else
             {
-                _logger.Error(ex);
-                return InternalServerError();
+                return BadRequest(ModelState);
             }
         }
 
         public IHttpActionResult Put(Guid id, [FromBody]IndicatorViewModel indicatorVm)
         {
-            try
+            indicatorVm.Id = id;
+            if (ModelState.IsValid)
             {
-                indicatorVm.Id = id;
-                if (ModelState.IsValid)
-                {
-                    _service.Update(indicatorVm);
-                    return Ok();
-                }
-                else
-                {
-                    return BadRequest(ModelState);
-                }
+                _service.Update(indicatorVm);
+                return Ok();
             }
-            catch (Exception ex)
+            else
             {
-                _logger.Error(ex);
-                return InternalServerError();
+                return BadRequest(ModelState);
             }
         }
 
         public IHttpActionResult Delete(Guid id)
         {
-            try
-            {
-                _service.Delete(id);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex);
-                return InternalServerError();
-            }
+            _service.Delete(id);
+            return Ok();
         }
 
         [Route("api/indicators/{id}/measures")]
         public IHttpActionResult GetMeasures(Guid id)
         {
-            try
-            {
-                var indicatorMeasures = _service.GetMeasures(id);
-                if (indicatorMeasures != null)
-                    return Ok(indicatorMeasures);
-                else
-                    return BadRequest();
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex);
-                return InternalServerError();
-            }
+            var indicatorMeasures = _service.GetMeasures(id);
+            if (indicatorMeasures != null)
+                return Ok(indicatorMeasures);
+            else
+                return BadRequest();
         }
 
         [Route("api/indicators/{id}/measures")]
         [HttpPost]
         public IHttpActionResult Post(Guid id, [FromBody] IndicatorMeasureViewModel indicatorMeasureVm)
         {
-            try
+            indicatorMeasureVm.IndicatorId = id;
+            if (ModelState.IsValid)
             {
-                indicatorMeasureVm.IndicatorId = id;
-                if (ModelState.IsValid)
-                {
-                    if (_service.AddMeasure(indicatorMeasureVm))
-                        return Ok();
-                    else
-                        return BadRequest();
-                }
+                if (_service.AddMeasure(indicatorMeasureVm))
+                    return Ok();
                 else
-                {
-                    return BadRequest(ModelState);
-                }
-
+                    return BadRequest();
             }
-            catch (Exception ex)
+            else
             {
-                _logger.Error(ex);
-                return InternalServerError();
+                return BadRequest(ModelState);
             }
         }
 
@@ -172,26 +105,18 @@ namespace CM.BalancedScoreboard.Web.Controllers
         [HttpPut]
         public IHttpActionResult Put(Guid id, Guid measureId, [FromBody]IndicatorMeasureViewModel indicatorMeasureVm)
         {
-            try
+            indicatorMeasureVm.IndicatorId = id;
+            indicatorMeasureVm.Id = measureId;
+            if (ModelState.IsValid)
             {
-                indicatorMeasureVm.IndicatorId = id;
-                indicatorMeasureVm.Id = measureId;
-                if (ModelState.IsValid)
-                {
-                    if (_service.UpdateMeasure(indicatorMeasureVm))
-                        return Ok();
-                    else
-                        return BadRequest();
-                }
+                if (_service.UpdateMeasure(indicatorMeasureVm))
+                    return Ok();
                 else
-                {
-                    return BadRequest(ModelState);
-                }
+                    return BadRequest();
             }
-            catch (Exception ex)
+            else
             {
-                _logger.Error(ex);
-                return InternalServerError();
+                return BadRequest(ModelState);
             }
         }
 
@@ -199,32 +124,16 @@ namespace CM.BalancedScoreboard.Web.Controllers
         [HttpDelete]
         public IHttpActionResult Delete(Guid id, Guid measureId)
         {
-            try
-            {
-                if (_service.DeleteMeasure(id, measureId))
-                    return Ok();
-                else
-                    return BadRequest();
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex);
-                return InternalServerError();
-            }
+            if (_service.DeleteMeasure(id, measureId))
+                return Ok();
+            else
+                return BadRequest();
         }
 
         [Route("api/indicators/resources")]
         public IHttpActionResult GetResources()
         {
-            try
-            {
-                return Ok(_service.GetResources());
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex);
-                return InternalServerError();
-            }
+            return Ok(_service.GetResources());
         }
     }
 }
