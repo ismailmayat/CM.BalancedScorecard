@@ -1,7 +1,5 @@
-﻿using CM.BalancedScoreboard.Domain.Model.Indicators;
-using CM.BalancedScoreboard.Services.Abstract.Indicators;
+﻿using CM.BalancedScoreboard.Services.Abstract.Indicators;
 using CM.BalancedScoreboard.Services.ViewModel.Indicators;
-using log4net;
 using System;
 using System.Web.Http;
 
