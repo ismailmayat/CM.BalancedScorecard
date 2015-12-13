@@ -27,8 +27,5 @@ namespace CM.BalancedScoreboard.Domain.Model.Indicators
 
         [ForeignKey("IndicatorId")]
         public Indicator Indicator { get; set; }
-
-        [NotMapped]
-        public EntityState EntityState { get; set; }
     }
 }

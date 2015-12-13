@@ -1,11 +1,8 @@
-﻿using CM.BalancedScoreboard.Domain.Model.Enums;
-using CM.BalancedScoreboard.Services.ViewModel;
-using CM.BalancedScoreboard.Services.ViewModel.Indicators;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace CM.BalancedScoreboard.Services.Tests.Indicators
 {
-    [TestClass]
+    [TestFixture]
     public class IndicatorViewModelTest
     {
         //[TestMethod]

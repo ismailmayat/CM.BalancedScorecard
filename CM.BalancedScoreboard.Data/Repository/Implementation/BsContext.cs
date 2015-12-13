@@ -21,7 +21,7 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
 
         public BsContext()
         {
-            this.Configuration.LazyLoadingEnabled = false ;
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
         public virtual new IDbSet<TEntity> Set<TEntity>() where TEntity : class
@@ -29,11 +29,15 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
             return base.Set<TEntity>();
         }
 
-        public void SetModified<TEntity>(TEntity entity) where TEntity : class
+        public void SetState<TEntity>(TEntity entity, EntityState state) where TEntity : class
         {
-            this.Entry(entity).State = EntityState.Modified;
+            this.Entry(entity).State = state;
         }
 
+        public void SetValues(object oldEntity, object newEntity)
+        {
+            this.Entry(oldEntity).CurrentValues.SetValues(newEntity);
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

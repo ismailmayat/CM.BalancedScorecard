@@ -5,7 +5,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using EntityState = System.Data.Entity.EntityState;
 
 namespace CM.BalancedScoreboard.Data.Repository.Implementation
 {
@@ -55,7 +54,7 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation
         public virtual void Update(TEntity entity)
         {
             _context.Set<TEntity>().Attach(entity);
-            _context.Entry(entity).State = EntityState.Modified;
+            _context.SetState(entity, EntityState.Modified);
             _context.SaveChanges();
         }
 

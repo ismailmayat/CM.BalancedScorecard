@@ -9,7 +9,9 @@ namespace CM.BalancedScoreboard.Data.Repository.Abstract
 
         DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 
-        void SetModified<TEntity>(TEntity entity) where TEntity : class;
+        void SetState<TEntity>(TEntity entity, EntityState state) where TEntity : class;
+
+        void SetValues(object oldEntity, object newEntity);
 
         int SaveChanges();
 

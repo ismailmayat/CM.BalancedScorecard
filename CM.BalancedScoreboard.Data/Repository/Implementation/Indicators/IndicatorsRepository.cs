@@ -18,7 +18,7 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation.Indicators
                 return false;
 
             indicator.Measures.Add(indicatorMeasure);
-            _context.Entry(indicatorMeasure).State = EntityState.Added;
+            _context.SetState(indicatorMeasure, EntityState.Added);
             _context.SaveChanges();
 
             return true;
@@ -32,8 +32,8 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation.Indicators
             if (indicatorMeasure == null)
                 return false;
 
-            _context.Entry(indicatorMeasureDb).CurrentValues.SetValues(indicatorMeasure);
-            _context.Entry(indicatorMeasureDb).State = EntityState.Modified;
+            _context.SetValues(indicatorMeasureDb, indicatorMeasure);
+            _context.SetState(indicatorMeasure, EntityState.Modified);
             _context.SaveChanges();
 
             return true;
@@ -47,7 +47,7 @@ namespace CM.BalancedScoreboard.Data.Repository.Implementation.Indicators
             if (indicatorMeasure == null)
                 return false;
 
-            _context.Entry(indicatorMeasure).State = EntityState.Deleted;
+            _context.SetState(indicatorMeasure, EntityState.Deleted);
             _context.SaveChanges();
 
             return true;

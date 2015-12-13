@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CM.BalancedScoreboard.Data.Tests")]
+[assembly: AssemblyTitle("CM.BalancedScoreboard.Services.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CM.BalancedScoreboard.Data.Tests")]
+[assembly: AssemblyProduct("CM.BalancedScoreboard.Services.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b6ad2738-69e9-47ab-98b9-366312380258")]
+[assembly: Guid("545e4449-8cb5-4752-bd20-a5a39b06d212")]
 
 // Version information for an assembly consists of the following four values:
 //
