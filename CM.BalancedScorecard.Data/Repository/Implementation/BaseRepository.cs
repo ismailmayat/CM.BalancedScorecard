@@ -19,12 +19,9 @@ namespace CM.BalancedScorecard.Data.Repository.Implementation
             _context = uof.Context;
         }
 
-        public IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null)
+        public IQueryable<TEntity> GetAll()
         {
-            if (filter != null)
-                return _context.Set<TEntity>().Where(filter);
-            else
-                return _context.Set<TEntity>();
+            return _context.Set<TEntity>();
         }
 
         public TEntity Single(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] navigationProperties)

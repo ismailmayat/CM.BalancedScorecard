@@ -67,15 +67,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201511052103313_Initial.resx">
+      <DependentUpon>201511052103313_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\CM.BalancedScorecard.Domain\CM.BalancedScorecard.Domain.csproj">
       <Project>{4feecdb2-1eda-4cee-bdbb-39be2045520c}</Project>
       <Name>CM.BalancedScorecard.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511052103313_Initial.resx">
-      <DependentUpon>201511052103313_Initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

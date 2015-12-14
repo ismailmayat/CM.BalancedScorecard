@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CM.BalancedScorecard.Services.Tests</RootNamespace>
     <AssemblyName>CM.BalancedScorecard.Services.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,21 +40,40 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Indicators\IndicatorServiceTest.cs" />
+    <Compile Include="Indicators\ServiceTest.cs" />
     <Compile Include="Indicators\IndicatorViewModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CM.BalancedScorecard.Data.Tests\CM.BalancedScorecard.Data.Tests.csproj">
+      <Project>{93f143df-3127-43b2-b7aa-41b4b1aa70fa}</Project>
+      <Name>CM.BalancedScorecard.Data.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CM.BalancedScorecard.Data\CM.BalancedScorecard.Data.csproj">
+      <Project>{f2e2e7bd-73c2-4b4d-9cb2-75ecfaef405c}</Project>
+      <Name>CM.BalancedScorecard.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CM.BalancedScorecard.Domain\CM.BalancedScorecard.Domain.csproj">
+      <Project>{4feecdb2-1eda-4cee-bdbb-39be2045520c}</Project>
+      <Name>CM.BalancedScorecard.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CM.BalancedScorecard.Resources\CM.BalancedScorecard.Resources.csproj">
+      <Project>{43c2c880-6201-49ff-a8bb-86127d1f55b0}</Project>
+      <Name>CM.BalancedScorecard.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CM.BalancedScorecard.Services\CM.BalancedScorecard.Services.csproj">
+      <Project>{ef09c4d6-8fb6-4e3b-b5d2-8b715c19b2ef}</Project>
+      <Name>CM.BalancedScorecard.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

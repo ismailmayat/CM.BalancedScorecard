@@ -20,7 +20,7 @@ namespace CM.BalancedScorecard.Services.Implementation
 
         public IList<ProjectViewModel> GetAll()
         {
-            var projects = _repository.Get(x => x.Active);
+            var projects = _repository.GetAll().Where(x => x.Active);
             return projects.Project().To<ProjectViewModel>().ToList();
         }
 

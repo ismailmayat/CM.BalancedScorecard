@@ -15,24 +15,23 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using CM.BalancedScorecard.Data.Repository.Abstract.Indicators;
-using CM.BalancedScorecard.Data.Repository.Implementation.Indicators;
-using CM.BalancedScorecard.Domain.Model.Indicators;
-using CM.BalancedScorecard.Domain.Model.Users;
-using CM.BalancedScorecard.Services.Abstract.Indicators;
-
 namespace CM.BalancedScorecard.Web.DependencyResolution {
-    using Data.Repository.Implementation;
     using Data.Repository.Abstract;
-    using StructureMap.Configuration.DSL;
-    using StructureMap.Graph;
-    using Services.Abstract;
-    using Services.Implementation;
+    using Data.Repository.Abstract.Indicators;
+    using Data.Repository.Implementation;
+    using Data.Repository.Implementation.Indicators;
     using Domain.Abstract.Indicators;
     using Domain.Implementation.Indicators;
-    using Services.Implementation.Indicators;
+    using Domain.Model.Indicators;
+    using Domain.Model.Users;
     using Resources.Abstract;
     using Resources.Implementation;
+    using Services.Abstract;
+    using Services.Abstract.Indicators;
+    using Services.Implementation;
+    using Services.Implementation.Indicators;
+    using StructureMap.Configuration.DSL;
+    using StructureMap.Graph;
 
     public class DefaultRegistry : Registry {
         #region Constructors and Destructors

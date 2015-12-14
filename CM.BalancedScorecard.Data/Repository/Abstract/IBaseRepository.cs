@@ -8,7 +8,7 @@ namespace CM.BalancedScorecard.Data.Repository.Abstract
 {
     public interface IBaseRepository<TEntity> where TEntity : class, IEntity
     {
-        IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null);
+        IQueryable<TEntity> GetAll();
 
         TEntity Single(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] navigationProperties);
 

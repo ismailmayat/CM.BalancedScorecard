@@ -1,13 +1,13 @@
 namespace CM.BalancedScorecard.Data.Migrations
 {
-    using Domain.Model.Users;
-    using Domain.Model.Indicators;
+    using CM.BalancedScorecard.Domain.Model.Users;
+    using CM.BalancedScorecard.Domain.Model.Indicators;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using Domain.Model.Enums;
+    using CM.BalancedScorecard.Domain.Model.Enums;
 
     internal sealed class Configuration : DbMigrationsConfiguration<CM.BalancedScorecard.Data.Repository.Implementation.BsContext>
     {

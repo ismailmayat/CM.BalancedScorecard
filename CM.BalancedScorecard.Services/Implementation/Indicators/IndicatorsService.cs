@@ -31,19 +31,15 @@ namespace CM.BalancedScorecard.Services.Implementation.Indicators
 
         public IndicatorListViewModel GetIndicators(string filter)
         {
-            var indicators =
-                _indicatorsRepository.Get(
-                    i => i.Name.Contains(filter) || i.Code.Contains(filter) || i.Description.Contains(filter) ||
-                         (i.Manager.Firstname + i.Manager.Surname).Contains(filter)).OrderBy(i => i.Name);
-
+            var indicators = ApplyIndicatorsFilter(_indicatorsRepository.GetAll(), filter).OrderBy(i => i.Name);
             return _viewModelFactory.CreateIndicatorListViewModel(indicators);
         }
 
         public IndicatorDetailsViewModel GetIndicator(Guid? id)
         {
             var indicator = id.HasValue ? _indicatorsRepository.Single(i => i.Id == id, i => i.Measures) : new Indicator();
-            var indicatorTypes = _indicatorTypeRepository.Get();
-            var users = _usersRepository.Get();
+            var indicatorTypes = _indicatorTypeRepository.GetAll();
+            var users = _usersRepository.GetAll();
 
             return _viewModelFactory.CreateIndicatorDetailsViewModel(indicator, indicatorTypes, users);
         }
@@ -94,6 +90,12 @@ namespace CM.BalancedScorecard.Services.Implementation.Indicators
         public Dictionary<string, string> GetResources()
         {
             return _resourceManager.GetStrings();
+        }
+
+        public IQueryable<Indicator> ApplyIndicatorsFilter(IQueryable<Indicator> indicators, string filter)
+        {
+            return indicators.Where(i => i.Name.Contains(filter) || i.Code.Contains(filter) || i.Description.Contains(filter) ||
+                         (i.Manager.Firstname + i.Manager.Surname).Contains(filter));
         }
     }
 }
